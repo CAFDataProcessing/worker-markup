@@ -26,4 +26,4 @@ This project builds a Docker image that packages the Markup Worker for deploymen
 This contains implementations of the testing framework to allow for integration testing of the Markup Worker. The project can be found in [worker-markup-testing](worker-markup-testing)
 
 ## Feature Testing
-The testing for the Markup Worker is defined in [testcases](testcases).
+The testing for the Markup Worker is defined in [testcases](worker-markup-container-fs/testcases).

@@ -6,7 +6,7 @@ The Markup Worker is an implementation of the [Abstract Worker](https://github.h
 
 The following components are dependencies of `worker-markdown` version 1.0:
 
-- [util-email-content-segregation]((https://github.com/CAFDataProcessing/util-email-content-segregation) - version 1.1.0
+- [util-email-content-segregation](https://github.com/CAFDataProcessing/util-email-content-segregation) - version 1.1.0
 - [zero-allocation-hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing) - version 0.6
 - [jaxen](http://jaxen.org/apidocs/index.html) - version 1.1.6
 - [jdom2](http://www.jdom.org/docs/apidocs/) - version 2.0.6
@@ -17,7 +17,7 @@ The following components are dependencies of `worker-markdown` version 1.0:
 - [commons-io](http://commons.apache.org/proper/commons-io/javadocs/api-2.4/index.html) - version 2.4
 - [jackson-databind](https://github.com/FasterXML/jackson-databind) - version 2.6.4
 
-The worker's image is built by [worker-markup-container](worker-markup-container-fs) and uses a base image [caf/jep-talon-image](jep-talon-image).
+The worker's image is built by [worker-markup-container](worker-markup-container-fs) and uses a base image [jep-talon-image](jep-talon-image).
 
 ## General Operation Overview
 
