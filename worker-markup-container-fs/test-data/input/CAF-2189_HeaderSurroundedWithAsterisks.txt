@@ -42,7 +42,8 @@ On 10/02/2016 05:07 PM, Lee, Benson wrote:
 > 
 >  
 > 
-> *From:*openvpn.community-request@lists.osp.hpe.com [mailto:openvpn.community-request@lists.osp.hpe.com] *On Behalf Of *Forsberg, Mike
+> *From:*openvpn.community-request@lists.osp.hpe.com
+> [mailto:openvpn.community-request@lists.osp.hpe.com] *On Behalf Of *Forsberg, Mike
 > *Sent:* Monday, October 3, 2016 2:10 AM
 > *To:* openvpn.community@lists.osp.hpe.com
 > *Subject:* Had to reimage my ubuntu workstation.....

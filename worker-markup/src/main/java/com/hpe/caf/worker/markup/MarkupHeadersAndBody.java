@@ -37,8 +37,8 @@ public class MarkupHeadersAndBody
     public static final String UNREADABLE_HEADER = "UnreadableHeader";
     public static final String HEADERS_WITH_ASTERISKS = "\\*(From|Sent|To|Subject):\\*";
     public static final String FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX =
-            "(?<FirstPartFromField> ?\\*From:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3})\\n?" +
-            "(?<SecondPartFromField> ?\\[mailto:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*)";
+            "(?<FirstPartFromField>[> ]{0,}\\*From:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3})\\n?" +
+            "(?<SecondPartFromField>[> ]{0,}\\[mailto:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*)";
 
     /*
       The following GROUP_IDs correspond to the capturing groups in the RE_ON_DATE_SMB_WROTE regular expression.

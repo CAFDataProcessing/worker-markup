@@ -88,7 +88,7 @@ expectedOutputData:
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
       \ function=\"XXHASH64\" value=\"b5820de688296c12\" /></hash><headers><From>&gt;\
-      \ *From:*openvpn.community-request@lists.osp.hpe.com [mailto:openvpn.community-request@lists.osp.hpe.com]\
+      \ *From:*openvpn.community-request@lists.osp.hpe.com\r\n&gt; [mailto:openvpn.community-request@lists.osp.hpe.com]\
       \ *On Behalf Of *Forsberg, Mike</From>\r\n<Sent dateUtc=\"2016-10-03T02:10:00Z\"\
       >&gt; *Sent:* Monday, October 3, 2016 2:10 AM</Sent>\r\n<To>&gt; *To:* openvpn.community@lists.osp.hpe.com</To>\r\
       \n<Subject>&gt; *Subject:* Had to reimage my ubuntu workstation.....</Subject>\r\
