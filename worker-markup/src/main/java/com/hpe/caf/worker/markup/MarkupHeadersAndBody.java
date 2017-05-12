@@ -35,6 +35,10 @@ public class MarkupHeadersAndBody
     private static final Logger LOG = LoggerFactory.getLogger(MarkupHeadersAndBody.class);
 
     public static final String UNREADABLE_HEADER = "UnreadableHeader";
+    public static final String HEADERS_WITH_ASTERISKS = "\\*(From|Sent|To|Subject):\\*";
+    public static final String FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX =
+            "(?<FirstPartFromField> ?\\*From:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3})\\n?" +
+            "(?<SecondPartFromField> ?\\[mailto:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*)";
 
     /*
       The following GROUP_IDs correspond to the capturing groups in the RE_ON_DATE_SMB_WROTE regular expression.
@@ -51,6 +55,8 @@ public class MarkupHeadersAndBody
 
     private final Map<String, List<String>> emailHeaderMappings;
     private final Pattern condensedHeaderRegEx;
+    private final Pattern fromFieldSplitOntoTwoLines;
+    private final Pattern headersWithAsterisks;
 
     public MarkupHeadersAndBody(
         final Map<String, List<String>> emailHeaderMappings,
@@ -62,6 +68,8 @@ public class MarkupHeadersAndBody
         // Set up the regular expression that matches the condensed header
         final String onDateSomebodyWroteRegEx = regexSetup(condensedHeaderMultilangMappings);
         this.condensedHeaderRegEx = Pattern.compile(onDateSomebodyWroteRegEx);
+        this.fromFieldSplitOntoTwoLines = Pattern.compile(FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX);
+        this.headersWithAsterisks = Pattern.compile(HEADERS_WITH_ASTERISKS);
     }
 
     /**
@@ -125,20 +133,28 @@ public class MarkupHeadersAndBody
 
             // Creating headers
             String[] lines = emailText.split("\n", -1);
-            for (String line : lines) {
-                // Compile the regex and evaluate to get matches for the line
-                Matcher matcher = condensedHeaderRegEx.matcher(line);
 
-                // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
-                if (matcher.find()) {
-                    bodyIndex++;
-                    addCondensedHeader(nattyParser, headersElement, line, matcher);
-                } // Check if the line is a header i.e. TO: xxx, making sure it is not a "On x smb wrote:" with a space after the ":"
-                else if (line.contains(": ")) {
-                    bodyIndex++;
-                    addStandardisedHeader(nattyParser, headersElement, lines, line);
-                } else {
-                    break;
+            // Check to see if the there is a header field surrounded with '*'
+            final Matcher asterisksHeaderMatcher = headersWithAsterisks.matcher(emailText);
+            //Handle headers surrounded with asterisks separately
+            if (asterisksHeaderMatcher.find()) {
+                bodyIndex = handleHeaderWithAsterisks(emailText, lines, nattyParser, headersElement, bodyIndex);
+            } else {
+                for (String line : lines) {
+                    // Compile the regex and evaluate to get matches for the line
+                    Matcher matcher = condensedHeaderRegEx.matcher(line);
+
+                    // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
+                    if (matcher.find()) {
+                        bodyIndex++;
+                        addCondensedHeader(nattyParser, headersElement, line, matcher);
+                    } // Check if the line is a header i.e. TO: xxx, making sure it is not a "On x smb wrote:" with a space after the ":"
+                    else if (line.contains(": ")) {
+                        bodyIndex++;
+                        addStandardisedHeader(nattyParser, headersElement, lines, line, ": ");
+                    } else {
+                        break;
+                    }
                 }
             }
             // Set the body text
@@ -151,6 +167,56 @@ public class MarkupHeadersAndBody
             }
         }
         LOG.debug("Markup of Headers and Body complete");
+    }
+
+    /**
+     * Handle the correct markup of header fields which are surrounded with '*', i.e *Sent:* xxx.
+     *
+     * @param emailText the email text that is to be marked up.
+     * @param lines the emailText as separate lines.
+     * @param nattyParser the natty parser to detect the date language.
+     * @param headersElement the header element to add headers to.
+     * @return the email body index.
+     */
+    private int handleHeaderWithAsterisks(final String emailText, final String[] lines, final Parser nattyParser,
+                                          final Element headersElement, int bodyIndex)
+    {
+        // Check to see if the the from field is split onto two lines.
+        final Matcher splitFromFieldMatcher = fromFieldSplitOntoTwoLines.matcher(emailText);
+        final List<String> asteriskHeadersAlreadyMarkedUp = new ArrayList<>();
+
+        if (splitFromFieldMatcher.find()) {
+            for (final String line : lines) {
+                // For a line which matches the format "*From:*example.emailaddress.com",
+                // concat this and the second part of the 'From' field "[mailto:example.emailaddress.com] *On Behalf Of *Bloggs, Joe"
+                // So that the whole value is marked up with <From>
+                if (line.equals(splitFromFieldMatcher.group("FirstPartFromField"))) {
+                    asteriskHeadersAlreadyMarkedUp.add(line);
+                    bodyIndex++;
+                    final String fullFromFieldValue = line + "\n" + splitFromFieldMatcher.group("SecondPartFromField");
+                    addStandardisedHeader(nattyParser, headersElement, lines, fullFromFieldValue, ":\\*");
+                } // Once there is a match for the second part of the <From> value just increase the bodyIndex
+                else if (line.equals(splitFromFieldMatcher.group("SecondPartFromField"))) {
+                    asteriskHeadersAlreadyMarkedUp.add(line);
+                    bodyIndex++;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Markup the remaining headers
+        for (final String line : lines) {
+            if (!asteriskHeadersAlreadyMarkedUp.contains(line)) {
+                if (line.contains(":*")) {
+                    bodyIndex++;
+                    addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
+                } else {
+                    break;
+                }
+            }
+        }
+        return bodyIndex;
     }
 
     /**
@@ -209,11 +275,12 @@ public class MarkupHeadersAndBody
      * @param headersElement the header element to add headers to.
      * @param lines the lines remaining of the email.
      * @param line the current line containing the header.
+     * @param valueToSplitOn the value that the line parameter should be split on.
      */
-    private void addStandardisedHeader(Parser nattyParser, Element headersElement, String[] lines, String line)
+    private void addStandardisedHeader(Parser nattyParser, Element headersElement, String[] lines, String line, String valueToSplitOn)
     {
         // Split out the header name and value
-        final String[] colonSplit = line.split(": ", 2);
+        final String[] colonSplit = line.split(valueToSplitOn, 2);
         final String headerName = colonSplit[0];
         final String headerValue = colonSplit[1];
 

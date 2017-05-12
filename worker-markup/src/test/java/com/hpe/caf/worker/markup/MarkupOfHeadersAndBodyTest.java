@@ -102,6 +102,40 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
+   /*
+    * Testing markup of headers surrounded with asterisks
+    */
+    @Test
+    public void testHeaderSurroundedWithAsterisks() throws IOException, JDOMException
+    {
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/headerAsterisk.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/headerAsteriskExpected.xml");
+
+        String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        String docForComparisonValue = docForComparison.getRootElement().getValue();
+
+        assertEquals(docForComparisonValue, docMarkedupValue);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+    }
+
+   /*
+    * Testing markup of headers surrounded with asterisks and the From field split over two lines
+    */
+    @Test
+    public void testFromFieldSurroundedWithAsterisksWithFromValueSplit() throws IOException, JDOMException
+    {
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/headerAsteriskFromValueOnTwoLines.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/headerAsteriskFromValueOnTwoLinesExpected.xml");
+
+        String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        String docForComparisonValue = docForComparison.getRootElement().getValue();
+
+        assertEquals(docForComparisonValue, docMarkedupValue);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+    }
+
     /*
      * Testing markup of one email tag
      */
