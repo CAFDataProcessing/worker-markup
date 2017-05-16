@@ -37,7 +37,7 @@ public class MarkupHeadersAndBody
     public static final String UNREADABLE_HEADER = "UnreadableHeader";
     public static final String HEADERS_WITH_ASTERISKS = "\\*(From|Sent|To|Subject):\\*";
     public static final String FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX =
-            "(?<FirstPartFromField>[> ]{0,}\\*From:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3})\\n?" +
+            "(?<FirstPartFromField>[> ]{0,}\\*From:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3})\\n" +
             "(?<SecondPartFromField>[> ]{0,}\\[mailto:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*)";
 
     /*
@@ -199,8 +199,6 @@ public class MarkupHeadersAndBody
                 else if (line.equals(splitFromFieldMatcher.group("SecondPartFromField"))) {
                     asteriskHeadersAlreadyMarkedUp.add(line);
                     bodyIndex++;
-                } else {
-                    break;
                 }
             }
         }
