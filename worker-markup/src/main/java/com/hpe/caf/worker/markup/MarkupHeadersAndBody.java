@@ -183,37 +183,40 @@ public class MarkupHeadersAndBody
     {
         // Check to see if the the from field is split onto two lines.
         final Matcher splitFromFieldMatcher = fromFieldSplitOntoTwoLines.matcher(emailText);
-        final List<String> asteriskHeadersAlreadyMarkedUp = new ArrayList<>();
+        final List<String> fromHeaderFieldValues = new ArrayList<>();
 
         if (splitFromFieldMatcher.find()) {
             for (final String line : lines) {
-                // For a line which matches the format "*From:*example.emailaddress.com",
-                // concat this and the second part of the 'From' field "[mailto:example.emailaddress.com] *On Behalf Of *Bloggs, Joe"
-                // So that the whole value is marked up with <From>
+                // For a line which matches the format:
+                // "*From:*example.emailaddress.com
+                // [mailto:example.emailaddress.com] *On Behalf Of *Bloggs, Joe"
+                // Add these lines to a list so that they can be marked up together later.
                 if (line.equals(splitFromFieldMatcher.group("FirstPartFromField"))) {
-                    asteriskHeadersAlreadyMarkedUp.add(line);
-                    bodyIndex++;
-                    final String fullFromFieldValue = line + "\n" + splitFromFieldMatcher.group("SecondPartFromField");
-                    addStandardisedHeader(nattyParser, headersElement, lines, fullFromFieldValue, ":\\*");
-                } // Once there is a match for the second part of the <From> value just increase the bodyIndex
-                else if (line.equals(splitFromFieldMatcher.group("SecondPartFromField"))) {
-                    asteriskHeadersAlreadyMarkedUp.add(line);
-                    bodyIndex++;
+                    fromHeaderFieldValues.add(line);
+                } else if (line.equals(splitFromFieldMatcher.group("SecondPartFromField"))) {
+                    fromHeaderFieldValues.add(line);
                 }
             }
         }
 
-        // Markup the remaining headers
         for (final String line : lines) {
-            if (!asteriskHeadersAlreadyMarkedUp.contains(line)) {
-                if (line.contains(":*")) {
-                    bodyIndex++;
-                    addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
-                } else {
-                    break;
+            // If the the From field is split onto two lines, these lines need to be concatenated and marked up together.
+            // Once there is a match for the second part of the <From> value just increase the bodyIndex.
+            if (fromHeaderFieldValues.contains(line)) {
+                bodyIndex++;
+                if (line.equals(splitFromFieldMatcher.group("FirstPartFromField"))) {
+                    final String fullFromFieldValue = line + "\n" + splitFromFieldMatcher.group("SecondPartFromField");
+                    addStandardisedHeader(nattyParser, headersElement, lines, fullFromFieldValue, ":\\*");
                 }
+            }// Markup the remaining headers
+            else if (line.contains(":*")) {
+                bodyIndex++;
+                addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
+            } else {
+                break;
             }
         }
+
         return bodyIndex;
     }
 
