@@ -1,0 +1,80 @@
+From: Beldin, Rick (Rick)
+Sent: Mon Oct  3 12:36:23 2016
+To: openvpn.community@lists.osp.hpe.com
+Subject: Re: Had to reimage my ubuntu workstation.....
+Importance: Normal
+
+This tends to be the most up-to-date resource for information:
+
+https://hpedia.osp.hpe.com/wiki/OpenVPN
+
+If you find something different,  please update the wiki.
+
+I use both openvpn on 16.04 as well as openconnect with the
+juniper gateways:
+
+https://hpedia.osp.hpe.com/wiki/OpenConnect
+
+I find openconnect to have somewhat better latency but it
+does seem susceptible to 'noise' that causes connections to
+occasionally drop.
+
+Rick
+
+
+
+On 10/02/2016 05:07 PM, Lee, Benson wrote:
+> Mike,
+> 
+>  
+> 
+> Which certificate are you referring to?  Is this the Class B digital badge
+> certificate or is it the SSL Certificate used for servers?  Both have been
+> migrated to http://mydigitalbadge.hpe.com/ now.
+> 
+>  
+> 
+> Thank you!
+> 
+>  
+> 
+> Benson
+> 
+>  
+> 
+> *Van:*openvpn.community-request@lists.osp.hpe.com
+> [mailto:openvpn.community-request@lists.osp.hpe.com] *On Behalf Of *Forsberg, Mike
+> *Date:* Monday, October 3, 2016 2:10 AM
+> *Recipient:* openvpn.community@lists.osp.hpe.com
+> *Objet:* Had to reimage my ubuntu workstation.....
+> 
+>  
+> 
+> Last week I reimaged my Ubuntu workstation.  After installing 16.04 I'm trying
+> to get OpenVPN working today.  I'm at the office, needed to physically enter
+> our lab, but I'd like to get OpenVPN running while I'm here.
+> 
+>  
+> 
+> I noticed that some the configuration info still references HP.  Is this still
+> right?
+> 
+>  
+> 
+> I also noticed that one can't get the certificates anymore.  They see to be
+> locked over at HP rather than accessible from HPE.
+> 
+>  
+> 
+> Any help would be appreciated,
+> 
+>  
+> 
+> Mike
+> 
+
+-- 
+Rick Beldin
+Linux ERT
+Tel: +1 770.343.0219  Email: rick.beldin@hpe.com
+Physical: 5555 Windward Parkway West, Alpharetta GA 30004

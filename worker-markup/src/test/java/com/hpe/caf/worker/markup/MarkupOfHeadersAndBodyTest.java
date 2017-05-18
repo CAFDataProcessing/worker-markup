@@ -153,6 +153,23 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
+   /*
+    * Testing markup of headers surrounded with asterisks,the From field split over two lines, and in a different language
+    */
+    @Test
+    public void testFromFieldSurroundedWithAsterisksOtherLanguage() throws IOException, JDOMException
+    {
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/OtherLanguageHeaderSurroundedWithAsterisks.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/OtherLanguageHeaderSurroundedWithAsterisksExpected.xml");
+
+        String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        String docForComparisonValue = docForComparison.getRootElement().getValue();
+
+        assertEquals(docForComparisonValue, docMarkedupValue);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+    }
+
     /*
      * Testing markup of one email tag
      */
