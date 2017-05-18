@@ -282,7 +282,7 @@ public class MarkupHeadersAndBody
     {
         // Split out the header name and value
         final String[] colonSplit = line.split(valueToSplitOn, 2);
-        final String headerName = colonSplit[0];
+        final String headerName = removeInvalidBeginningChars(colonSplit[0]);
         final String headerValue = colonSplit[1];
 
         // Header Names are standardised against a supplied set of names
@@ -298,6 +298,18 @@ public class MarkupHeadersAndBody
         }
 
         setDateAttributeIfExists(nattyParser, headerValue, elementName, header);
+    }
+
+    /**
+     * Remove invalid characters from the beginning of a header name.
+     * To allow the 'EmailHeaderMappings' to be mapped correctly.
+     *
+     * @param headerName the header name to have invalid characters removed.
+     * @return the header name without leading invalid
+     */
+    private static String removeInvalidBeginningChars(String headerName)
+    {
+        return headerName.replaceAll("[>\\*]", "").trim();
     }
 
     /**

@@ -59,9 +59,9 @@ expectedOutputData:
       adb8a97a124724f4\" /></hash><subject>CAF Test Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
       NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"bf566245c303c4ea\" /></hash><headers><ReceivedFrom>Received\
-      \ From: Bryson, Michael</ReceivedFrom>\r\n<SentTo dateUtc=\"2016-05-19T14:17:55Z\"\
-      > Sent To: Thu May 19 14:17:55 2016</SentTo>\r\n<To> To: Ploch, Krzysztof; Comac,\
+      \ function=\"XXHASH64\" value=\"97755de20e0b741b\" /></hash><headers><ReceivedFrom>Received\
+      \ From: Bryson, Michael</ReceivedFrom>\r\n<To dateUtc=\"2016-05-19T14:17:55Z\"\
+      > Sent To: Thu May 19 14:17:55 2016</To>\r\n<To> To: Ploch, Krzysztof; Comac,\
       \ Christopher Jam; Crooks, Philip; Getty, Trevor; Hardy, Dermot; Mulholland,\
       \ Connor; Bryson, Michael; Smith, Conal; O'Loughlin, Aaron; Reid, Andy; McMurray,\
       \ Pearse P; Gibson, Dominic Joh; Payne, Alastair; Neeson, Gavin Francis; Hunter,\
@@ -81,6 +81,8 @@ expectedOutputData:
       \ this.\r\n\r\nThanks\r\n\r\nMichael Bryson\r\nQA Engineer\r\nSoftware Engineering\r\
       \nBig Data\r\n\r\nBelfast, N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><sent>Thu,\
       \ 19 Nov 2015 09:25:21 +0000</sent></root>\r\n"
+  - name: "ALL_TO"
+    value: " Sent To: Thu May 19 14:17:55 2016"
   - name: "ALL_TO"
     value: " To: Ploch, Krzysztof; Comac, Christopher Jam; Crooks, Philip; Getty,\
       \ Trevor; Hardy, Dermot; Mulholland, Connor; Bryson, Michael; Smith, Conal;\

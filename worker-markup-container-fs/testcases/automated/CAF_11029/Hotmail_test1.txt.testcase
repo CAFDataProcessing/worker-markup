@@ -72,7 +72,7 @@ expectedOutputData:
       \ /></fields></config><digest function=\"XXHASH64\" value=\"4fe77513a8a6c49b\"\
       \ /></hash><headers><From>&gt; From: bob@xxx.mailgun.org</From>\r\n<To>&gt;\
       \ To: xxx@gmail.com; xxx@hotmail.com; xxx@yahoo.com; xxx@aol.com; xxx@comcast.net;\
-      \ xxx@nyc.rr.com</To>\r\n<Date dateUtc=\"2012-04-02T13:44:22Z\">&gt; Date: Mon,\
-      \ 2 Apr 2012 17:44:22 +0400</Date>\r\n</headers><body>&gt;\r\n&gt; Hi</body></email></CONTENT><sent>Thu,\
+      \ xxx@nyc.rr.com</To>\r\n<Sent dateUtc=\"2012-04-02T13:44:22Z\">&gt; Date: Mon,\
+      \ 2 Apr 2012 17:44:22 +0400</Sent>\r\n</headers><body>&gt;\r\n&gt; Hi</body></email></CONTENT><sent>Thu,\
       \ 19 Nov 2015 09:25:21 +0000</sent></root>\r\n"
   status: "COMPLETED"
