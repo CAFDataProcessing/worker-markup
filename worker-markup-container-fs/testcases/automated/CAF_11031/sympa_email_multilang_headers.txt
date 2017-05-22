@@ -1,0 +1,29 @@
+*Von:*openvpn.community-request@lists.osp.hpe.com
+[mailto:openvpn.community-request@lists.osp.hpe.com] *On Behalf Of *Forsberg, Mike
+*Gesendet:* Monday, October 3, 2016 2:10 AM
+*À:* openvpn.community@lists.osp.hpe.com
+*Asunto:* Had to reimage my ubuntu workstation.....
+
+ 
+
+Last week I reimaged my Ubuntu workstation.  After installing 16.04 I'm trying
+to get OpenVPN working today.  I'm at the office, needed to physically enter
+our lab, but I'd like to get OpenVPN running while I'm here.
+
+ 
+
+I noticed that some the configuration info still references HP.  Is this still
+right?
+
+ 
+
+I also noticed that one can't get the certificates anymore.  They see to be
+locked over at HP rather than accessible from HPE.
+
+ 
+
+Any help would be appreciated,
+
+ 
+
+Mike

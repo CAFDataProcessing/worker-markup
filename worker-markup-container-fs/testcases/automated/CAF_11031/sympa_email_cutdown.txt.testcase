@@ -1,0 +1,77 @@
+---
+tag: "CAF_11031/sympa_email_cutdown.txt"
+testCaseInformation:
+  associatedTickets: "CAF-2189"
+  comments: "CAF_11031/sympa_email_cutdown.txt"
+  description: "Markup headers in an email from the Sympa Mailing List System"
+  testCaseId: "CAF_11031"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "To"
+      normalizationType: "NAME_ONLY"
+    - name: "From"
+      normalizationType: "NAME_ONLY"
+    - name: "Body"
+      normalizationType: "REMOVE_WHITESPACE_AND_LINKS"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  inputFile: "CAF_11031/sympa_email_cutdown.txt"
+  outputFieldList:
+  - field: "SECTION_SORT"
+    xPathExpression: "/root/email[1]/headers/Sent/@dateUtc"
+  - field: "SECTION_ID"
+    xPathExpression: "/root/email[1]/hash/digest/@value"
+  - field: "PARENT_ID"
+    xPathExpression: "/root/email[2]/hash/digest/@value"
+  - field: "ROOT_ID"
+    xPathExpression: "/root/email[last()]/hash/digest/@value"
+  - field: "XML"
+    xPathExpression: "."
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "SECTION_SORT"
+    value: "2016-10-03T02:10:00Z"
+  - name: "SECTION_ID"
+    value: "bb626318bb648ef3"
+  - name: "ROOT_ID"
+    value: "bb626318bb648ef3"
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
+      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
+      NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
+      \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"bb626318bb648ef3\" /></hash><headers><From>*From:*openvpn.community-request@lists.osp.hpe.com\r\
+      \n[mailto:openvpn.community-request@lists.osp.hpe.com] *On Behalf Of *Forsberg,\
+      \ Mike</From>\r\n<Sent dateUtc=\"2016-10-03T02:10:00Z\">*Sent:* Monday, October\
+      \ 3, 2016 2:10 AM</Sent>\r\n<To>*To:* openvpn.community@lists.osp.hpe.com</To>\r\
+      \n<Subject>*Subject:* Had to reimage my ubuntu workstation.....</Subject>\r\n\
+      </headers><body>\r\n \r\n\r\nLast week I reimaged my Ubuntu workstation.  After\
+      \ installing 16.04 I'm trying\r\nto get OpenVPN working today.  I'm at the office,\
+      \ needed to physically enter\r\nour lab, but I'd like to get OpenVPN running\
+      \ while I'm here.\r\n\r\n \r\n\r\nI noticed that some the configuration info\
+      \ still references HP.  Is this still\r\nright?\r\n\r\n \r\n\r\nI also noticed\
+      \ that one can't get the certificates anymore.  They see to be\r\nlocked over\
+      \ at HP rather than accessible from HPE.\r\n\r\n \r\n\r\nAny help would be appreciated,\r\
+      \n\r\n \r\n\r\nMike\r\n</body></email></CONTENT><sent>Thu, 19 Nov 2015 09:25:21\
+      \ +0000</sent></root>\r\n"
+  status: "COMPLETED"

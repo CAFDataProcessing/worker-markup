@@ -1,0 +1,38 @@
+---
+  isEmail: true
+  sourceData:
+    subject:
+    - reference: null
+      data: Q0FGIFRlc3QgRXh0cmFjdCAtIHNpbXBsZQ==
+    from:
+    - reference: null
+      data: QWRtaW4vaHBxJUhQUUBocHN3bGFicy5ocC5jb20=
+    to:
+    - reference: null
+      data: QWRtaW4vaHBxJWhwcUBocHN3bGFicy5ocC5jb20=
+    sent:
+    - reference: null
+      data: VGh1LCAxOSBOb3YgMjAxNSAwOToyNToyMSArMDAwMA==
+  hashConfiguration:
+  - name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+    fields:
+    - name: "To"
+      normalizationType: "NAME_ONLY"
+    - name: "From"
+      normalizationType: "NAME_ONLY"
+    - name: "Body"
+      normalizationType: "REMOVE_WHITESPACE_AND_LINKS"
+    hashFunctions:
+    - "XXHASH64"
+  outputFields:
+  - field: "SECTION_SORT"
+    xPathExpression: "/root/email[1]/headers/Sent/@dateUtc"
+  - field: "SECTION_ID"
+    xPathExpression: "/root/email[1]/hash/digest/@value"
+  - field: "PARENT_ID"
+    xPathExpression: "/root/email[2]/hash/digest/@value"
+  - field: "ROOT_ID"
+    xPathExpression: "/root/email[last()]/hash/digest/@value"
+  - field: "XML"
+    xPathExpression: "."

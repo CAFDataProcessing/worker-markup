@@ -1,0 +1,108 @@
+---
+tag: "CAF_11031/sympa_email_full.txt"
+testCaseInformation:
+  associatedTickets: "CAF-2189"
+  comments: "CAF_11031/sympa_email_full.txt"
+  description: "Markup headers in an email from the Sympa Mailing List System"
+  testCaseId: "CAF_11031"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "To"
+      normalizationType: "NAME_ONLY"
+    - name: "From"
+      normalizationType: "NAME_ONLY"
+    - name: "Body"
+      normalizationType: "REMOVE_WHITESPACE_AND_LINKS"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  inputFile: "CAF_11031/sympa_email_full.txt"
+  outputFieldList:
+  - field: "SECTION_SORT"
+    xPathExpression: "/root/email[1]/headers/Sent/@dateUtc"
+  - field: "SECTION_ID"
+    xPathExpression: "/root/email[1]/hash/digest/@value"
+  - field: "PARENT_ID"
+    xPathExpression: "/root/email[2]/hash/digest/@value"
+  - field: "ROOT_ID"
+    xPathExpression: "/root/email[last()]/hash/digest/@value"
+  - field: "XML"
+    xPathExpression: "."
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "SECTION_SORT"
+    value: "2016-10-03T12:36:23Z"
+  - name: "SECTION_ID"
+    value: "1c6a147953ed08c7"
+  - name: "PARENT_ID"
+    value: "3a077130a8c965fc"
+  - name: "ROOT_ID"
+    value: "b5820de688296c12"
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
+      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
+      NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
+      \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"1c6a147953ed08c7\" /></hash><headers><From>From:\
+      \ Beldin, Rick (Rick)</From>\r\n<Sent dateUtc=\"2016-10-03T12:36:23Z\">Sent:\
+      \ Mon Oct  3 12:36:23 2016</Sent>\r\n<To>To: openvpn.community@lists.osp.hpe.com</To>\r\
+      \n<Subject>Subject: Re: Had to reimage my ubuntu workstation.....</Subject>\r\
+      \n<Importance>Importance: Normal</Importance>\r\n</headers><body>\r\nThis tends\
+      \ to be the most up-to-date resource for information:\r\n\r\nhttps://hpedia.osp.hpe.com/wiki/OpenVPN\r\
+      \n\r\nIf you find something different,  please update the wiki.\r\n\r\nI use\
+      \ both openvpn on 16.04 as well as openconnect with the\r\njuniper gateways:\r\
+      \n\r\nhttps://hpedia.osp.hpe.com/wiki/OpenConnect\r\n\r\nI find openconnect\
+      \ to have somewhat better latency but it\r\ndoes seem susceptible to 'noise'\
+      \ that causes connections to\r\noccasionally drop.\r\n\r\nRick\r\n\r\n\r\n\r\
+      \n</body></email><email><hash name=\"Normalized\"><config><fields><field name=\"\
+      To\" normalizationType=\"NAME_ONLY\" /><field name=\"From\" normalizationType=\"\
+      NAME_ONLY\" /><field name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\"\
+      \ /></fields></config><digest function=\"XXHASH64\" value=\"3a077130a8c965fc\"\
+      \ /></hash><headers>On <Sent dateUtc=\"2016-10-02T17:07:00Z\">10/02/2016 05:07\
+      \ PM</Sent>,<From> Lee, Benson </From>wrote:\r\n</headers><body>&gt; Mike,\r\
+      \n&gt; \r\n&gt;  \r\n&gt; \r\n&gt; Which certificate are you referring to? \
+      \ Is this the Class B digital badge\r\n&gt; certificate or is it the SSL Certificate\
+      \ used for servers?  Both have been\r\n&gt; migrated to http://mydigitalbadge.hpe.com/\
+      \ now.\r\n&gt; \r\n&gt;  \r\n&gt; \r\n&gt; Thank you!\r\n&gt; \r\n&gt;  \r\n\
+      &gt; \r\n&gt; Benson\r\n&gt; \r\n&gt;  \r\n&gt; \r\n</body></email><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
+      NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
+      \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"b5820de688296c12\" /></hash><headers><From>&gt;\
+      \ *From:*openvpn.community-request@lists.osp.hpe.com\r\n&gt; [mailto:openvpn.community-request@lists.osp.hpe.com]\
+      \ *On Behalf Of *Forsberg, Mike</From>\r\n<Sent dateUtc=\"2016-10-03T02:10:00Z\"\
+      >&gt; *Sent:* Monday, October 3, 2016 2:10 AM</Sent>\r\n<To>&gt; *To:* openvpn.community@lists.osp.hpe.com</To>\r\
+      \n<Subject>&gt; *Subject:* Had to reimage my ubuntu workstation.....</Subject>\r\
+      \n</headers><body>&gt; \r\n&gt;  \r\n&gt; \r\n&gt; Last week I reimaged my Ubuntu\
+      \ workstation.  After installing 16.04 I'm trying\r\n&gt; to get OpenVPN working\
+      \ today.  I'm at the office, needed to physically enter\r\n&gt; our lab, but\
+      \ I'd like to get OpenVPN running while I'm here.\r\n&gt; \r\n&gt;  \r\n&gt;\
+      \ \r\n&gt; I noticed that some the configuration info still references HP. \
+      \ Is this still\r\n&gt; right?\r\n&gt; \r\n&gt;  \r\n&gt; \r\n&gt; I also noticed\
+      \ that one can't get the certificates anymore.  They see to be\r\n&gt; locked\
+      \ over at HP rather than accessible from HPE.\r\n&gt; \r\n&gt;  \r\n&gt; \r\n\
+      &gt; Any help would be appreciated,\r\n&gt; \r\n&gt;  \r\n&gt; \r\n&gt; Mike\r\
+      \n&gt; \r\n\r\n-- \r\nRick Beldin\r\nLinux ERT\r\nTel: +1 770.343.0219  Email:\
+      \ rick.beldin@hpe.com\r\nPhysical: 5555 Windward Parkway West, Alpharetta GA\
+      \ 30004\r\n</body></email></CONTENT><sent>Thu, 19 Nov 2015 09:25:21 +0000</sent></root>\r\
+      \n"
+  status: "COMPLETED"

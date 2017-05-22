@@ -27,3 +27,4 @@ The automated testcases for the Markup Worker are defined as follows:
 - [CAF_11028 - Markup Worker support for Yahoo! Mail](CAF_11028)
 - [CAF_11029 - Markup Worker support for Hotmail](CAF_11029)
 - [CAF_11030 - Email being split in the middle of the body content](CAF_11030)
+- [CAF_11031 - Markup headers in an email from the Sympa Mailing List System](CAF_11031)
