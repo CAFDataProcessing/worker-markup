@@ -56,47 +56,41 @@ public class EmailSplitter
         this.dividerPattern = Pattern.compile("(\n|^)(( |>)*-+[^-]+-+\\s*)$");
     }
 
-    public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException
-    {
-        try {
-            LOG.info("Starting email splitting based on document received");
-            validateDocument(doc);
+    public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException {
+        LOG.info("Starting email splitting based on document received");
+        validateDocument(doc);
 
-            for (Element e : doc.getRootElement().getChildren("CONTENT")) {
-                final String stringToSplit = e.getText();
-                final List<String> emailList = getSeparatedEmails(stringToSplit);
+        for (Element e : doc.getRootElement().getChildren("CONTENT")) {
+            final String stringToSplit = e.getText();
+            final List<String> emailList = getSeparatedEmails(stringToSplit);
 
-                e.removeContent();
+            e.removeContent();
 
-                for (String email : emailList) {
-                    // We will attempt to match the regex to find "---------- Forwarded Message ---------" or similar dividers
-                    Matcher matcher = dividerPattern.matcher(email);
-                    String divider = null; // null to make a decision later.
-                    // If we find a match, strip out the divider from the email text.
-                    if (matcher.find()) {
-                        divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
-                        email = email.substring(0, email.indexOf(divider));
-                    }
+            for (String email : emailList) {
+                // We will attempt to match the regex to find "---------- Forwarded Message ---------" or similar dividers
+                Matcher matcher = dividerPattern.matcher(email);
+                String divider = null; // null to make a decision later.
+                // If we find a match, strip out the divider from the email text.
+                if (matcher.find()) {
+                    divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
+                    email = email.substring(0, email.indexOf(divider));
+                }
 
-                    // If the email text is empty, do not mark up an empty email with email tags.
-                    if (!email.isEmpty()) {
-                        Element emailElement = new Element("email");
-                        emailElement.setText(email);
-                        e.addContent(emailElement);
-                    }
+                // If the email text is empty, do not mark up an empty email with email tags.
+                if (!email.isEmpty()) {
+                    Element emailElement = new Element("email");
+                    emailElement.setText(email);
+                    e.addContent(emailElement);
+                }
 
-                    // If we have found a divider then create the divider element and add to the root.
-                    if (divider != null) {
-                        Element dividerElement = new Element("divider");
-                        dividerElement.setText(divider); // add this newline which was dropped by the regex.
-                        e.addContent(dividerElement);
-                    }
+                // If we have found a divider then create the divider element and add to the root.
+                if (divider != null) {
+                    Element dividerElement = new Element("divider");
+                    dividerElement.setText(divider); // add this newline which was dropped by the regex.
+                    e.addContent(dividerElement);
                 }
             }
-        } catch (StackOverflowError er) {
-            throw new RuntimeException(er);
         }
-
         LOG.info("Email Splitting completed");
     }
 
