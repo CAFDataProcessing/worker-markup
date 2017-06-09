@@ -99,7 +99,7 @@
     
     
     <properties>
-        <caf.worker-framework.version>1.6.0-181</caf.worker-framework.version>
+        <caf.worker-framework.version>1.9.0-SNAPSHOT</caf.worker-framework.version>
     </properties>
 
     <dependencyManagement>

@@ -3,5 +3,6 @@
     "inputQueue": "markupworker-test-input-1",
     "retryQueue": "markupworker-test-input-1",
     "rejectedQueue": "markupworker-test-rejected-1",
-    "retryLimit": 2
+    "retryLimit": 2,
+    "maxPriority": 255
 }

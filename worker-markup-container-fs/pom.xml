@@ -314,7 +314,7 @@
                         <!-- Configuration for the worker-markup-container image -->
                         <image>
                             <alias>worker-markup-fs</alias>
-                            <name>cafinternal/worker-markup:${project.version}</name>
+                            <name>cafinternal/prereleases:worker-markup-${project.version}</name>
                             <build>
                                 <maintainer>conal.smith@hpe.com</maintainer>
                                 <from>rh7-artifactory.svs.hpeswlab.net:8443/caf/jep_talon-image:${project.version}</from>
