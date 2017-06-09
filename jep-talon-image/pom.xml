@@ -34,6 +34,7 @@
     <properties>
         <maven.install.skip>true</maven.install.skip>
         <maven.deploy.skip>true</maven.deploy.skip>
+        <tini_version>0.14.0</tini_version>
     </properties>
 
     <dependencies>
@@ -92,6 +93,16 @@
                                     <PYTHONPATH>/maven</PYTHONPATH>
                                 </env>
                                 <runCmds>
+                                    
+                                    <!-- Download tini into image -->
+                                    <runCmd>
+                                        http_proxy=${env.HTTP_PROXY} \
+                                        https_proxy=${env.HTTPS_PROXY} \
+                                        wget -P /tini https://github.com/krallin/tini/releases/download/v${tini_version}/tini
+                                    </runCmd>
+                                    <runCmd>chmod +x tini</runCmd>
+                                    
+                                    <!-- Download nad install jep-talon into image -->
                                     <run>
                                         http_proxy=${env.HTTP_PROXY} \
                                         https_proxy=${env.HTTPS_PROXY} \
