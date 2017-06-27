@@ -32,35 +32,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.workerframework</groupId>
-            <artifactId>worker-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom2</artifactId>
-            <version>2.0.6</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
-            <artifactId>util-email-content-segregation</artifactId>
-            <version>2.0.0-5</version>
-        </dependency> 
-        <dependency>
-            <groupId>com.github.cafdataprocessing</groupId>
-            <artifactId>worker-markup-shared</artifactId>
+            <artifactId>worker-markup-core</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.workerframework</groupId>
-            <artifactId>worker-caf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafapi.util</groupId>
-            <artifactId>util-moduleloader</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -69,60 +43,8 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafapi.codec</groupId>
-            <artifactId>codec-json</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.openhft</groupId>
-            <artifactId>zero-allocation-hashing</artifactId>
-            <version>0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.hpe.caf.externals</groupId>
-            <artifactId>natty</artifactId>
-            <version>0.14.0-31</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafdataprocessing</groupId>
-            <artifactId>worker-markup-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
