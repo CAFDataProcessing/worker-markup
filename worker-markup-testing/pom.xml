@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
-            <artifactId>worker-markup</artifactId>
+            <artifactId>worker-markup-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

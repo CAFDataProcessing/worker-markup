@@ -15,6 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import com.hpe.caf.worker.testing.*;
 import com.hpe.caf.worker.testing.execution.AbstractTestControllerProvider;
 

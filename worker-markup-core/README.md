@@ -1,6 +1,6 @@
-# Markup Worker
+# Markup Worker Core
 
-This module contains the source code for the entry point of the Markup Worker.
+This module contains the source code for the Markup Worker.
 
 For more information on the Markup Worker visit [here](../markup-worker.md).
 

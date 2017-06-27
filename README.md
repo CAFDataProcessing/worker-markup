@@ -17,7 +17,10 @@ For more details about the Markup Worker, a general overview of its operation an
 This is the shared library defining public classes that constitute the worker interface to be used by consumers of the Markup Worker. The project can be found in [worker-markup-shared](worker-markup-shared).
 
 ### worker-markup
-This project contains the actual implementation of the Markup Worker. It can be found in [worker-markup](worker-markup).
+This project contains the entry point of the Markup Worker. It can be found in [worker-markup](worker-markup).
+
+### worker-markup-core
+This project contains the actual logic and implementation of the Markup Worker. It can be found in [worker-markup-core](worker-markup-core).
 
 ### worker-markup-container
 This project builds a Docker image that packages the Markup Worker for deployment. It can be found in [worker-markup-container](worker-markup-container).
