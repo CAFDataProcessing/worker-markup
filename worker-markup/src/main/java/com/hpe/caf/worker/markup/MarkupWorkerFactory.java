@@ -38,18 +38,14 @@ import java.util.concurrent.Executors;
 public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfiguration, MarkupWorkerTask>
 {
     private final ExecutorService jepThreadPool;
-    private final EmailSplitter emailSplitter;
-    private final MarkupHeadersAndBody markupEngine;
+    private final MarkupWorkerConfiguration config;
 
     public MarkupWorkerFactory(ConfigurationSource configSource, DataStore store, Codec codec) throws WorkerException
     {
         super(configSource, store, codec, MarkupWorkerConfiguration.class, MarkupWorkerTask.class);
         jepThreadPool = Executors.newSingleThreadExecutor();
-        emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
 
-        final MarkupWorkerConfiguration config = getMarkupWorkerConfig(configSource);
-        markupEngine = new MarkupHeadersAndBody(config.getEmailHeaderMappings(),
-                                                config.getCondensedHeaderMultiLangMappings());
+        config = getMarkupWorkerConfig(configSource);
     }
 
     @Override
@@ -85,8 +81,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
             getDataStore(),
             getConfiguration().getOutputQueue(),
             getCodec(),
-            emailSplitter,
-            markupEngine);
+            config);
     }
 
     @Override

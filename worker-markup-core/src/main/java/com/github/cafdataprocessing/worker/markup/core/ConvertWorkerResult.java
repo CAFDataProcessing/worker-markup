@@ -13,22 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cafdataprocessing.worker.markup.core.DocumentWorkerEntryPoint;
+package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.XmlConverter;
-import com.github.cafdataprocessing.worker.markup.core.XmlFieldEntry;
-import java.util.List;
-import org.jdom2.Document;
+import com.hpe.caf.worker.document.model.Document;
+import com.hpe.caf.worker.markup.MarkupWorkerResult;
 
 /**
  *
  * @author mcgreeva
  */
-public class GetXmlDocument
+public class ConvertWorkerResult
 {
-    private GetXmlDocument(){}
-    public static Document getXmlDocument(final List<XmlFieldEntry> xmlFieldEntries){
-         return XmlConverter.createXmlDocument(xmlFieldEntries);   
+    private ConvertWorkerResult()
+    {
     }
 
+    public static void updateDocument(final Document document, final MarkupWorkerResult markupWorkerResult)
+    {
+        document.getField("MARKUPWORKER_STATUS").add(markupWorkerResult.workerStatus.toString());
+        
+        markupWorkerResult.fieldList.forEach((entry) -> {
+            document.getField(entry.name).add(entry.value);
+        });
+    }
 }
