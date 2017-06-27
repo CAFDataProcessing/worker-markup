@@ -13,9 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cafdataprocessing.worker.markup.core;
+package com.github.cafdataprocessing.worker.markup.core.DocumentWorkerEntryPoint;
 
+import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
+import com.github.cafdataprocessing.worker.markup.core.FieldNameMapper;
 import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
+import com.github.cafdataprocessing.worker.markup.core.JepExecutor;
+import com.github.cafdataprocessing.worker.markup.core.MarkupHeadersAndBody;
+import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
+import com.github.cafdataprocessing.worker.markup.core.XPathHelper;
+import com.github.cafdataprocessing.worker.markup.core.XmlConverter;
+import com.github.cafdataprocessing.worker.markup.core.XmlFieldEntry;
+import com.github.cafdataprocessing.worker.markup.core.XmlVerifier;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MarkupWorkerExceptions;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.ConfigurationException;
