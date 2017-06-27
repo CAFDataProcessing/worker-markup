@@ -15,6 +15,7 @@
  */
 package com.hpe.caf.worker.markup.Hashing;
 
+import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
 import com.hpe.caf.worker.markup.Field;
 import com.hpe.caf.worker.markup.HashConfiguration;
 import com.hpe.caf.worker.markup.HashFunction;

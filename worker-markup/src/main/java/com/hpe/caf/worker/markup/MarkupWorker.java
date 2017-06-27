@@ -28,7 +28,7 @@ import com.hpe.caf.api.worker.*;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
 import com.hpe.caf.worker.AbstractWorker;
-import com.hpe.caf.worker.markup.Hashing.HashHelper;
+import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.slf4j.Logger;
