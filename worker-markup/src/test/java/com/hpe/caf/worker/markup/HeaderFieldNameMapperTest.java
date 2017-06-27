@@ -15,6 +15,8 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.HeaderFieldNameMapper;
+import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;

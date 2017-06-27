@@ -15,6 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.XPathHelper;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.output.XMLOutputter;

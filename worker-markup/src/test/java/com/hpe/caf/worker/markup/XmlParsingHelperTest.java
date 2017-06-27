@@ -15,6 +15,8 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.MarkupHeadersAndBody;
+import com.github.cafdataprocessing.worker.markup.core.XmlParsingHelper;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;

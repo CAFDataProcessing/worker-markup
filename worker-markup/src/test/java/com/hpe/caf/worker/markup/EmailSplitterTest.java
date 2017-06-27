@@ -15,6 +15,8 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
+import com.github.cafdataprocessing.worker.markup.core.JepExecutor;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;

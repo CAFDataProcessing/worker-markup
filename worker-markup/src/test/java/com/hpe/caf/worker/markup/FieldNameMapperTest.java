@@ -15,6 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.FieldNameMapper;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.util.ref.ReferencedData;

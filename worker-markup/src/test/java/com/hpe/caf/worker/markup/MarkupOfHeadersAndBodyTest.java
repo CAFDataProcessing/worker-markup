@@ -15,6 +15,8 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.MarkupHeadersAndBody;
+import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

@@ -15,6 +15,8 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.ConversationIndexParser;
+import com.github.cafdataprocessing.worker.markup.core.ConversationIndexParserException;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 

@@ -15,6 +15,11 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
+import com.github.cafdataprocessing.worker.markup.core.JepExecutor;
+import com.github.cafdataprocessing.worker.markup.core.MarkupHeadersAndBody;
+import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
+import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerHealthCheck;
 import com.hpe.caf.api.Codec;
 import com.hpe.caf.api.ConfigurationException;
 import com.hpe.caf.api.ConfigurationSource;

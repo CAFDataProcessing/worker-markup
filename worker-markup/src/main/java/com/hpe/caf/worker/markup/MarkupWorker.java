@@ -15,6 +15,13 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
+import com.github.cafdataprocessing.worker.markup.core.FieldNameMapper;
+import com.github.cafdataprocessing.worker.markup.core.MarkupHeadersAndBody;
+import com.github.cafdataprocessing.worker.markup.core.XPathHelper;
+import com.github.cafdataprocessing.worker.markup.core.XmlConverter;
+import com.github.cafdataprocessing.worker.markup.core.XmlFieldEntry;
+import com.github.cafdataprocessing.worker.markup.core.XmlVerifier;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.Codec;
 import com.hpe.caf.api.worker.*;

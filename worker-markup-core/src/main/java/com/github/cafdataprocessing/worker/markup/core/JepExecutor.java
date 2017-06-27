@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hpe.caf.worker.markup;
+package com.github.cafdataprocessing.worker.markup.core;
 
 import com.hpe.caf.worker.emailsegregation.ContentSegregation;
 import java.util.List;
