@@ -40,15 +40,14 @@ import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MarkupDocument
+public class MarkupDocumentEngine implements AutoCloseable
 {
-    private static final Logger LOG = LoggerFactory.getLogger(MarkupDocument.class);
-
-    final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
-    final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
+    private static final Logger LOG = LoggerFactory.getLogger(MarkupDocumentEngine.class);
+    private final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
+    private final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
 
     /**
-     * Public method to expose Markup worker logic to a document worker
+     * Public method to expose Markup Worker logic to a Document Worker
      *
      * @param document Instance of document worker document object
      * @param hashConfiguration The hash configuration to use when generating document hashes
@@ -81,7 +80,7 @@ public class MarkupDocument
     }
 
     /**
-     * Public method to expose Markup worker logic to a markup worker
+     * Public method to expose Markup Worker logic to a Markup Worker
      *
      * @param task Markup worker task provided to the worker
      * @param codec codec to use in creation of dataSource
@@ -169,5 +168,11 @@ public class MarkupDocument
             LOG.error("Error during splitting of emails. ", ee);
             throw ee;
         }
+    }
+
+    @Override
+    public void close()
+    {
+        jepThreadPool.shutdown();
     }
 }

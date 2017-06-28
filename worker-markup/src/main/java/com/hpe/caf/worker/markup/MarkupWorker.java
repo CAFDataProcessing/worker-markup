@@ -15,7 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
-import com.github.cafdataprocessing.worker.markup.core.MarkupDocument;
+import com.github.cafdataprocessing.worker.markup.core.MarkupDocumentEngine;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import com.hpe.caf.api.Codec;
 import com.hpe.caf.api.ConfigurationException;
@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
 
 /**
  * processing the Hash map key pairs and placing the, into XML.
@@ -35,6 +34,7 @@ import java.util.logging.Level;
 public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerResult>
 {
     private final MarkupWorkerConfiguration config;
+    private final MarkupDocumentEngine markupDocument;
 
     /**
      * Logger for logging purposes.
@@ -46,12 +46,14 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
                         final DataStore dataStore,
                         final String outputQueue,
                         final Codec codec,
-                        final MarkupWorkerConfiguration config)
+                        final MarkupWorkerConfiguration config,
+                        final MarkupDocumentEngine markupDocument)
         throws InvalidTaskException
     {
         super(task, outputQueue, codec);
         this.dataStore = Objects.requireNonNull(dataStore);
         this.config = config;
+        this.markupDocument = markupDocument;
     }
 
     @Override
@@ -93,11 +95,9 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
      */
     private MarkupWorkerResult processInput() throws InterruptedException
     {
-        final MarkupDocument markupWorker = new MarkupDocument();
         LOG.info("Starting work");
         try {
-            final MarkupWorkerResult workerResult = markupWorker.markupDocument(getTask(), dataStore, getCodec(), config);
-            return workerResult;
+            return markupDocument.markupDocument(getTask(), dataStore, getCodec(), config);
         } catch (JDOMException jdome) {
             LOG.error("Error during JDOM parsing. ", jdome);
             return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
@@ -105,7 +105,7 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
             LOG.error("Error during splitting of emails. ", ee);
             return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
         } catch (ConfigurationException ex) {
-             LOG.error("Error during retrieval of configuration. ", ex);
+            LOG.error("Error during retrieval of configuration. ", ex);
             return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
         }
     }

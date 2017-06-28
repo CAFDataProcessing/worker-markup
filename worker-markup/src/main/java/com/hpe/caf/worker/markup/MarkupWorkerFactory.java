@@ -15,9 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
-import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
-import com.github.cafdataprocessing.worker.markup.core.JepExecutor;
-import com.github.cafdataprocessing.worker.markup.core.MarkupHeadersAndBody;
+import com.github.cafdataprocessing.worker.markup.core.MarkupDocumentEngine;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerHealthCheck;
 import com.hpe.caf.api.Codec;
@@ -29,23 +27,20 @@ import com.hpe.caf.api.worker.InvalidTaskException;
 import com.hpe.caf.api.worker.Worker;
 import com.hpe.caf.api.worker.WorkerException;
 import com.hpe.caf.worker.AbstractWorkerFactory;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Factory class for creating a MarkupWorker.
  */
 public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfiguration, MarkupWorkerTask>
 {
-    private final ExecutorService jepThreadPool;
     private final MarkupWorkerConfiguration config;
+    private final MarkupDocumentEngine markupDocument;
 
     public MarkupWorkerFactory(ConfigurationSource configSource, DataStore store, Codec codec) throws WorkerException
     {
         super(configSource, store, codec, MarkupWorkerConfiguration.class, MarkupWorkerTask.class);
-        jepThreadPool = Executors.newSingleThreadExecutor();
-
         config = getMarkupWorkerConfig(configSource);
+        markupDocument = new MarkupDocumentEngine();
     }
 
     @Override
@@ -63,7 +58,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
     @Override
     public void shutdown()
     {
-        jepThreadPool.shutdown();
+        markupDocument.close();
     }
 
     /**
@@ -81,7 +76,8 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
             getDataStore(),
             getConfiguration().getOutputQueue(),
             getCodec(),
-            config);
+            config,
+        markupDocument);
     }
 
     @Override
