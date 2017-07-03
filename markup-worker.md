@@ -55,7 +55,7 @@ There are additional configurations to be supplied by the user on a per-task bas
 | --------------------- | ------------------ |
 | `name` | The name of the hash to be included, which is added to the `<hash>` element as an attribute for identification purposes. |
 | `scope` | The scope of the email chain to perform the hash, i.e. <br/>`EMAIL_SPECIFIC`:<br/>Include fields from individual emails in the hash and apply `<hash>` tags at email level.<br/>`EMAIL_THREAD`:<br/>Include the fields of the entire email thread in the hash and apply `<hash>` tags at a thread level.<br/>*Note: Also use this value for non-emails, to generate hash digests for an entire document.* |
-| `fields` | A list of field objects, these represent tag elements to include in the hash. <br/> `name`: the name of the element tag as it appears in the XML. <br/> `normalizationType`: the type of normalization to be applied to the contents of this tag element i.e. `NONE`, `REMOVE_WHITESPACE`, `REMOVE_WHITESPACE_AND_LINKS`, `NAME_ONLY`. |
+| `fields` | A list of field objects, these represent tag elements to include in the hash. <br/> `name`: the name of the element tag as it appears in the XML. <br/> `normalizationType`: the type of normalization to be applied to the contents of this tag element i.e. `NONE`, `REMOVE_WHITESPACE`, `REMOVE_WHITESPACE_AND_LINKS`, `NAME_ONLY`, `NORMALIZE_PRIORITY`. |
 | `hashFunctions` | A list of hash functions to be performed on the fields above. i.e. `NONE` or `XXHASH64`. |
 
 #### OutputField

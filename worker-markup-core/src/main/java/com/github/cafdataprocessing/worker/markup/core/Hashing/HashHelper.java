@@ -275,6 +275,9 @@ public class HashHelper
             case NAME_ONLY:
                 normalizedStr = nameOnly(currentElementValue);
                 break;
+            case NORMALIZE_PRIORITY:
+                normalizedStr = normalizePriority(currentElementValue);
+                break;
             default:
                 LOG.error("normalizeValueAndAddToXMLElement: Error - '{}'",
                           "Normalization type must be specified for the field " + currentElement.getName());
@@ -397,6 +400,15 @@ public class HashHelper
         str = str.replaceAll("\'", "");
         // Remove reply email quotation marks (> characters)
         str = str.replaceAll(">", "");
+        return str;
+    }
+
+    /**
+     * If the string is a recognized priority value then this is converted to a standard form.
+     */
+    private static String normalizePriority(final String str)
+    {
+        //TODO:
         return str;
     }
 

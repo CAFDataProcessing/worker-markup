@@ -38,5 +38,10 @@ public enum NormalizationType
     /**
      * Removes whitespace and links from body text.
      */
-    REMOVE_WHITESPACE_AND_LINKS
+    REMOVE_WHITESPACE_AND_LINKS,
+
+    /**
+     * Normalizes email priority values to a standard form.
+     */
+    NORMALIZE_PRIORITY
 }
