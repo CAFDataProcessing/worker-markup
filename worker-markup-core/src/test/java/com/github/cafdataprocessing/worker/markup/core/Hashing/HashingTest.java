@@ -148,6 +148,46 @@ public class HashingTest
     }
 
     /**
+     * Test the hash functionality. A test configuration will be created with fields including priority to be included in the hash.
+     * The priority values are from different priority formats but are equivalent so they should match after priority normalization.
+     *
+     * Asserts that the hash tag elements have been successfully added into the xml markup.
+     *
+     * @throws org.jdom2.JDOMException
+     * @throws java.io.IOException
+     */
+    @Test
+    public void testHashingTwoIdenticalEmailsWithPriorityGenerateSameHash() throws JDOMException, IOException
+    {
+        List<Field> fields = new ArrayList<>();
+
+        Field toField = new Field();
+        toField.name = "to";
+        fields.add(toField);
+
+        Field priorityField = new Field();
+        priorityField.name = "priority";
+        priorityField.normalizationType = NormalizationType.NORMALIZE_PRIORITY;
+        fields.add(priorityField);
+
+        List<HashFunction> hashFunctions = new ArrayList<>();
+        hashFunctions.add(HashFunction.XXHASH64);
+        HashConfiguration hashConfiguration = new HashConfiguration();
+        hashConfiguration.fields = fields;
+        hashConfiguration.hashFunctions = hashFunctions;
+
+        List<HashConfiguration> config = new ArrayList<>();
+        config.add(hashConfiguration);
+
+        Document jdomDoc = createDummyDocumentTwoIdenticalEmailsWithEquivalentPriority();
+        HashHelper.generateHashes(jdomDoc, config);
+        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, config));
+
+        Iterator<Element> iterator = jdomDoc.getRootElement().getDescendants(new ElementFilter("digest"));
+        Assert.assertEquals(iterator.next().getAttributeValue("value"), iterator.next().getAttributeValue("value"));
+    }
+
+    /**
      * Private method for asserting the elements were correctly added to the hash xml tag elements in the correct order and contain the
      * correct values.
      *
@@ -434,6 +474,56 @@ public class HashingTest
             + "</email>"
             + "</CONTENT>"
             + "</root>";
+
+        SAXBuilder saxBuilder = new SAXBuilder();
+
+        Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
+        return doc;
+    }
+
+    /**
+     * Create dummy document from a string containing one email.
+     *
+     * @return
+     */
+    private Document createDummyDocumentTwoIdenticalEmailsWithEquivalentPriority() throws JDOMException, IOException
+    {
+        String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                + "<root>  "
+                + "<sentTime time=\"2016-07-22T10:21:00Z\" />  "
+                + "<CONTENT>"
+                + "<email messageId=\"950124.162336@example.com\" exchangeConversionId=\"sdsd\">    "
+                + "<headers>      "
+                + "<from user=\"andrew.reid@hpe.com\">From: Reid, Andy</from>      "
+                + "<sent date=\"2016-07-22 10:21\">Sent: 22 July 2016 10:21 AM</sent>      "
+                + "<to>To: Paul, Navamoni &lt;paul.navamoni@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</to>      "
+                + "<cc>Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;</cc>      "
+                + "<subject normalised=\"iSTF - CAF Integration\">Subject: RE: iSTF - CAF Integration</subject>    "
+                + "<priority>2</priority>    "
+                + "</headers>    "
+                + "<body>      "
+                + "<opening>     Hi Navamoni,      </opening>      "
+                + "<p>Is this ready yet?</p>      "
+                + "<signature>      Thanks      Andy      </signature>    "
+                + "</body>  "
+                + "</email>"
+                + "<email messageId=\"950124.162336@example.com\" exchangeConversionId=\"sdsd\">    "
+                + "<headers>      "
+                + "<from user=\"andrew.reid@hpe.com\">From: Reid, Andy</from>      "
+                + "<sent date=\"2016-07-22 10:21\">Sent: 22 July 2016 10:21 AM</sent>      "
+                + "<to>To: Paul, Navamoni &lt;paul.navamoni@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</to>      "
+                + "<cc>Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;</cc>      "
+                + "<subject normalised=\"iSTF - CAF Integration\">Subject: RE: iSTF - CAF Integration</subject>    "
+                + "<priority>Highest</priority>    "
+                + "</headers>    "
+                + "<body>      "
+                + "<opening>     Hi Navamoni,      </opening>      "
+                + "<p>Is this ready yet?</p>      "
+                + "<signature>      Thanks      Andy      </signature>    "
+                + "</body>  "
+                + "</email>"
+                + "</CONTENT>"
+                + "</root>";
 
         SAXBuilder saxBuilder = new SAXBuilder();
 
