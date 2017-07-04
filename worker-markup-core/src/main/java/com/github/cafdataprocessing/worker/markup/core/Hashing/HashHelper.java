@@ -15,6 +15,8 @@
  */
 package com.github.cafdataprocessing.worker.markup.core.Hashing;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
 import com.hpe.caf.worker.markup.*;
 import net.openhft.hashing.LongHashFunction;
 import org.jdom2.Attribute;
@@ -26,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -40,6 +43,17 @@ public class HashHelper
     private static final String ERR_MSG_NO_FIELDS_SPECIFIED = "No fields have been specified in the hash configuration. You must specify fields to be included in the hash.";
     private static final String ERR_MSG_DOCUMENT_NULL = "The document is null.";
     private static final String ERR_MSG_NO_TYPE = "No type has been specified in the hash configuration. This has been defaulted to be EMAIL_SPECIFIC.";
+
+    private static final Map<String, String> PRIORITY_NORMALIZATIONS = ImmutableMap.<String, String> builder()
+            .put("0", "Low")
+            .put("1", "Normal")
+            .put("2", "High")
+            .put("lowest", "Low")
+            .put("low", "Low")
+            .put("normal", "Normal")
+            .put("high", "High")
+            .put("highest", "High")
+            .build();
 
     private HashHelper()
     {
@@ -404,12 +418,14 @@ public class HashHelper
     }
 
     /**
-     * If the string is a recognized priority value then this is converted to a standard form.
+     * If the supplied string is a recognized email priority value then this is converted to a standard form.
+     *
+     * Otherwise the supplied string is returned.
      */
     private static String normalizePriority(final String str)
     {
-        //TODO:
-        return str;
+        final String normalizedPriority = PRIORITY_NORMALIZATIONS.get(str.trim().toLowerCase());
+        return Strings.isNullOrEmpty(normalizedPriority) ? str : normalizedPriority;
     }
 
     /**
