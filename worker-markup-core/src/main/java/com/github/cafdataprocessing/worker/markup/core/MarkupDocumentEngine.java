@@ -55,12 +55,10 @@ public class MarkupDocumentEngine implements AutoCloseable
      * @param isEmail if the document is of email type.
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
-     * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
-     * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
      */
     public void markupDocument(final Document document, final List<HashConfiguration> hashConfiguration,
                                final List<OutputField> outputFields, final boolean isEmail)
-        throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
+        throws InterruptedException, ConfigurationException
     {
         final MarkupWorkerConfiguration config = document.getApplication().getService(ConfigurationSource.class)
             .getConfiguration(MarkupWorkerConfiguration.class);

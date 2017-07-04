@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hpe.caf.worker.markup.Hashing;
+package com.github.cafdataprocessing.worker.markup.core.Hashing;
 
-import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
 import com.hpe.caf.worker.markup.Field;
 import com.hpe.caf.worker.markup.HashConfiguration;
 import com.hpe.caf.worker.markup.HashFunction;

@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hpe.caf.worker.markup;
+package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.XPathHelper;
+import com.hpe.caf.worker.markup.NameValuePair;
+import com.hpe.caf.worker.markup.OutputField;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.output.XMLOutputter;
