@@ -40,7 +40,7 @@ public class ConvertSourceData
             for (FieldValue fieldValue : field.getValues()) {
                 if (fieldValue.isReference()) {
                     sourceData.put(field.getName(), ReferencedData.getReferencedData(fieldValue.getReference()));
-                } else if (!fieldValue.isStringValue()) {
+                } else {
                     sourceData.put(field.getName(), ReferencedData.getWrappedData(fieldValue.getValue()));
                 }
             }
