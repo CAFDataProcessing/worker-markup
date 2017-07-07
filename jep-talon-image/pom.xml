@@ -74,7 +74,7 @@
                     <images>
                         <image>
                             <alias>jep_talon-image</alias>
-                            <name>rh7-artifactory.svs.hpeswlab.net:8443/caf/jep_talon-image:${project.version}</name>
+                            <name>${containers.jep-talon.name}</name>
                             <build>
                                 <from>java:8</from>
                                 <maintainer>adam.pau.rogan@hpe.com</maintainer>

@@ -233,7 +233,7 @@
                     <watchInterval>500</watchInterval>
                     <logDate>default</logDate>
                     <verbose>true</verbose>
-                    <autoPull>always</autoPull>
+                    <autoPull>on</autoPull>
                     <images>
 
                         <image>
@@ -317,7 +317,7 @@
                             <name>cafinternal/prereleases:worker-markup-${project.version}</name>
                             <build>
                                 <maintainer>conal.smith@hpe.com</maintainer>
-                                <from>rh7-artifactory.svs.hpeswlab.net:8443/caf/jep_talon-image:${project.version}</from>
+                                <from>{containers.jep-talon.name}</from>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
                                     <Build.Date>${maven.build.timestamp}</Build.Date>
