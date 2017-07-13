@@ -38,7 +38,7 @@ public final class XmlVerifier
         // Check that the first field is not called 'hash'
         final int expectedNumberOfFields = expectedFieldEntries.size();
         if (expectedNumberOfFields > 0 && expectedFieldEntries.get(0).getName().equals("hash")) {
-            // This is a pretty unusual circumstance but since the getFieldElements() method can't currently distinuish a field named
+            // This is a pretty unusual circumstance but since the getFieldElements() method can't currently distinguish a field named
             // 'hash' from a hash that was added to the xml document, we're just not going to bother with the verification if the first
             // field expected is named 'hash'.
             return;
