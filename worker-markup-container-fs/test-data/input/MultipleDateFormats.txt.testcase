@@ -57,8 +57,7 @@ expectedOutputData:
   - name: "ROOT_ID"
     value: "969b26c06e65c4e9"
   - name: "XML"
-    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
-      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
@@ -107,6 +106,7 @@ expectedOutputData:
       \ /></hash><headers><From>From: McKeown, Zara </From>\r\n<Sent dateUtc=\"2016-09-27T12:20:00Z\"\
       >Sent: 27 September 2016 12:20</Sent>\r\n<To>To: Rogan, Adam Pau &lt;adam.pau.rogan@hpe.com&gt;</To>\r\
       \n<Subject>Subject: From a mixture of email clients</Subject>\r\n</headers><body>\
-      \ \r\nHi\r\n</body></email></CONTENT><sent>Thu, 19 Nov 2015 09:25:21 +0000</sent></root>\r\
+      \ \r\nHi\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
       \n"
   status: "COMPLETED"

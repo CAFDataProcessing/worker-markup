@@ -55,8 +55,7 @@ expectedOutputData:
   - name: "ROOT_ID"
     value: "85756113cd6140e6"
   - name: "XML"
-    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
-      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
@@ -66,6 +65,7 @@ expectedOutputData:
       \n<Subject>Asunto: Migration of osprey gateway</Subject>\r\n<Sent dateUtc=\"\
       2016-11-30T03:23:10Z\">Fecha: Wed, 30 Nov 2016 03:23:10 +0000</Sent>\r\n</headers><body>\r\
       \nSome body text in spanish!\r\n\r\nMichael B\r\nQA Engineer\r\nSoftware Engineering\r\
-      \nBig Data\r\n\r\nmichael.b@hpe.com</body></email></CONTENT><sent>Thu, 19 Nov\
-      \ 2015 09:25:21 +0000</sent></root>\r\n"
+      \nBig Data\r\n\r\nmichael.b@hpe.com</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
   status: "COMPLETED"
