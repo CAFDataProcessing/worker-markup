@@ -275,6 +275,9 @@ public class HashHelper
     {
         final String currentElementValue = currentElement.getValue();
 
+        System.out.println("TEMP_LOG: Normalization type: {}" + currentField.normalizationType + ". Before normalization string for " + currentElement.getName() + ": " +currentElementValue);
+
+        LOG.info("TEMP_LOG: Normalization type: {}. Before normalization string for {}: {}", currentField.normalizationType, currentElement.getName(), currentElementValue);
         String normalizedStr;
         switch (currentField.normalizationType) {
             case NONE:
@@ -299,7 +302,11 @@ public class HashHelper
                     "Normalization type must be specified for the field " + currentElement.getName());
         }
 
+        LOG.info("TEMP_LOG: Normalization type: {}. Normalized string for {}: {}", currentField.normalizationType, currentElement.getName(), normalizedStr);
         // Add current element to the temporary xml root element
+        if (currentField.normalizationType == NormalizationType.NORMALIZE_PRIORITY && normalizedStr.equals("Normal")) {
+            return;
+        }
         tempXMLElement.addContent(new Element(currentElement.getName()).setText(normalizedStr));
     }
 
@@ -394,6 +401,11 @@ public class HashHelper
         str = str.replaceAll("<\\S+?>", "");
         // Remove reply email quotation marks (> characters)
         str = str.replaceAll(">", "");
+        str = str.replaceAll("‘", "'");
+        str = str.replaceAll("’", "'");
+        str = str.replaceAll("“", "\"");
+        str = str.replaceAll("”", "\"");
+        str = str.replaceAll("–", "-");
         return str;
     }
 
@@ -407,13 +419,15 @@ public class HashHelper
         // Remove whitespace.
         str = str.replaceAll("\\s+", "");
         // Search for a < character, remove all non-whitespace and whitespace characters until the next >, including the < and >.
-        str = str.replaceAll("<\\S+?>", "");
+        str = str.replaceAll("<[^,;]+>", "");
         // Remove double quotation marks.
         str = str.replaceAll("\"", "");
         // Remove single quotation marks.
         str = str.replaceAll("\'", "");
         // Remove reply email quotation marks (> characters)
         str = str.replaceAll(">", "");
+        // Replace semicolons to comas
+        str = str.replaceAll(";", ",");
         return str;
     }
 
