@@ -275,9 +275,6 @@ public class HashHelper
     {
         final String currentElementValue = currentElement.getValue();
 
-        System.out.println("TEMP_LOG: Normalization type: {}" + currentField.normalizationType + ". Before normalization string for " + currentElement.getName() + ": " +currentElementValue);
-
-        LOG.info("TEMP_LOG: Normalization type: {}. Before normalization string for {}: {}", currentField.normalizationType, currentElement.getName(), currentElementValue);
         String normalizedStr;
         switch (currentField.normalizationType) {
             case NONE:
@@ -301,8 +298,6 @@ public class HashHelper
                 throw new IllegalArgumentException(
                     "Normalization type must be specified for the field " + currentElement.getName());
         }
-
-        LOG.info("TEMP_LOG: Normalization type: {}. Normalized string for {}: {}", currentField.normalizationType, currentElement.getName(), normalizedStr);
         // Add current element to the temporary xml root element
         if (currentField.normalizationType == NormalizationType.NORMALIZE_PRIORITY && normalizedStr.equals("Normal")) {
             return;

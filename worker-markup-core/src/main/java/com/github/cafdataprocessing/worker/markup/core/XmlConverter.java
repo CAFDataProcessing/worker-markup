@@ -138,10 +138,7 @@ public final class XmlConverter
 
         try {
             // Get content using UTF-8
-            String s = IOUtils.toString(refDataBytes, "UTF-8");
-            System.out.println("TEMPLOG: CONTENT AS STRING:");
-            System.out.println(s);
-            return s;
+            return IOUtils.toString(refDataBytes, "UTF-8");
         } catch (Exception e) {
             // Catch and retry with 1252 encoding.
             LOG.error("Failed to convert to utf8", e);

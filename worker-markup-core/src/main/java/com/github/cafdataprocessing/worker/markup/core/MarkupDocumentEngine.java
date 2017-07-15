@@ -33,13 +33,11 @@ import com.hpe.caf.worker.markup.MarkupWorkerStatus;
 import com.hpe.caf.worker.markup.MarkupWorkerTask;
 import com.hpe.caf.worker.markup.OutputField;
 
-import java.text.Normalizer;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.jdom2.JDOMException;
-import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,15 +150,10 @@ public class MarkupDocumentEngine implements AutoCloseable
             // Verify that the values of the fields have not been modified
             // (This is the Markup Worker - it should only be marking up fields, without modifying them)
             XmlVerifier.verifyXmlDocument(doc, xmlFieldEntries);
-            String s = new XMLOutputter().outputString(doc);
-            LOG.info("---------------------------------");
 
-            LOG.info("TEMP_LOG: FULL XML:\n{}", s);
-            LOG.info("---------------------------------");
             //Create the worker result with the ReferencedData object containing the bytes for the XML String
             MarkupWorkerResult workerResult = new MarkupWorkerResult();
             workerResult.workerStatus = MarkupWorkerStatus.COMPLETED;
-
 
             // Add the list of fields to the
             workerResult.fieldList = XPathHelper.processDocumentWithXPathExpressions(doc, outputFields);
