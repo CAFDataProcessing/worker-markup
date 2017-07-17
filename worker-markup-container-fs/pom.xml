@@ -452,6 +452,32 @@
                 <failsafe.timeout>120000</failsafe.timeout>
             </properties>
         </profile>
+        <!-- profile to optionally disable build of a container, you can enable this profile, and run your tests against
+        a fixed container without rebuilding each time. -->
+        <profile>
+            <id>skip-build-docker-container</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${fabric8.docker.maven.version}</version>
+                        <executions>
+                            <execution>
+                                <id>build-docker-container</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>true</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <repositories>
