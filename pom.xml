@@ -100,16 +100,15 @@
     
     <properties>
         <caf.worker-document.version>3.0.0-SNAPSHOT</caf.worker-document.version>
-        <caf.worker-framework.version>1.9.0-260</caf.worker-framework.version>
         <containers.jep-talon.name>cafinternal/prereleases:jep_talon-image-${project.version}</containers.jep-talon.name>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.github.workerframework</groupId>
-                <artifactId>worker-framework</artifactId>
-                <version>${caf.worker-framework.version}</version>
+                <groupId>com.github.cafdataprocessing</groupId>
+                <artifactId>worker-document-framework</artifactId>
+                <version>${caf.worker-document.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -45,12 +45,10 @@
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
             <artifactId>worker-document-interface</artifactId>
-            <version>${caf.worker-document.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
             <artifactId>worker-document-testing-unit</artifactId>
-            <version>${caf.worker-document.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
