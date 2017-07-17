@@ -6,9 +6,35 @@ testCaseInformation:
   description: "Comparison and Variant Hashing"
   comments: "CAF_11012/MsgNever Sent.msg.txt"
 inputData:
-  useDataStore: false
   containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
   inputFile: "CAF_11012/MsgNever Sent.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
   sourceData:
     subject:
     - "CAF Test Extract - simple"
@@ -18,49 +44,24 @@ inputData:
     - "Admin/hpq%hpq@hpswlabs.hp.com"
     sent:
     - "Thu, 19 Nov 2015 09:25:21 +0000"
-  hashConfiguration:
-  - name: "Normalized"
-    scope: "EMAIL_SPECIFIC"
-    fields:
-    - name: "to"
-      normalizationType: "NONE"
-    - name: "body"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  - name: "Variant"
-    scope: "EMAIL_THREAD"
-    fields:
-    - name: "cc"
-      normalizationType: "NONE"
-    - name: "subject"
-      normalizationType: "NONE"
-    - name: "sent"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  outputFieldList:
-  - field: "XML"
-    xPathExpression: "."
-  - field: "ALL_TO"
-    xPathExpression: "//To"
-  email: true
+  storageReference: null
+  useDataStore: false
 expectedOutputData:
-  expectedContentFile: null
-  expectedSimilarityPercentage: 100
   comparisonType: "TEXT"
-  status: "COMPLETED"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 1000000
   fieldList:
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
       ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
       subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
       REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
-      adb8a97a124724f4\" /></hash><subject>CAF Test Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
-      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
-      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"93d538f53168f796\" /></hash><headers><Sent>Sent:\
-      \ </Sent>\r\n<Cc>Cc: McCloskey, Karen</Cc>\r\n<Subject>Subject: To field is\
-      \ blank</Subject>\r\n<Importance>Importance: Normal</Importance>\r\n</headers><body>\r\
-      \nBut CC field has  value\r\n</body></email></CONTENT><sent>Thu, 19 Nov 2015\
-      \ 09:25:21 +0000</sent></root>\r\n"
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      93d538f53168f796\" /></hash><headers><Sent>Sent: </Sent>\r\n<Cc>Cc: McCloskey,\
+      \ Karen</Cc>\r\n<Subject>Subject: To field is blank</Subject>\r\n<Importance>Importance:\
+      \ Normal</Importance>\r\n</headers><body>\r\nBut CC field has  value\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  status: "COMPLETED"

@@ -46,7 +46,7 @@ inputData:
 expectedOutputData:
   comparisonType: "TEXT"
   expectedContentFile: null
-  expectedSimilarityPercentage: 0
+  expectedSimilarityPercentage: 100
   fieldList:
   - name: "SECTION_SORT"
     value: "2017-02-16T12:35:42Z"
@@ -57,8 +57,7 @@ expectedOutputData:
   - name: "ROOT_ID"
     value: "52f547c4aae09b82"
   - name: "XML"
-    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
-      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
@@ -90,6 +89,7 @@ expectedOutputData:
       >Sent: 16 February 2017 12:28</Sent>\r\n<To>To: Michael Bryson</To>\r\n<Subject>Subject:\
       \ Test Hotmail Email </Subject>\r\n</headers><body> \r\nHi,\r\n\r\nThis is a\
       \ test email to see how Hotmail email headers are displayed.\r\n\r\nThanks\r\
-      \nMichael\r\n\r\n\r\n</body></email></CONTENT><sent>Thu, 19 Nov 2015 09:25:21\
-      \ +0000</sent></root>\r\n"
+      \nMichael\r\n\r\n\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
   status: "COMPLETED"

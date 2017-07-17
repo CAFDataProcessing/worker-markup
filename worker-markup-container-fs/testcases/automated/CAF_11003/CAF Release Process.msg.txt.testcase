@@ -6,9 +6,35 @@ testCaseInformation:
   description: "Extend markup worker with email splitting"
   comments: "CAF_11003/CAF Release Process.msg.txt"
 inputData:
-  useDataStore: false
   containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
   inputFile: "CAF_11003/CAF Release Process.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
   sourceData:
     subject:
     - "CAF Test Extract - simple"
@@ -18,55 +44,29 @@ inputData:
     - "Admin/hpq%hpq@hpswlabs.hp.com"
     sent:
     - "Thu, 19 Nov 2015 09:25:21 +0000"
-  hashConfiguration:
-  - name: "Normalized"
-    scope: "EMAIL_SPECIFIC"
-    fields:
-    - name: "to"
-      normalizationType: "NONE"
-    - name: "body"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  - name: "Variant"
-    scope: "EMAIL_THREAD"
-    fields:
-    - name: "cc"
-      normalizationType: "NONE"
-    - name: "subject"
-      normalizationType: "NONE"
-    - name: "sent"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  outputFieldList:
-  - field: "XML"
-    xPathExpression: "."
-  - field: "ALL_TO"
-    xPathExpression: "//To"
-  email: true
+  storageReference: null
+  useDataStore: false
 expectedOutputData:
+  comparisonType: "TEXT"
   expectedContentFile: null
   expectedSimilarityPercentage: 100
-  comparisonType: "TEXT"
-  status: "COMPLETED"
   fieldList:
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
       ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
       subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
       REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
-      adb8a97a124724f4\" /></hash><subject>CAF Test Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
-      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
-      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"2385b7ef56cbcc9a\" /></hash><headers><From>From:\
-      \ Bryson, Michael</From>\r\n<Sent dateUtc=\"2016-05-19T14:17:55Z\">Sent: Thu\
-      \ May 19 14:17:55 2016</Sent>\r\n<To>To: Ploch, Krzysztof; Comac, Christopher\
-      \ Jam; Crooks, Philip; Getty, Trevor; Hardy, Dermot; Mulholland, Connor; Bryson,\
-      \ Michael; Smith, Conal; O'Loughlin, Aaron; Reid, Andy; McMurray, Pearse P;\
-      \ Gibson, Dominic Joh; Payne, Alastair; Neeson, Gavin Francis; Hunter, Ashley\
-      \ Glenn</To>\r\n<Subject>Subject: CAF Release Process</Subject>\r\n<Importance>Importance:\
-      \ High</Importance>\r\n<Attachments>Attachments: Artifactory folder organization.docx</Attachments>\r\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      2385b7ef56cbcc9a\" /></hash><headers><From>From: Bryson, Michael</From>\r\n\
+      <Sent dateUtc=\"2016-05-19T14:17:55Z\">Sent: Thu May 19 14:17:55 2016</Sent>\r\
+      \n<To>To: Ploch, Krzysztof; Comac, Christopher Jam; Crooks, Philip; Getty, Trevor;\
+      \ Hardy, Dermot; Mulholland, Connor; Bryson, Michael; Smith, Conal; O'Loughlin,\
+      \ Aaron; Reid, Andy; McMurray, Pearse P; Gibson, Dominic Joh; Payne, Alastair;\
+      \ Neeson, Gavin Francis; Hunter, Ashley Glenn</To>\r\n<Subject>Subject: CAF\
+      \ Release Process</Subject>\r\n<Importance>Importance: High</Importance>\r\n\
+      <Attachments>Attachments: Artifactory folder organization.docx</Attachments>\r\
       \n</headers><body>\r\nHi All,\r\n\r\nAs we move closer to GA we need to start\
       \ utilizing the CAF Release process as detailed in the following diagram:\r\n\
       \r\n \r\n\r\nWhat this means for us is:\r\n· We should not have any “release”\
@@ -79,10 +79,12 @@ expectedOutputData:
       t fit completely with us as this is more relevant to Aspen.\r\n\r\n\r\n    \r\
       \nComments on this are welcome to see how we can implement this.\r\n\r\nThanks\r\
       \n\r\nMichael Bryson\r\nQA Engineer\r\nSoftware Engineering\r\nBig Data\r\n\r\
-      \nBelfast, N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><sent>Thu,\
-      \ 19 Nov 2015 09:25:21 +0000</sent></root>\r\n"
+      \nBelfast, N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
   - name: "ALL_TO"
     value: "To: Ploch, Krzysztof; Comac, Christopher Jam; Crooks, Philip; Getty, Trevor;\
       \ Hardy, Dermot; Mulholland, Connor; Bryson, Michael; Smith, Conal; O'Loughlin,\
       \ Aaron; Reid, Andy; McMurray, Pearse P; Gibson, Dominic Joh; Payne, Alastair;\
       \ Neeson, Gavin Francis; Hunter, Ashley Glenn"
+  status: "COMPLETED"

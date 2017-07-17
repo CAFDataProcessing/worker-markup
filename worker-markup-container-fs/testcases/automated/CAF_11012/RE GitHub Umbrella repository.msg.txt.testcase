@@ -6,9 +6,35 @@ testCaseInformation:
   description: "Comparison and Variant Hashing"
   comments: "CAF_11012/RE GitHub Umbrella repository.msg.txt"
 inputData:
-  useDataStore: false
   containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
   inputFile: "CAF_11012/RE GitHub Umbrella repository.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
   sourceData:
     subject:
     - "CAF Test Extract - simple"
@@ -18,52 +44,26 @@ inputData:
     - "Admin/hpq%hpq@hpswlabs.hp.com"
     sent:
     - "Thu, 19 Nov 2015 09:25:21 +0000"
-  hashConfiguration:
-  - name: "Normalized"
-    scope: "EMAIL_SPECIFIC"
-    fields:
-    - name: "to"
-      normalizationType: "NONE"
-    - name: "body"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  - name: "Variant"
-    scope: "EMAIL_THREAD"
-    fields:
-    - name: "cc"
-      normalizationType: "NONE"
-    - name: "subject"
-      normalizationType: "NONE"
-    - name: "sent"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  outputFieldList:
-  - field: "XML"
-    xPathExpression: "."
-  - field: "ALL_TO"
-    xPathExpression: "//To"
-  email: true
+  storageReference: null
+  useDataStore: false
 expectedOutputData:
+  comparisonType: "TEXT"
   expectedContentFile: null
   expectedSimilarityPercentage: 100
-  comparisonType: "TEXT"
-  status: "COMPLETED"
   fieldList:
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
       ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
       subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
       REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
-      adb8a97a124724f4\" /></hash><subject>CAF Test Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
-      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
-      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"4e7a524a3c160b22\" /></hash><headers><From>From:\
-      \ Hardy, Dermot</From>\r\n<Sent dateUtc=\"2016-05-23T20:32:34Z\">Sent: Mon May\
-      \ 23 20:32:34 2016</Sent>\r\n<To>To: Bryson, Michael; Reid, Andy; Ploch, Krzysztof;\
-      \ McAlynn, Michael</To>\r\n<Subject>Subject: RE: GitHub Umbrella repository</Subject>\r\
-      \n<Importance>Importance: Normal</Importance>\r\n<Attachments>Attachments: image.jpg</Attachments>\r\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      4e7a524a3c160b22\" /></hash><headers><From>From: Hardy, Dermot</From>\r\n<Sent\
+      \ dateUtc=\"2016-05-23T20:32:34Z\">Sent: Mon May 23 20:32:34 2016</Sent>\r\n\
+      <To>To: Bryson, Michael; Reid, Andy; Ploch, Krzysztof; McAlynn, Michael</To>\r\
+      \n<Subject>Subject: RE: GitHub Umbrella repository</Subject>\r\n<Importance>Importance:\
+      \ Normal</Importance>\r\n<Attachments>Attachments: image.jpg</Attachments>\r\
       \n</headers><body>\r\nIf I understand it right using subtrees is basically having\
       \ a copy of the files in the central repository – again I think it would cause\
       \ more confusion than it would solve (with the code being is multiple places\
@@ -124,8 +124,9 @@ expectedOutputData:
       \ find.\r\n\r\nThis is not a final draft so let me know what you think and if\
       \ there is other stuff you think we could add here.\r\n\r\nThanks\r\n\r\nMichael\
       \ Bryson\r\nQA Engineer\r\nSoftware Engineering\r\nBig Data\r\n\r\nBelfast,\
-      \ N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><sent>Thu,\
-      \ 19 Nov 2015 09:25:21 +0000</sent></root>\r\n"
+      \ N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
   - name: "ALL_TO"
     value: "To: Bryson, Michael; Reid, Andy; Ploch, Krzysztof; McAlynn, Michael"
   - name: "ALL_TO"
@@ -140,3 +141,4 @@ expectedOutputData:
   - name: "ALL_TO"
     value: "To: Reid, Andy <andrew.reid@hpe.com>; Hardy, Dermot <dermot.hardy@hpe.com>;\
       \ Ploch, Krzysztof <krzysztof.ploch@hpe.com>; McAlynn, Michael <michael.mcalynn@hpe.com>"
+  status: "COMPLETED"

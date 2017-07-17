@@ -46,7 +46,7 @@ inputData:
 expectedOutputData:
   comparisonType: "TEXT"
   expectedContentFile: null
-  expectedSimilarityPercentage: 0
+  expectedSimilarityPercentage: 100
   fieldList:
   - name: "SECTION_SORT"
     value: "2017-01-05T11:23:16Z"
@@ -57,8 +57,7 @@ expectedOutputData:
   - name: "ROOT_ID"
     value: "529a5ffa1d08f33"
   - name: "XML"
-    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
-      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
@@ -137,6 +136,7 @@ expectedOutputData:
       \n<Cc>Cc: Comac, Christopher Jam &lt;christopher.jam.comac@hpe.com&gt;</Cc>\r\
       \n<Subject>Subject: CAF-1697 Investigation</Subject>\r\n</headers><body> \r\n\
       Hello.\r\n \r\nThis is an email to investigate CAF-1697 and the behaviour of\
-      \ using GMail web client.\r\n \r\nThanks.\r\n \r\n \r\n \r\n</body></email></CONTENT><sent>Thu,\
-      \ 19 Nov 2015 09:25:21 +0000</sent></root>\r\n"
+      \ using GMail web client.\r\n \r\nThanks.\r\n \r\n \r\n \r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
   status: "COMPLETED"

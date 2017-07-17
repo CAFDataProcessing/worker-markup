@@ -1,14 +1,42 @@
 ---
-tag: "CAF_11024/RE GitHub Umbrella repository.msg.txt"
+tag: "CAF_11024/MsgNever Sent.msg.txt"
 testCaseInformation:
   testCaseId: "CAF_11024"
-  associatedTickets: "CAF-1248"
+  associatedTickets: "CAF-2001"
   description: "Comparison and Variant Hashing with Wildcarded field naming"
-  comments: "CAF_11024/RE GitHub Umbrella repository.msg.txt"
+  comments: "CAF_11024/MsgNever Sent.msg.txt"
 inputData:
-  useDataStore: false
   containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    - name: "CHILD_INFO_*_HASH"
+      normalizationType: "NONE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
   inputFile: "CAF_11024/RE GitHub Umbrella repository.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
   sourceData:
     subject:
     - "CAF Test Extract - simple"
@@ -22,49 +50,20 @@ inputData:
     - "SOMEHASHINFO1"
     CHILD_INFO_2_HASH:
     - "SOMEHASHINFO2"
-  hashConfiguration:
-  - name: "Normalized"
-    scope: "EMAIL_SPECIFIC"
-    fields:
-    - name: "to"
-      normalizationType: "NONE"
-    - name: "body"
-      normalizationType: "REMOVE_WHITESPACE"
-    hashFunctions:
-    - "XXHASH64"
-  - name: "Variant"
-    scope: "EMAIL_THREAD"
-    fields:
-    - name: "cc"
-      normalizationType: "NONE"
-    - name: "subject"
-      normalizationType: "NONE"
-    - name: "sent"
-      normalizationType: "REMOVE_WHITESPACE"
-    - name: "CHILD_INFO_*_HASH"
-      normalizationType: "NONE"
-    hashFunctions:
-    - "XXHASH64"
-  outputFieldList:
-  - field: "XML"
-    xPathExpression: "."
-  - field: "ALL_TO"
-    xPathExpression: "//To"
-  email: true
+  storageReference: null
+  useDataStore: false
 expectedOutputData:
+  comparisonType: "TEXT"
   expectedContentFile: null
   expectedSimilarityPercentage: 100
-  comparisonType: "TEXT"
-  status: "COMPLETED"
   fieldList:
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
       ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
       subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
       REMOVE_WHITESPACE\" /><field name=\"CHILD_INFO_*_HASH\" normalizationType=\"\
-      NONE\" /></fields></config><digest function=\"XXHASH64\" value=\"ef82711c98194a13\"\
-      \ /></hash><CHILD_INFO_2_HASH>SOMEHASHINFO2</CHILD_INFO_2_HASH><subject>CAF\
-      \ Test Extract - simple</subject><CHILD_INFO_1_HASH>SOMEHASHINFO1</CHILD_INFO_1_HASH><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+      NONE\" /></fields></config><digest function=\"XXHASH64\" value=\"a6c20d86211bf948\"\
+      \ /></hash><CHILD_INFO_1_HASH>SOMEHASHINFO1</CHILD_INFO_1_HASH><CHILD_INFO_2_HASH>SOMEHASHINFO2</CHILD_INFO_2_HASH><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
       NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
       \ function=\"XXHASH64\" value=\"4e7a524a3c160b22\" /></hash><headers><From>From:\
@@ -132,8 +131,9 @@ expectedOutputData:
       \ find.\r\n\r\nThis is not a final draft so let me know what you think and if\
       \ there is other stuff you think we could add here.\r\n\r\nThanks\r\n\r\nMichael\
       \ Bryson\r\nQA Engineer\r\nSoftware Engineering\r\nBig Data\r\n\r\nBelfast,\
-      \ N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><sent>Thu,\
-      \ 19 Nov 2015 09:25:21 +0000</sent></root>\r\n"
+      \ N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
   - name: "ALL_TO"
     value: "To: Bryson, Michael; Reid, Andy; Ploch, Krzysztof; McAlynn, Michael"
   - name: "ALL_TO"
@@ -148,3 +148,4 @@ expectedOutputData:
   - name: "ALL_TO"
     value: "To: Reid, Andy <andrew.reid@hpe.com>; Hardy, Dermot <dermot.hardy@hpe.com>;\
       \ Ploch, Krzysztof <krzysztof.ploch@hpe.com>; McAlynn, Michael <michael.mcalynn@hpe.com>"
+  status: "COMPLETED"

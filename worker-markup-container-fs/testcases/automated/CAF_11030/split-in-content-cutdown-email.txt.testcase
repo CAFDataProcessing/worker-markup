@@ -6,23 +6,10 @@ testCaseInformation:
   description: "Email being split in the middle of the body content"
   comments: "CAF_11030/split-in-content-cutdown-email.txt"
 inputData:
-  useDataStore: false
-  containerId: "b591d8c6615c4af99d7915719b01259c"
-  inputFile: "CAF_11030/split-in-content-cutdown-email.txt"
-  storageReference: null
-  sourceData:
-    subject:
-    - "CAF Test Extract - simple"
-    from:
-    - "Admin/hpq%HPQ@hpswlabs.hp.com"
-    to:
-    - "Admin/hpq%hpq@hpswlabs.hp.com"
-    sent:
-    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  containerId: null
+  email: true
   hashConfiguration:
-  - name: "Normalized"
-    scope: "EMAIL_SPECIFIC"
-    fields:
+  - fields:
     - name: "To"
       normalizationType: "NAME_ONLY"
     - name: "From"
@@ -31,6 +18,9 @@ inputData:
       normalizationType: "REMOVE_WHITESPACE_AND_LINKS"
     hashFunctions:
     - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  inputFile: "CAF_11030/split-in-content-cutdown-email.txt"
   outputFieldList:
   - field: "SECTION_SORT"
     xPathExpression: "/root/email[1]/headers/Sent/@dateUtc"
@@ -42,12 +32,21 @@ inputData:
     xPathExpression: "/root/email[last()]/hash/digest/@value"
   - field: "XML"
     xPathExpression: "."
-  email: true
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
 expectedOutputData:
-  expectedContentFile: null
-  expectedSimilarityPercentage: 0
   comparisonType: "TEXT"
-  status: "COMPLETED"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 100
   fieldList:
   - name: "SECTION_SORT"
     value: "2001-04-20T08:57:00Z"
@@ -56,8 +55,7 @@ expectedOutputData:
   - name: "ROOT_ID"
     value: "3a5cddb4e045339c"
   - name: "XML"
-    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
-      \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
@@ -67,5 +65,7 @@ expectedOutputData:
       \n<Subject>Subject: IEP News 4/20</Subject>\r\n</headers><body>\r\n??On a unanimous\
       \ roll call, the Senate voted final approval and sent to Davis\r\nan \"urgency\"\
       \ bill, SB 52, that repealed the rebate program, which the governor\r\nhad previously\
-      \ fought for and defended.</body></email></CONTENT><sent>Thu, 19 Nov 2015 09:25:21\
-      \ +0000</sent></root>\r\n"
+      \ fought for and defended.</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  status: "COMPLETED"
