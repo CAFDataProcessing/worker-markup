@@ -15,10 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
-import com.hpe.caf.worker.testing.TestControllerSingle;
-import com.hpe.caf.worker.testing.TestItem;
-import com.hpe.caf.worker.testing.UseAsTestName;
-import com.hpe.caf.worker.testing.UseAsTestName_TestBase;
+import com.hpe.caf.worker.testing.*;
 import com.hpe.caf.worker.testing.execution.TestControllerProvider;
 import com.hpe.caf.worker.testing.execution.TestRunnerSingle;
 import org.testng.annotations.*;
@@ -37,7 +34,8 @@ public class MarkupWorkerAcceptanceIT extends UseAsTestName_TestBase
     public void setUp() throws Exception
     {
         testControllerProvider = new MarkupTestControllerProvider();
-        controller = TestRunnerSingle.getTestController(testControllerProvider, false);
+        controller = TestRunnerSingle.getTestController(testControllerProvider,
+                new SystemSettingsProvider().getBooleanSetting("testCaseGeneration", false));
         controller.initialise();
     }
 
