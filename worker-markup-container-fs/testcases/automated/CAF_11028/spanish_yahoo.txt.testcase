@@ -51,7 +51,7 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-11-30T05:22:23Z"
   - name: "SECTION_ID"
-    value: "c9b758ad340a670a"
+    value: "1d7b9782e73bbf8f"
   - name: "PARENT_ID"
     value: "b842ebd2ebf138cf"
   - name: "ROOT_ID"
@@ -62,7 +62,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"c9b758ad340a670a\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"1d7b9782e73bbf8f\" /></hash><headers><From>From:\
       \ Martinez, Mauricio</From>\r\n<Sent dateUtc=\"2016-11-30T05:22:23Z\">Sent:\
       \ Wed Nov 30 05:22:23 2016</Sent>\r\n<To>To: Dyer, Daniel; openvpn.community@lists.com</To>\r\
       \n<Subject>Subject: Re: FW: [openvpn.announce] Migration of osprey gateway</Subject>\r\

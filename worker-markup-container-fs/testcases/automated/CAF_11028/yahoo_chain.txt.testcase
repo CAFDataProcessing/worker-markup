@@ -55,7 +55,7 @@ expectedOutputData:
   - name: "PARENT_ID"
     value: "ad8300e957be5e6c"
   - name: "ROOT_ID"
-    value: "ad306d8e682c2148"
+    value: "c244ff3dac45c26a"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
@@ -87,7 +87,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"ad306d8e682c2148\" /></hash><headers><From>From: cbd9987@redactedEmail.com\
+      \ value=\"c244ff3dac45c26a\" /></hash><headers><From>From: cbd9987@redactedEmail.com\
       \ [mailto:cbd9987@redactedEmail.com] </From>\r\n<Sent dateUtc=\"2017-01-30T10:52:00Z\"\
       >Sent: 30 January 2017 10:52</Sent>\r\n<To>To: Smith, Conal &lt;conal.smith@hpe.com&gt;;\
       \ csmith00123@redactedEmail.com</To>\r\n<Subject>Subject: First email</Subject>\r\

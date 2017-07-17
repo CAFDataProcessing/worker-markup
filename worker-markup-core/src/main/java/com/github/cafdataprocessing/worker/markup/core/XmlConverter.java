@@ -140,6 +140,7 @@ public final class XmlConverter
             return IOUtils.toString(refDataBytes, "UTF-8");
         } catch (Exception e) {
             // Catch and retry with 1252 encoding.
+            LOG.error("Failed to convert to utf8", e);
             return IOUtils.toString(refDataBytes, "Windows-1252");
         }
     }

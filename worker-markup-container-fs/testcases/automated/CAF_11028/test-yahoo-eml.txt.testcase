@@ -53,9 +53,9 @@ expectedOutputData:
   - name: "SECTION_ID"
     value: "ad193e1d35c4be10"
   - name: "PARENT_ID"
-    value: "5f89aefc96940393"
+    value: "dd401a5ea1f5c8f1"
   - name: "ROOT_ID"
-    value: "5f89aefc96940393"
+    value: "dd401a5ea1f5c8f1"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
@@ -70,7 +70,7 @@ expectedOutputData:
       \ Message -----\r\n</divider><email><hash name=\"Normalized\"><config><fields><field\
       \ name=\"To\" normalizationType=\"NAME_ONLY\" /><field name=\"From\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\"\
-      \ /></fields></config><digest function=\"XXHASH64\" value=\"5f89aefc96940393\"\
+      \ /></fields></config><digest function=\"XXHASH64\" value=\"dd401a5ea1f5c8f1\"\
       \ /></hash><headers><From>From: \"bob@xxx.mailgun.org\" &lt;bob@xxx.mailgun.org&gt;</From>\r\
       \n<To>To: xxx@gmail.com; xxx@hotmail.com; xxx@yahoo.com; xxx@aol.com; xxx@comcast.net;\
       \ xxx@nyc.rr.com</To>\r\n</headers><body>Cc:\r\nSent: Monday, April 2, 2012\

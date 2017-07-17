@@ -52,18 +52,18 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-04-14T22:11:25Z"
   - name: "SECTION_ID"
-    value: "d1ad6ebeedcb6e44"
+    value: "f3997fc25d69abcf"
   - name: "PARENT_ID"
-    value: "a82d8fa055f6bc35"
+    value: "673dbffca2de19b8"
   - name: "ROOT_ID"
-    value: "3369fb6196d459d5"
+    value: "21b1e3a75d8e5880"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"d1ad6ebeedcb6e44\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"f3997fc25d69abcf\" /></hash><headers><From>From:\
       \ Hardy, Dermot</From>\r\n<Sent dateUtc=\"2016-04-14T22:11:25Z\">Sent: Thu Apr\
       \ 14 22:11:25 2016</Sent>\r\n<To>To: McAlynn, Michael; Ploch, Krzysztof; Bryson,\
       \ Michael; Crooks, Philip; Getty, Trevor; Comac, Christopher Jam; Smith, Conal</To>\r\
@@ -73,7 +73,7 @@ expectedOutputData:
       Normalized\"><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\"\
       \ /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\"\
       \ normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"a82d8fa055f6bc35\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"673dbffca2de19b8\" /></hash><headers><From>From:\
       \ Haridoss, Rajesh </From>\r\n<Sent dateUtc=\"2016-04-14T02:20:00Z\">Sent: 14\
       \ April 2016 2:20 AM</Sent>\r\n<To>To: ASPEn Dev Admin &lt;aspen-dev-admin@hpe.com&gt;;\
       \ ASPEn Dev Apps &lt;aspen-dev-apps@hpe.com&gt;; ASPEn Dev Core &lt;aspen-dev-core@hpe.com&gt;;\
@@ -92,7 +92,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"3369fb6196d459d5\" /></hash><headers><From>From: Haridoss, Rajesh\
+      \ value=\"21b1e3a75d8e5880\" /></hash><headers><From>From: Haridoss, Rajesh\
       \ </From>\r\n<Sent dateUtc=\"2016-04-13T13:51:00Z\">Sent: Wednesday, April 13,\
       \ 2016 1:51 PM</Sent>\r\n<To>To: ASPEn Dev Admin &lt;aspen-dev-admin@hpe.com&gt;;\
       \ ASPEn Dev Apps &lt;aspen-dev-apps@hpe.com&gt;; ASPEn Dev Core &lt;aspen-dev-core@hpe.com&gt;;\

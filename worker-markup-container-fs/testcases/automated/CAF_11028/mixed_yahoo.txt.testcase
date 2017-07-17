@@ -53,9 +53,9 @@ expectedOutputData:
   - name: "SECTION_ID"
     value: "52947c462b7bec7"
   - name: "PARENT_ID"
-    value: "87d73881cbe04bda"
+    value: "ab0809ada4d6f060"
   - name: "ROOT_ID"
-    value: "87d73881cbe04bda"
+    value: "ab0809ada4d6f060"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
@@ -71,7 +71,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"87d73881cbe04bda\" /></hash><headers>On <Sent\
+      \ function=\"XXHASH64\" value=\"ab0809ada4d6f060\" /></hash><headers>On <Sent\
       \ dateUtc=\"2016-02-04T17:27:00Z\">Feb 4, 2016, at 5:27 PM</Sent>,<From> Paley,\
       \ Mikhail &lt;mikhail.paley@hpe.com&gt; </From>wrote:\r\n</headers><body>\r\n\
       Please, note that I have added two new containers in Aspen Deploy: boilerplate\

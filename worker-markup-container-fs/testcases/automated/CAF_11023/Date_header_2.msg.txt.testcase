@@ -52,18 +52,18 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-05-23T20:32:34Z"
   - name: "SECTION_ID"
-    value: "4b2dff911b627932"
+    value: "5fa172e4e00ceae4"
   - name: "PARENT_ID"
-    value: "725981bcea537c1"
+    value: "8859df9977d7eeff"
   - name: "ROOT_ID"
-    value: "8df86b6376cabdec"
+    value: "2be824a27006644f"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"4b2dff911b627932\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"5fa172e4e00ceae4\" /></hash><headers><From>From:\
       \ Hardy, Dermot</From>\r\n<Sent dateUtc=\"2016-05-23T20:32:34Z\">Date: Mon May\
       \ 23 20:32:34 2016</Sent>\r\n<To>To: Bryson, Michael; Reid, Andy; Ploch, Krzysztof;\
       \ McAlynn, Michael</To>\r\n<Subject>Subject: RE: GitHub Umbrella repository</Subject>\r\
@@ -75,7 +75,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"725981bcea537c1\" /></hash><headers><Sent dateUtc=\"\
+      \ function=\"XXHASH64\" value=\"8859df9977d7eeff\" /></hash><headers><Sent dateUtc=\"\
       2016-05-23T15:18:00Z\">Date: 23 May 2016 3:18 PM</Sent>\r\n<From>From: Bryson,\
       \ Michael </From>\r\n<To>To: Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;; Reid,\
       \ Andy &lt;andrew.reid@hpe.com&gt;; Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;;\
@@ -86,7 +86,7 @@ expectedOutputData:
       \n\r\n</body></email><email><hash name=\"Normalized\"><config><fields><field\
       \ name=\"To\" normalizationType=\"NAME_ONLY\" /><field name=\"From\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\"\
-      \ /></fields></config><digest function=\"XXHASH64\" value=\"4253a80ec1c87bbd\"\
+      \ /></fields></config><digest function=\"XXHASH64\" value=\"97599fcb1b69b5d9\"\
       \ /></hash><headers><From>From: Hardy, Dermot </From>\r\n<To>To: Reid, Andy\
       \ &lt;andrew.reid@hpe.com&gt;; Bryson, Michael &lt;michael.bryson@hpe.com&gt;;\
       \ Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;; McAlynn, Michael &lt;michael.mcalynn@hpe.com&gt;</To>\r\
@@ -101,7 +101,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"d62eb6686028599f\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"b0704cc8dcfea0ca\" /></hash><headers><From>From:\
       \ Reid, Andy </From>\r\n<To>To: Bryson, Michael &lt;michael.bryson@hpe.com&gt;;\
       \ Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;; Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;;\
       \ McAlynn, Michael &lt;michael.mcalynn@hpe.com&gt;</To>\r\n<Subject>Subject:\
@@ -113,7 +113,7 @@ expectedOutputData:
       \n\r\n</body></email><email><hash name=\"Normalized\"><config><fields><field\
       \ name=\"To\" normalizationType=\"NAME_ONLY\" /><field name=\"From\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\"\
-      \ /></fields></config><digest function=\"XXHASH64\" value=\"8df86b6376cabdec\"\
+      \ /></fields></config><digest function=\"XXHASH64\" value=\"2be824a27006644f\"\
       \ /></hash><headers><From>From: Bryson, Michael </From>\r\n<Sent dateUtc=\"\
       2016-04-29T15:44:00Z\">Sent: 29 April 2016 15:44</Sent>\r\n<To>To: Reid, Andy\
       \ &lt;andrew.reid@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;; Ploch,\

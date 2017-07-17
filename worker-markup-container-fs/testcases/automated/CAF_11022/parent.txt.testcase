@@ -52,18 +52,18 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-04-22T11:42:00Z"
   - name: "SECTION_ID"
-    value: "9af173c1c7cd6d50"
+    value: "9c9973304df4dac9"
   - name: "PARENT_ID"
-    value: "4dd467a837072b0c"
+    value: "43c5257a87b19a47"
   - name: "ROOT_ID"
-    value: "943420ac05f75a71"
+    value: "d5fac22caa0a3aea"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"9af173c1c7cd6d50\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"9c9973304df4dac9\" /></hash><headers><From>From:\
       \ Reid, Andy </From>\r\n<Sent dateUtc=\"2016-04-22T11:42:00Z\">Sent: 22 April\
       \ 2016 11:42</Sent>\r\n<To>To: Ploch, Krzysztof; McAlynn, Michael; Bryson, Michael</To>\r\
       \n<Subject>Subject: FW: keyview supported file types</Subject>\r\n</headers><body>\r\
@@ -71,7 +71,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"4dd467a837072b0c\" /></hash><headers><From>From: Reid, Andy </From>\r\
+      \ value=\"43c5257a87b19a47\" /></hash><headers><From>From: Reid, Andy </From>\r\
       \n<Sent dateUtc=\"2016-04-22T11:41:00Z\">Sent: 22 April 2016 11:41</Sent>\r\n\
       <To>To: Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;; Puccianti,\
       \ Sylvain B &lt;sylvain.puccianti@hpe.com&gt;; Kulkarni, Rahul &lt;rahul.kulkarni@hpe.com&gt;</To>\r\
@@ -81,7 +81,7 @@ expectedOutputData:
       \n\r\n</body></email><email><hash name=\"Normalized\"><config><fields><field\
       \ name=\"To\" normalizationType=\"NAME_ONLY\" /><field name=\"From\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\"\
-      \ /></fields></config><digest function=\"XXHASH64\" value=\"827f1128769fdfa1\"\
+      \ /></fields></config><digest function=\"XXHASH64\" value=\"678ad99bc2ec32e3\"\
       \ /></hash><headers><From>From: Chakraborty, Shubhendu </From>\r\n<Sent dateUtc=\"\
       2016-04-19T19:29:00Z\">Sent: 19 April 2016 19:29</Sent>\r\n<To>To: Puccianti,\
       \ Sylvain B &lt;sylvain.puccianti@hpe.com&gt;; Reid, Andy &lt;andrew.reid@hpe.com&gt;;\
@@ -94,7 +94,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"4f3100e0226626fc\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"dcbd24e48b7f6255\" /></hash><headers><From>From:\
       \ Puccianti, Sylvain B </From>\r\n<Sent dateUtc=\"2016-04-19T23:54:00Z\">Sent:\
       \ Tuesday, April 19, 2016 11:54 PM</Sent>\r\n<To>To: Reid, Andy &lt;andrew.reid@hpe.com&gt;;\
       \ Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;; Kulkarni, Rahul\
@@ -104,7 +104,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"c360a0ad152cd820\" /></hash><headers><From>From: Reid, Andy </From>\r\
+      \ value=\"b6ac6541bf4e0c46\" /></hash><headers><From>From: Reid, Andy </From>\r\
       \n<Sent dateUtc=\"2016-04-19T10:42:00Z\">Sent: Tuesday, April 19, 2016 10:42\
       \ AM</Sent>\r\n<To>To: Puccianti, Sylvain B &lt;sylvain.puccianti@hpe.com&gt;;\
       \ Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;; Kulkarni, Rahul\
@@ -114,7 +114,7 @@ expectedOutputData:
       \n\r\n</body></email><email><hash name=\"Normalized\"><config><fields><field\
       \ name=\"To\" normalizationType=\"NAME_ONLY\" /><field name=\"From\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\"\
-      \ /></fields></config><digest function=\"XXHASH64\" value=\"943420ac05f75a71\"\
+      \ /></fields></config><digest function=\"XXHASH64\" value=\"d5fac22caa0a3aea\"\
       \ /></hash><headers><From>From: Puccianti, Sylvain B </From>\r\n<Sent dateUtc=\"\
       2016-04-19T18:29:00Z\">Sent: 19 April 2016 18:29</Sent>\r\n<To>To: Reid, Andy\
       \ &lt;andrew.reid@hpe.com&gt;; Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;;\

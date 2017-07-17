@@ -49,17 +49,17 @@ expectedOutputData:
   expectedSimilarityPercentage: 0
   fieldList:
   - name: "SECTION_ID"
-    value: "a6ac4006f1e28f0f"
+    value: "46548a04f322ead3"
   - name: "PARENT_ID"
-    value: "50a6a88d06e07cc9"
+    value: "c1f80484be310b53"
   - name: "ROOT_ID"
-    value: "ed9497930bb2e9f0"
+    value: "15e75e9dfaefcf91"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"a6ac4006f1e28f0f\" /></hash><headers><Fr_-om>Fr!\"\
+      \ function=\"XXHASH64\" value=\"46548a04f322ead3\" /></hash><headers><Fr_-om>Fr!\"\
       £$%^*()_+-=\"om: Paul, Navamoni</Fr_-om>\r\n<Se.nt dateUtc=\"2016-07-22T15:15:00Z\"\
       >Se\\|,./?nt: 22 July 2016 15:15</Se.nt>\r\n<To> T {[}]o: Reid, Andy &lt;andrew.reid@hpe.com&gt;;\
       \ Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</To>\r\n<Cc>C  `¬c: Ploch, Krzysztof\
@@ -70,7 +70,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"50a6a88d06e07cc9\" /></hash><headers><From>From: Paul, Navamoni</From>\r\
+      \ value=\"c1f80484be310b53\" /></hash><headers><From>From: Paul, Navamoni</From>\r\
       \n<Sent dateUtc=\"2016-07-21T16:16:00Z\">Sent: 21 July 2016 16:16</Sent>\r\n\
       <To>Recipient: Reid, Andy &lt;andrew.reid@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</To>\r\
       \n<Cc>Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;</Cc>\r\n<Subject>Subject:\
@@ -80,7 +80,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"50a6a88d06e07cc9\" /></hash><headers><From>From: Paul, Navamoni</From>\r\
+      \ value=\"c1f80484be310b53\" /></hash><headers><From>From: Paul, Navamoni</From>\r\
       \n<Sent dateUtc=\"2016-07-21T16:16:00Z\">Sent: 21 July 2016 16:16</Sent>\r\n\
       <To>Recipient: Reid, Andy &lt;andrew.reid@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</To>\r\
       \n<Cc>Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;</Cc>\r\n<Subject>Subject:\
@@ -90,7 +90,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"6d9042fe8511fdb\" /></hash><headers><From>From: Paul, Navamoni</From>\r\
+      \ value=\"47bbd9c78577fabb\" /></hash><headers><From>From: Paul, Navamoni</From>\r\
       \n<Sent dateUtc=\"2016-07-20T17:51:00Z\">Sent: 20 July 2016 17:51</Sent>\r\n\
       <To>To: Reid, Andy &lt;andrew.reid@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</To>\r\
       \n<Cc>Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;</Cc>\r\n<Subject>Subject:\
@@ -99,7 +99,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"9eeebc83db6bd7b7\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"d8a470b2540214c6\" /></hash><headers><From>From:\
       \ Paul, Navamoni</From>\r\n<Sent dateUtc=\"2016-07-20T17:51:00Z\">Sent: 20 July\
       \ 2016 17:51</Sent>\r\n<To>To: Reid, Andy &lt;andrew.reid@hpe.com&gt;; Hardy,\
       \ Dermot &lt;dermot.hardy@hpe.com&gt;</To>\r\n<Cc>Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;</Cc>\r\
@@ -110,7 +110,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"ed9497930bb2e9f0\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"15e75e9dfaefcf91\" /></hash><headers><From>From:\
       \ Reid, Andy</From>\r\n<Sent dateUtc=\"2016-07-19T18:49:00Z\">Sent: Tuesday,\
       \ July 19, 2016 6:49 PM</Sent>\r\n<To>To: Paul, Navamoni &lt;paul.navamoni@hpe.com&gt;;\
       \ Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;</To>\r\n<Cc>Cc: Ploch, Krzysztof\

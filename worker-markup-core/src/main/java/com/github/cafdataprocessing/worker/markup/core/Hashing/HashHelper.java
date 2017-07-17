@@ -298,8 +298,10 @@ public class HashHelper
                 throw new IllegalArgumentException(
                     "Normalization type must be specified for the field " + currentElement.getName());
         }
-
         // Add current element to the temporary xml root element
+        if (currentField.normalizationType == NormalizationType.NORMALIZE_PRIORITY && normalizedStr.equals("Normal")) {
+            return;
+        }
         tempXMLElement.addContent(new Element(currentElement.getName()).setText(normalizedStr));
     }
 
@@ -394,6 +396,11 @@ public class HashHelper
         str = str.replaceAll("<\\S+?>", "");
         // Remove reply email quotation marks (> characters)
         str = str.replaceAll(">", "");
+        str = str.replaceAll("‘", "'");
+        str = str.replaceAll("’", "'");
+        str = str.replaceAll("“", "\"");
+        str = str.replaceAll("”", "\"");
+        str = str.replaceAll("–", "-");
         return str;
     }
 
@@ -407,13 +414,15 @@ public class HashHelper
         // Remove whitespace.
         str = str.replaceAll("\\s+", "");
         // Search for a < character, remove all non-whitespace and whitespace characters until the next >, including the < and >.
-        str = str.replaceAll("<\\S+?>", "");
+        str = str.replaceAll("<[^,;]+>", "");
         // Remove double quotation marks.
         str = str.replaceAll("\"", "");
         // Remove single quotation marks.
         str = str.replaceAll("\'", "");
         // Remove reply email quotation marks (> characters)
         str = str.replaceAll(">", "");
+        // Replace semicolons to comas
+        str = str.replaceAll(";", ",");
         return str;
     }
 

@@ -51,9 +51,9 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-11-30T05:22:23Z"
   - name: "SECTION_ID"
-    value: "57298fdcceee4fe8"
+    value: "176da33c378de297"
   - name: "PARENT_ID"
-    value: "cc4283e88034fa43"
+    value: "faff47ecac2b1a5"
   - name: "ROOT_ID"
     value: "1fcb24d3f951d3a5"
   - name: "XML"
@@ -62,7 +62,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"57298fdcceee4fe8\" /></hash><headers><From>De:\
+      \ function=\"XXHASH64\" value=\"176da33c378de297\" /></hash><headers><From>De:\
       \ Bryson, Michael</From>\r\n<Sent dateUtc=\"2016-11-30T05:22:23Z\">Envoyé: Wed\
       \ Nov 30 05:22:23 2016</Sent>\r\n<To>À: Dyer, Daniel; openvpn.community@lists.com</To>\r\
       \n<Subject>Objet: Re: FW: [openvpn.announce] Migration of osprey gateway</Subject>\r\
@@ -71,7 +71,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"cc4283e88034fa43\" /></hash><headers><From>Von:\
+      \ function=\"XXHASH64\" value=\"faff47ecac2b1a5\" /></hash><headers><From>Von:\
       \ Martinez, Mauricio</From>\r\n<Sent dateUtc=\"2016-11-30T05:22:23Z\">Gesendet:\
       \ Wed Nov 30 05:22:23 2016</Sent>\r\n<To>An: Dyer, Daniel; openvpn.community@lists.com</To>\r\
       \n<Subject>Betreff: Re: FW: [openvpn.announce] Migration of osprey gateway</Subject>\r\

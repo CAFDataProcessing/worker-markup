@@ -51,7 +51,7 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-11-25T10:52:09Z"
   - name: "SECTION_ID"
-    value: "e0faa0ffb3ad9bfc"
+    value: "8f9e472525558fff"
   - name: "PARENT_ID"
     value: "96df6397e85a975c"
   - name: "ROOT_ID"
@@ -61,7 +61,7 @@ expectedOutputData:
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"e0faa0ffb3ad9bfc\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"8f9e472525558fff\" /></hash><headers><From>From:\
       \ K, Tom</From>\r\n<Sent dateUtc=\"2016-11-25T10:52:09Z\">Sent: Fri Nov 25 10:52:09\
       \ 2016</Sent>\r\n<To>To: D, Mohanasundaram; S, Dan</To>\r\n<Cc>Cc: B, Rick (Rick);\
       \ openvpn.community@lists.com</Cc>\r\n<Subject>Subject: Re: Had to reimage my\

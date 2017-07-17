@@ -55,7 +55,7 @@ expectedOutputData:
   - name: "PARENT_ID"
     value: "b54737d2aa7daad4"
   - name: "ROOT_ID"
-    value: "1ae058fb6514df57"
+    value: "8cac0fa1ddab3837"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
@@ -86,7 +86,7 @@ expectedOutputData:
       ><config><fields><field name=\"To\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"From\" normalizationType=\"NAME_ONLY\" /><field name=\"Body\" normalizationType=\"\
       REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest function=\"XXHASH64\"\
-      \ value=\"1ae058fb6514df57\" /></hash><headers><From>From: redactedemail@redacted.com\
+      \ value=\"8cac0fa1ddab3837\" /></hash><headers><From>From: redactedemail@redacted.com\
       \ [mailto:redactedemail@redacted.com] </From>\r\n<Sent dateUtc=\"2017-01-30T10:52:00Z\"\
       >Sent: 30 January 2017 10:52</Sent>\r\n<To>To: Smith, Conal &lt;conal.smith@hpe.com&gt;;\
       \ csmith@redactedemail.com</To>\r\n<Subject>Subject: First email</Subject>\r\

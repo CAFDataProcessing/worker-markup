@@ -52,16 +52,16 @@ expectedOutputData:
   - name: "SECTION_SORT"
     value: "2016-04-13T13:51:00Z"
   - name: "SECTION_ID"
-    value: "3369fb6196d459d5"
+    value: "21b1e3a75d8e5880"
   - name: "ROOT_ID"
-    value: "3369fb6196d459d5"
+    value: "21b1e3a75d8e5880"
   - name: "XML"
     value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><subject>CAF Test\
       \ Extract - simple</subject><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><to>Admin/hpq%hpq@hpswlabs.hp.com</to><CONTENT><email><hash\
       \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
       NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
       \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
-      \ function=\"XXHASH64\" value=\"3369fb6196d459d5\" /></hash><headers><From>From:\
+      \ function=\"XXHASH64\" value=\"21b1e3a75d8e5880\" /></hash><headers><From>From:\
       \ Haridoss, Rajesh </From>\r\n<Sent dateUtc=\"2016-04-13T13:51:00Z\">Sent: Wednesday,\
       \ April 13, 2016 1:51 PM</Sent>\r\n<To>To: ASPEn Dev Admin &lt;aspen-dev-admin@hpe.com&gt;;\
       \ ASPEn Dev Apps &lt;aspen-dev-apps@hpe.com&gt;; ASPEn Dev Core &lt;aspen-dev-core@hpe.com&gt;;\
