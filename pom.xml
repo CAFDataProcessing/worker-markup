@@ -99,6 +99,7 @@
     
     
     <properties>
+        <caf.worker-document.version>3.0.0-SNAPSHOT</caf.worker-document.version>
         <caf.worker-framework.version>1.9.0-260</caf.worker-framework.version>
         <containers.jep-talon.name>cafinternal/prereleases:jep_talon-image-${project.version}</containers.jep-talon.name>
     </properties>
