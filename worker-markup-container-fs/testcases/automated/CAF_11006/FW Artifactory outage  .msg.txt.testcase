@@ -1,0 +1,136 @@
+---
+tag: "CAF_11006/FW Artifactory outage  .msg.txt"
+testCaseInformation:
+  testCaseId: "CAF_11006"
+  associatedTickets: "CAF-1449"
+  description: "Parse extended Email Conversation Index property"
+  comments: "CAF_11006/FW Artifactory outage  .msg.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11006/FW Artifactory outage  .msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+    caf-mail-conversation-index:
+    - "Ac3pCr/g148OQoCCQSCy8dDjwH7QBwAAzLowAAARRGA="
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CAF_MAIL_CONVERSATION_INDEX>Ac3pCr/g148OQoCCQSCy8dDjwH7QBwAAzLowAAARRGA=</CAF_MAIL_CONVERSATION_INDEX><CAF_MAIL_CONVERSATION_INDEX_PARSED>{\"\
+      headerDate\":\"2013-01-02T17:01:04.168Z\",\"guid\":\"d78f0e42-8082-4120-b2f1-d0e3c07ed007\"\
+      ,\"childMessages\":[{\"messageDate\":\"2013-01-02T17:23:58.064Z\",\"randomNo\"\
+      :3,\"sequenceCount\":0},{\"messageDate\":\"2013-01-02T17:25:53.931Z\",\"randomNo\"\
+      :6,\"sequenceCount\":0}]}</CAF_MAIL_CONVERSATION_INDEX_PARSED><CONTENT><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
+      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"71597b987cbd0abe\" /></hash><headers><From>From:\
+      \ Hardy, Dermot</From>\r\n<Sent dateUtc=\"2016-04-14T22:11:25Z\">Sent: Thu Apr\
+      \ 14 22:11:25 2016</Sent>\r\n<To>To: McAlynn, Michael; Ploch, Krzysztof; Bryson,\
+      \ Michael; Crooks, Philip; Getty, Trevor; Comac, Christopher Jam; Smith, Conal</To>\r\
+      \n<Subject>Subject: FW: Artifactory outage </Subject>\r\n<Importance>Importance:\
+      \ Normal</Importance>\r\n</headers><body>\r\nThey’ve finally updated Artifactory\
+      \ so we can use Docker 1.10 now.\r\n\r\n</body></email><email><hash name=\"\
+      Normalized\"><config><fields><field name=\"to\" normalizationType=\"NONE\" /><field\
+      \ name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"a371e2dcb1497c5\" /></hash><headers><From>From:\
+      \ Haridoss, Rajesh </From>\r\n<Sent dateUtc=\"2016-04-14T02:20:00Z\">Sent: 14\
+      \ April 2016 2:20 AM</Sent>\r\n<To>To: ASPEn Dev Admin &lt;aspen-dev-admin@hpe.com&gt;;\
+      \ ASPEn Dev Apps &lt;aspen-dev-apps@hpe.com&gt;; ASPEn Dev Core &lt;aspen-dev-core@hpe.com&gt;;\
+      \ ASPEn QA &lt;aspen-qa@hpe.com&gt;; Puccianti, Sylvain B &lt;sylvain.puccianti@hpe.com&gt;;\
+      \ Mazumdar, Shashi &lt;shashi.mazumdar@hpe.com&gt;; Correa, Victor &lt;victor.correa@hpe.com&gt;;\
+      \ Ghosh Dastidar, Kusuma &lt;vgkusuma@hpe.com&gt;; Jagadevan, Kamal &lt;kamalakannan.jagadevan@hpe.com&gt;;\
+      \ Jain, Rahul (Rahul Jain) &lt;rahul.jain2@hpe.com&gt;; Zhao, Yu SOBO &lt;yu.zhao3@hpe.com&gt;;\
+      \ Nair, Rajat &lt;rajat.nair@hpe.com&gt;; Teplitsky, Alexander &lt;alexander.teplitsky@hpe.com&gt;;\
+      \ Labriola, Jason &lt;jason.labriola@hpe.com&gt;; Momin, Orko &lt;orko.momin@hpe.com&gt;;\
+      \ Vardham, Nalini K &lt;nalini.k.vardham@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;;\
+      \ Duewer, Rob &lt;rob.duewer@hpe.com&gt;</To>\r\n<Subject>Subject: RE: Artifactory\
+      \ outage </Subject>\r\n</headers><body>\r\nOutage completed.\r\nArtifactory\
+      \ is upgraded to version 4.7.1 and it is compatible with Docker 1.10.X . \r\n\
+      Also, Docker daemon used by the Jenkins CI server is upgraded to Docker 1.10.3\r\
+      \n\r\nThanks,\r\n-Rajesh\r\n\r\n</body></email><email><hash name=\"Normalized\"\
+      ><config><fields><field name=\"to\" normalizationType=\"NONE\" /><field name=\"\
+      body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest function=\"\
+      XXHASH64\" value=\"c7b94b53f14d43b4\" /></hash><headers><From>From: Haridoss,\
+      \ Rajesh </From>\r\n<Sent dateUtc=\"2016-04-13T13:51:00Z\">Sent: Wednesday,\
+      \ April 13, 2016 1:51 PM</Sent>\r\n<To>To: ASPEn Dev Admin &lt;aspen-dev-admin@hpe.com&gt;;\
+      \ ASPEn Dev Apps &lt;aspen-dev-apps@hpe.com&gt;; ASPEn Dev Core &lt;aspen-dev-core@hpe.com&gt;;\
+      \ ASPEn QA &lt;aspen-qa@hpe.com&gt;; Puccianti, Sylvain B &lt;sylvain.puccianti@hpe.com&gt;;\
+      \ Mazumdar, Shashi &lt;shashi.mazumdar@hpe.com&gt;; Correa, Victor &lt;victor.correa@hpe.com&gt;;\
+      \ Ghosh Dastidar, Kusuma &lt;vgkusuma@hpe.com&gt;; Jagadevan, Kamal &lt;kamalakannan.jagadevan@hpe.com&gt;;\
+      \ Jain, Rahul (Rahul Jain) &lt;rahul.jain2@hpe.com&gt;; Zhao, Yu SOBO &lt;yu.zhao3@hpe.com&gt;;\
+      \ Nair, Rajat &lt;rajat.nair@hpe.com&gt;; Teplitsky, Alexander &lt;alexander.teplitsky@hpe.com&gt;;\
+      \ Labriola, Jason &lt;jason.labriola@hpe.com&gt;; Momin, Orko &lt;orko.momin@hpe.com&gt;;\
+      \ Vardham, Nalini K &lt;nalini.k.vardham@hpe.com&gt;</To>\r\n<Subject>Subject:\
+      \ Artifactory outage </Subject>\r\n</headers><body>\r\nArtifactory (http://rh7-artifactory.hpswlabs.hp.com:8081/artifactory)\
+      \ is going down between 4:00pm and 6:00pm PST today ( 04/13) for an upgrade.\
+      \ \r\nYou may not be able to do maven builds and Docker registries will not\
+      \ be accessible during this time. You will get another notification at the end\
+      \ of the outage.\r\n\r\nPlease plan accordingly.\r\n\r\nThanks\r\n\r\n-Rajesh\r\
+      \n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  - name: "ALL_TO"
+    value: "To: McAlynn, Michael; Ploch, Krzysztof; Bryson, Michael; Crooks, Philip;\
+      \ Getty, Trevor; Comac, Christopher Jam; Smith, Conal"
+  - name: "ALL_TO"
+    value: "To: ASPEn Dev Admin <aspen-dev-admin@hpe.com>; ASPEn Dev Apps <aspen-dev-apps@hpe.com>;\
+      \ ASPEn Dev Core <aspen-dev-core@hpe.com>; ASPEn QA <aspen-qa@hpe.com>; Puccianti,\
+      \ Sylvain B <sylvain.puccianti@hpe.com>; Mazumdar, Shashi <shashi.mazumdar@hpe.com>;\
+      \ Correa, Victor <victor.correa@hpe.com>; Ghosh Dastidar, Kusuma <vgkusuma@hpe.com>;\
+      \ Jagadevan, Kamal <kamalakannan.jagadevan@hpe.com>; Jain, Rahul (Rahul Jain)\
+      \ <rahul.jain2@hpe.com>; Zhao, Yu SOBO <yu.zhao3@hpe.com>; Nair, Rajat <rajat.nair@hpe.com>;\
+      \ Teplitsky, Alexander <alexander.teplitsky@hpe.com>; Labriola, Jason <jason.labriola@hpe.com>;\
+      \ Momin, Orko <orko.momin@hpe.com>; Vardham, Nalini K <nalini.k.vardham@hpe.com>;\
+      \ Hardy, Dermot <dermot.hardy@hpe.com>; Duewer, Rob <rob.duewer@hpe.com>"
+  - name: "ALL_TO"
+    value: "To: ASPEn Dev Admin <aspen-dev-admin@hpe.com>; ASPEn Dev Apps <aspen-dev-apps@hpe.com>;\
+      \ ASPEn Dev Core <aspen-dev-core@hpe.com>; ASPEn QA <aspen-qa@hpe.com>; Puccianti,\
+      \ Sylvain B <sylvain.puccianti@hpe.com>; Mazumdar, Shashi <shashi.mazumdar@hpe.com>;\
+      \ Correa, Victor <victor.correa@hpe.com>; Ghosh Dastidar, Kusuma <vgkusuma@hpe.com>;\
+      \ Jagadevan, Kamal <kamalakannan.jagadevan@hpe.com>; Jain, Rahul (Rahul Jain)\
+      \ <rahul.jain2@hpe.com>; Zhao, Yu SOBO <yu.zhao3@hpe.com>; Nair, Rajat <rajat.nair@hpe.com>;\
+      \ Teplitsky, Alexander <alexander.teplitsky@hpe.com>; Labriola, Jason <jason.labriola@hpe.com>;\
+      \ Momin, Orko <orko.momin@hpe.com>; Vardham, Nalini K <nalini.k.vardham@hpe.com>"
+  status: "COMPLETED"

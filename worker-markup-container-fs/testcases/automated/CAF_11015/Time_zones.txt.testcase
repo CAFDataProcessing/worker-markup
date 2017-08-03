@@ -1,0 +1,74 @@
+---
+tag: "CAF_11015/Time_zones.txt"
+testCaseInformation:
+  testCaseId: "CAF_11015"
+  associatedTickets: "CAF-1695"
+  description: "Integrate the Natty Date Parser to standardise date formats"
+  comments: "CAF_11015/Time_zones.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11015/Time_zones.txt"
+  outputFieldList:
+  - field: "SECTION_SORT_EMAIL_1"
+    xPathExpression: "/root/email[1]/headers/Sent/@dateUtc"
+  - field: "SECTION_SORT_EMAIL_2"
+    xPathExpression: "/root/email[2]/headers/Sent/@dateUtc"
+  - field: "SECTION_SORT_EMAIL_3"
+    xPathExpression: "/root/email[3]/headers/Sent/@dateUtc"
+  - field: "SECTION_SORT_EMAIL_4"
+    xPathExpression: "/root/email[4]/headers/Sent/@dateUtc"
+  - field: "SECTION_SORT_EMAIL_5"
+    xPathExpression: "/root/email[5]/headers/Sent/@dateUtc"
+  - field: "SECTION_SORT_EMAIL_6"
+    xPathExpression: "/root/email[6]/headers/Sent/@dateUtc"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "SECTION_SORT_EMAIL_1"
+    value: "2016-09-27T17:34:16Z"
+  - name: "SECTION_SORT_EMAIL_2"
+    value: "2016-09-27T12:33:04Z"
+  - name: "SECTION_SORT_EMAIL_3"
+    value: "2016-09-27T10:32:00Z"
+  - name: "SECTION_SORT_EMAIL_4"
+    value: "2016-09-27T17:30:24Z"
+  - name: "SECTION_SORT_EMAIL_5"
+    value: "2016-10-07T12:21:00Z"
+  - name: "SECTION_SORT_EMAIL_6"
+    value: "2016-09-27T12:20:00Z"
+  status: "COMPLETED"

@@ -1,0 +1,72 @@
+---
+tag: "CAF_11022/root.txt"
+testCaseInformation:
+  testCaseId: "CAF_11022"
+  associatedTickets: "CAF-311"
+  description: "Markup Worker generates Email Tracking fields"
+  comments: "CAF_11022/root.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "To"
+      normalizationType: "NAME_ONLY"
+    - name: "From"
+      normalizationType: "NAME_ONLY"
+    - name: "Body"
+      normalizationType: "REMOVE_WHITESPACE_AND_LINKS"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  inputFile: "CAF_11022/root.txt"
+  outputFieldList:
+  - field: "SECTION_SORT"
+    xPathExpression: "/root/email[1]/headers/Sent/@dateUtc"
+  - field: "SECTION_ID"
+    xPathExpression: "/root/email[1]/hash/digest/@value"
+  - field: "PARENT_ID"
+    xPathExpression: "/root/email[2]/hash/digest/@value"
+  - field: "ROOT_ID"
+    xPathExpression: "/root/email[last()]/hash/digest/@value"
+  - field: "XML"
+    xPathExpression: "."
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "SECTION_SORT"
+    value: "2016-04-19T18:29:00Z"
+  - name: "SECTION_ID"
+    value: "d5fac22caa0a3aea"
+  - name: "ROOT_ID"
+    value: "d5fac22caa0a3aea"
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><CONTENT><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"To\" normalizationType=\"\
+      NAME_ONLY\" /><field name=\"From\" normalizationType=\"NAME_ONLY\" /><field\
+      \ name=\"Body\" normalizationType=\"REMOVE_WHITESPACE_AND_LINKS\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"d5fac22caa0a3aea\" /></hash><headers><From>From:\
+      \ Puccianti, Sylvain B </From>\r\n<Sent dateUtc=\"2016-04-19T18:29:00Z\">Sent:\
+      \ 19 April 2016 18:29</Sent>\r\n<To>To: Reid, Andy &lt;andrew.reid@hpe.com&gt;;\
+      \ Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;; Kulkarni, Rahul\
+      \ &lt;rahul.kulkarni@hpe.com&gt;</To>\r\n<Subject>Subject: file types</Subject>\r\
+      \n</headers><body>\r\nAndy,\r\n\r\nDo you have a list of file types officially\
+      \ supported and qualified by CAF processing?\r\n\r\nSylvain\r\nPS: the answer\
+      \ cannot be ‘whatever keyview supports’ J\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  status: "COMPLETED"

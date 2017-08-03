@@ -1,0 +1,72 @@
+---
+tag: "CAF_11011/Simple_emails.pst_5.filterData.txt"
+testCaseInformation:
+  associatedTickets: "CAF-2665"
+  comments: "CAF_11011/Simple_emails.pst_5.filterData.txt"
+  description: "Email file in format returned by Text Extract"
+  testCaseId: "CAF_11011"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11011/Simple_emails.pst_5.filterData.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      59234704b691f75f\" /></hash><headers><From>From: McVeigh, Anthony</From>\r\n\
+      <Sent dateUtc=\"2015-11-25T14:25:45Z\">Sent: Wed Nov 25 14:25:45 2015</Sent>\r\
+      \n<To>To: McVeigh, Anthony; Bryson, Michael</To>\r\n<Subject>Subject: AutoDeploy\
+      \ Has Completed</Subject>\r\n<Importance>Importance: Normal</Importance>\r\n\
+      </headers><body> \r\nAUTODEPLOY HAS COMPLETED!\r\nUFT TEST RUN HAS BEGUN.\r\n\
+      \ </body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  - name: "ALL_TO"
+    value: "To: McVeigh, Anthony; Bryson, Michael"
+  status: "COMPLETED"

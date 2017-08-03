@@ -1,0 +1,74 @@
+---
+tag: "CAF_11006/MsgNever Sent.msg.txt"
+testCaseInformation:
+  testCaseId: "CAF_11006"
+  associatedTickets: "CAF-1449"
+  description: "Parse extended Email Conversation Index property"
+  comments: "CAF_11006/MsgNever Sent.msg.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11006/MsgNever Sent.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+    caf-mail-conversation-index:
+    - "Ac3pCr/g148OQoCCQSCy8dDjwH7QBwAAzLowAAARRGA="
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CAF_MAIL_CONVERSATION_INDEX>Ac3pCr/g148OQoCCQSCy8dDjwH7QBwAAzLowAAARRGA=</CAF_MAIL_CONVERSATION_INDEX><CAF_MAIL_CONVERSATION_INDEX_PARSED>{\"\
+      headerDate\":\"2013-01-02T17:01:04.168Z\",\"guid\":\"d78f0e42-8082-4120-b2f1-d0e3c07ed007\"\
+      ,\"childMessages\":[{\"messageDate\":\"2013-01-02T17:23:58.064Z\",\"randomNo\"\
+      :3,\"sequenceCount\":0},{\"messageDate\":\"2013-01-02T17:25:53.931Z\",\"randomNo\"\
+      :6,\"sequenceCount\":0}]}</CAF_MAIL_CONVERSATION_INDEX_PARSED><CONTENT><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
+      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"93d538f53168f796\" /></hash><headers><Sent>Sent:\
+      \ </Sent>\r\n<Cc>Cc: McCloskey, Karen</Cc>\r\n<Subject>Subject: To field is\
+      \ blank</Subject>\r\n<Importance>Importance: Normal</Importance>\r\n</headers><body>\r\
+      \nBut CC field has  value\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  status: "COMPLETED"

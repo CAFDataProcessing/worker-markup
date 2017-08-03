@@ -1,0 +1,74 @@
+---
+tag: "CAF_11011/JITC Mailing Address.msg.filterData.txt"
+testCaseInformation:
+  associatedTickets: "CAF-2665"
+  comments: "CAF_11011/JITC Mailing Address.msg.filterData.txt"
+  description: "Email file in format returned by Text Extract"
+  testCaseId: "CAF_11011"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11011/JITC Mailing Address.msg.filterData.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      d546510ec82ae087\" /></hash><headers><From>From: Acfalle, Jess (Contractor)</From>\r\
+      \n<Sent dateUtc=\"2013-05-06T14:03:12Z\">Sent: Mon May  6 14:03:12 2002</Sent>\r\
+      \n<To>To: FH ALL JITC WEST (AZ)</To>\r\n<Subject>Subject: JITC Mailing Address</Subject>\r\
+      \n<Importance>Importance: Normal</Importance>\r\n</headers><body>\r\n\r\nALL,\r\
+      \n\r\nTHIS IS HOW THE JITC RETURN ADDRESS SHOULD LOOK LIKE ACCORDING TO CENTRAL\
+      \ MAILROOM\r\n\r\n\r\n ATTN:  JTBA MR. QUERY (SAMPLE ONLY)\r\n BUILDING 57305\
+      \   (OPTIONAL)\r\n JOINT INTEROPERABILITY TEST COMMAND (38)\r\n 2001 BRAINARD\
+      \ RD\r\n FORT HUACHUCA AZ 85613-7051\r\n OFFICIAL BUSINESS \r\n\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  - name: "ALL_TO"
+    value: "To: FH ALL JITC WEST (AZ)"
+  status: "COMPLETED"

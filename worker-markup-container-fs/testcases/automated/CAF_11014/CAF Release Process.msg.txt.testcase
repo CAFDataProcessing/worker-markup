@@ -1,0 +1,90 @@
+---
+tag: "CAF_11014/CAF Release Process.msg.txt"
+testCaseInformation:
+  testCaseId: "CAF_11014"
+  associatedTickets: "CAF-1442"
+  description: "Provide facility to standardize the header names"
+  comments: "CAF_11014/CAF Release Process.msg.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11014/CAF Release Process.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      6de12b3911a8123c\" /></hash><headers><From>From: Bryson, Michael</From>\r\n\
+      <Sent dateUtc=\"2016-05-19T14:17:55Z\">Date_Sent: Thu May 19 14:17:55 2016</Sent>\r\
+      \n<To>Sent to: Ploch, Krzysztof; Comac, Christopher Jam; Crooks, Philip; Getty,\
+      \ Trevor; Hardy, Dermot; Mulholland, Connor; Bryson, Michael; Smith, Conal;\
+      \ O'Loughlin, Aaron; Reid, Andy; McMurray, Pearse P; Gibson, Dominic Joh; Payne,\
+      \ Alastair; Neeson, Gavin Francis; Hunter, Ashley Glenn</To>\r\n<Subject>Subject:\
+      \ CAF Release Process</Subject>\r\n<Importance>Importance: High</Importance>\r\
+      \n<Attachments>Attachments: Artifactory folder organization.docx</Attachments>\r\
+      \n</headers><body>\r\nHi All,\r\n\r\nAs we move closer to GA we need to start\
+      \ utilizing the CAF Release process as detailed in the following diagram:\r\n\
+      \r\n \r\n\r\nWhat this means for us is:\r\n· We should not have any “release”\
+      \ builds of containers in the docker-dev-local repo only snapshot builds.\r\n\
+      · Once a container is ready for testing it should be promoted to docker-preprod-local\
+      \ where it will be QA tested and then released, so snapshot and release build\
+      \ can reside here.\r\n· These released containers should then be copied up to\
+      \ docker-stablebuild-local repo from which Aspen should be consuming them.\r\
+      \n\r\nThere is some more information in the documents below but this doesn’\
+      t fit completely with us as this is more relevant to Aspen.\r\n\r\n\r\n    \r\
+      \nComments on this are welcome to see how we can implement this.\r\n\r\nThanks\r\
+      \n\r\nMichael Bryson\r\nQA Engineer\r\nSoftware Engineering\r\nBig Data\r\n\r\
+      \nBelfast, N. Ireland\r\nmichael.bryson@hpe.com\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  - name: "ALL_TO"
+    value: "Sent to: Ploch, Krzysztof; Comac, Christopher Jam; Crooks, Philip; Getty,\
+      \ Trevor; Hardy, Dermot; Mulholland, Connor; Bryson, Michael; Smith, Conal;\
+      \ O'Loughlin, Aaron; Reid, Andy; McMurray, Pearse P; Gibson, Dominic Joh; Payne,\
+      \ Alastair; Neeson, Gavin Francis; Hunter, Ashley Glenn"
+  status: "COMPLETED"

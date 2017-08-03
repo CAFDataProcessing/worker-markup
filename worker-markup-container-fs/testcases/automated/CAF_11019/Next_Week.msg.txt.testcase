@@ -1,0 +1,85 @@
+---
+tag: "CAF_11019/Next_Week.msg.txt"
+testCaseInformation:
+  testCaseId: "CAF_11019"
+  associatedTickets: "CAF-1724"
+  description: "Ensure parsed date and time is never inferred"
+  comments: "CAF_11019/Next_Week.msg.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11019/Next_Week.msg.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      c91fe1c4f17f3d95\" /></hash><headers><From>From: CEO - Meg Whitman</From>\r\n\
+      <Sent dateUtc=\"2016-05-24T20:16:22Z\">Sent: Tue May 24 20:16:22 2016</Sent>\r\
+      \n<Subject>Subject: See you next week</Subject>\r\n<Importance>Importance: Normal</Importance>\r\
+      \n<Attachments>Attachments: image001.png</Attachments>\r\n</headers><body>\r\
+      \n \r\n\r\n \r\n\r\n\r\n\r\nMeg Whitman\r\nPresident &amp; CEO\r\n\r\n\r\n \
+      \ \r\n  \r\n  \r\n\r\n  \r\n Hewlett Packard Enterprise reports Q2 FY16 results\r\
+      \n \r\nTo: All HPE employees\r\n \r\nToday, HPE announced its Q2 earnings, our\
+      \ best performance since I joined the company in 2011. We also announced plans\
+      \ for a tax-free spin-off and merger of our Enterprise Services business with\
+      \ CSC, a $6 billion IT services company. To read more about both of these announcements,\
+      \ visit HPE News Now.\r\n \r\nPlease join the Executive Council and me for an\
+      \ All Employee Meeting tomorrow, Wednesday, 25 May where we will talk more about\
+      \ today’s announcements and answer your questions.\r\n \r\nI look forward to\
+      \ talking with you tomorrow.\r\n \r\nBest,\r\nMeg\r\n \r\n \r\n \r\nFor those\
+      \ countries that require consultation with works councils or other employee\
+      \ representatives, this is not intended to provide country-specific complete\
+      \ information and in no way reflects that final decisions have been made at\
+      \ a country level. With respect to such countries, final decisions are subject\
+      \ to prior consultation with works councils and other employee representatives,\
+      \ as required, and in compliance with local laws.\r\n \r\n \r\n \r\n  \r\n\r\
+      \n  \r\n\r\n  \r\n\r\n\r\n\r\n\r\n \r\n \r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  status: "COMPLETED"

@@ -1,0 +1,76 @@
+---
+tag: "CAF_11013/cantonese.txt"
+testCaseInformation:
+  testCaseId: "CAF_11013"
+  associatedTickets: "CAF-1646"
+  description: "Markup worker should ensure valid xml tags are created from header names"
+  comments: "CAF_11013/cantonese.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11013/cantonese.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      a17ac1c83f9567ee\" /></hash><headers><嗰>嗰: Bryson, Michael</嗰>\r\n<家 dateUtc=\"\
+      2016-05-19T14:17:55Z\">家: Thu May 19 14:17:55 2016</家>\r\n<我>我: Ploch, Krzysztof;\
+      \ Comac, Christopher Jam; Crooks, Philip; Getty, Trevor; Hardy, Dermot; Mulholland,\
+      \ Connor; Bryson, Michael; Smith, Conal; O'Loughlin, Aaron; Reid, Andy; McMurray,\
+      \ Pearse P; Gibson, Dominic Joh; Payne, Alastair; Neeson, Gavin Francis; Hunter,\
+      \ Ashley Glenn</我>\r\n<佢>佢: CAF Release Process</佢>\r\n<搞>搞: High</搞>\r\n<地\
+      >地: </地>\r\n</headers><body>\r\n嗰陣時, 天下所有人嘅語言全部都係一樣。\r\n佢哋一直向東邊遷移，喺示拿見到一片平原，\
+      就安定落嚟。\r\n佢哋商量後對大家講︰「嚟，我哋要將磚燒透嚟做磚。」於是佢哋攞磚當石頭，又攞石漆當灰泥用。\r\n佢哋又對大家話︰「嚟，我哋要建造一個\
+      城市，同一座高塔，塔頂要通天，嚟為傳揚我哋嘅名，否則我哋就會分散於呢個世界不同嘅角落。\r\n耶和華降臨人間，要睇吓世人所建造嘅城市同高塔。\r\n耶和\
+      華話︰「睇吓，佢地成為一致嘅人民，全部都講同一嘅語言，如今佢哋做得起呢件事嚟，以後佢哋想做嘅嘢，一定唔會做唔倒。\r\n「嚟，等我地落去搞亂佢哋嘅語言，\
+      咁佢哋就溝通唔到。」\r\n於是耶和華將佢哋分散於世界不同嘅角落﹔佢哋就停工，唔再繼續建造城市喇。\r\n因為耶和華喺嗰度搞亂嘥世人嘅語言，令到天下人民\
+      分散於世界唔同嘅角落，所以嗰個城市就叫做巴貝爾塔。\r\n\r\n\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  status: "COMPLETED"

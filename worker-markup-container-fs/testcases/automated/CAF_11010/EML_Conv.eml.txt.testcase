@@ -1,0 +1,82 @@
+---
+tag: "CAF_11010/EML_Conv.eml.txt"
+testCaseInformation:
+  testCaseId: "CAF_11010"
+  associatedTickets: "CAF-311"
+  description: "EML file that has an original email with no headers"
+  comments: "CAF_11010/EML_Conv.eml.txt"
+inputData:
+  containerId: null
+  email: true
+  hashConfiguration:
+  - fields:
+    - name: "to"
+      normalizationType: "NONE"
+    - name: "body"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Normalized"
+    scope: "EMAIL_SPECIFIC"
+  - fields:
+    - name: "cc"
+      normalizationType: "NONE"
+    - name: "subject"
+      normalizationType: "NONE"
+    - name: "sent"
+      normalizationType: "REMOVE_WHITESPACE"
+    hashFunctions:
+    - "XXHASH64"
+    name: "Variant"
+    scope: "EMAIL_THREAD"
+  inputFile: "CAF_11010/EML_Conv.eml.txt"
+  outputFieldList:
+  - field: "XML"
+    xPathExpression: "."
+  - field: "ALL_TO"
+    xPathExpression: "//To"
+  sourceData:
+    subject:
+    - "CAF Test Extract - simple"
+    from:
+    - "Admin/hpq%HPQ@hpswlabs.hp.com"
+    to:
+    - "Admin/hpq%hpq@hpswlabs.hp.com"
+    sent:
+    - "Thu, 19 Nov 2015 09:25:21 +0000"
+  storageReference: null
+  useDataStore: false
+expectedOutputData:
+  comparisonType: "TEXT"
+  expectedContentFile: null
+  expectedSimilarityPercentage: 0
+  fieldList:
+  - name: "XML"
+    value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<root><hash name=\"Variant\"\
+      ><config><fields><field name=\"cc\" normalizationType=\"NONE\" /><field name=\"\
+      subject\" normalizationType=\"NONE\" /><field name=\"sent\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      3a7d3ba152421080\" /></hash><CONTENT><email><hash name=\"Normalized\"><config><fields><field\
+      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
+      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
+      27856d94cf9526eb\" /></hash><headers><From>From: Tyson Dimetrio &lt;t.dimetrio333@gmail.com&gt;</From>\r\
+      \n<Sent dateUtc=\"2015-04-01T02:11:25Z\">Sent: Tue, 31 Mar 2015 19:11:25 -0700</Sent>\r\
+      \n<To>To: Cindy Loh &lt;cindyloh3333@gmail.com&gt;</To>\r\n<Subject>Subject:\
+      \ Re: Accounts to close</Subject>\r\n</headers><body>\r\nI've been working on\
+      \ those for a while. It's just a matter of showing the\r\nAcme CTO the numbers\
+      \ and I think we can convince them to go with us.\r\n\r\nCindy\r\n\r\n</body></email><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
+      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"dc7542b2982030b1\" /></hash><headers>On <Sent\
+      \ dateUtc=\"2015-03-31T19:08:00Z\">Tue, Mar 31, 2015 at 7:08 PM</Sent>,<From>\
+      \ Cindy Loh &lt;cindyloh3333@gmail.com&gt; </From>wrote:\r\n</headers><body>\r\
+      \n&gt; Tyson,\r\n&gt;\r\n&gt; Can you let me know where you stand on the Acme\
+      \ and Fancy Stuff accounts?\r\n&gt; We need to hit our number for the month.\
+      \ Can you help out?\r\n&gt;\r\n&gt; --\r\n&gt; Cynthia Loh\r\n&gt; Sr. Account\
+      \ Manager\r\n&gt; Awesome Things Company\r\n&gt;\r\n\r\n\r\n\r\n-- \r\nTyson\
+      \ DiMetrio\r\nAccount Manager\r\nAwesome Things Company\r\n</body></email></CONTENT><from>Admin/hpq%HPQ@hpswlabs.hp.com</from><sent>Thu,\
+      \ 19 Nov 2015 09:25:21 +0000</sent><subject>CAF Test Extract - simple</subject><to>Admin/hpq%hpq@hpswlabs.hp.com</to></root>\r\
+      \n"
+  - name: "ALL_TO"
+    value: "To: Cindy Loh <cindyloh3333@gmail.com>"
+  status: "COMPLETED"
