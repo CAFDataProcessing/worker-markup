@@ -437,8 +437,8 @@
             <properties>
                 <test.data>${project.basedir}/testcases/automated</test.data>
                 <!-- A property is created by the windows or linux nightly tests profiles to allow the nightly tests to pick
-                up binary content files from a remote location e.g. test.binary.content.basedir=/mnt/test-sources/ -->
-                <test.binary.content.location>${test.binary.content.basedir}markup-test-data</test.binary.content.location>
+                up binary content files from a remote location e.g. test.binary.content.basedir=/mnt/test-sources/
+                <test.binary.content.location>${test.binary.content.basedir}markup-test-data</test.binary.content.location>-->
                 <failsafe.timeout>120000</failsafe.timeout>
             </properties>
         </profile>
