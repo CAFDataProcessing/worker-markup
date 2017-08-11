@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -292,6 +293,9 @@ public class HashHelper
             case NORMALIZE_PRIORITY:
                 normalizedStr = normalizePriority(currentElementValue);
                 break;
+            case NORMALIZE_CASE:
+                normalizedStr = normalizeCase(currentElementValue);
+                break;
             default:
                 LOG.error("normalizeValueAndAddToXMLElement: Error - '{}'",
                           "Normalization type must be specified for the field " + currentElement.getName());
@@ -424,6 +428,15 @@ public class HashHelper
         // Replace semicolons to comas
         str = str.replaceAll(";", ",");
         return str;
+    }
+
+    /**
+     * Returns a normalized case version of the provided string.
+     * @param str Value to normalize case for.
+     * @return Normalized case version of provided string value.
+     */
+    private static String normalizeCase(final String str){
+        return str.toLowerCase(Locale.ENGLISH);
     }
 
     /**

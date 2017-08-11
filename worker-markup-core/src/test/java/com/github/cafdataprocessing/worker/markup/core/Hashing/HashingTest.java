@@ -15,11 +15,7 @@
  */
 package com.github.cafdataprocessing.worker.markup.core.Hashing;
 
-import com.hpe.caf.worker.markup.Field;
-import com.hpe.caf.worker.markup.HashConfiguration;
-import com.hpe.caf.worker.markup.HashFunction;
-import com.hpe.caf.worker.markup.NormalizationType;
-import com.hpe.caf.worker.markup.Scope;
+import com.hpe.caf.worker.markup.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -28,11 +24,9 @@ import org.jdom2.input.SAXBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Unit test for hashing functionality of the markup worker.
@@ -185,6 +179,120 @@ public class HashingTest
 
         Iterator<Element> iterator = jdomDoc.getRootElement().getDescendants(new ElementFilter("digest"));
         Assert.assertEquals(iterator.next().getAttributeValue("value"), iterator.next().getAttributeValue("value"));
+    }
+
+    /**
+     * Test the hash functionality with case normalization.
+     *
+     * Asserts that the hash tag elements have been successfully added into the xml markup and they are consistent across
+     * separate runs where fields used in hash differ only by case when normalization case is used.
+     *
+     * @throws org.jdom2.JDOMException
+     * @throws java.io.IOException
+     */
+    @Test
+    public void testNormalizeCaseHashGeneration() throws JDOMException, IOException {
+        List<HashConfiguration> config;
+        String fieldName = "test";
+        {
+            List<Field> fields = new ArrayList<>();
+
+            Field testField = new Field();
+            testField.name = fieldName;
+            testField.normalizationType = NormalizationType.NORMALIZE_CASE;
+            fields.add(testField);
+
+            List<HashFunction> hashFunctions = new ArrayList<>();
+            hashFunctions.add(HashFunction.XXHASH64);
+            HashConfiguration hashConfiguration = new HashConfiguration();
+            hashConfiguration.fields = fields;
+            hashConfiguration.hashFunctions = hashFunctions;
+            hashConfiguration.scope = Scope.EMAIL_THREAD;
+            config = Arrays.asList(hashConfiguration);
+        }
+
+        String originalValue = "ABCDEFHIJKLMNOPQRSTUVWXYZ1234567890zzegehjykyabcdebfbnttabh";
+        Document originalCaseDoc = buildNormalizeCaseTestDocument(fieldName, originalValue);
+
+        HashHelper.generateHashes(originalCaseDoc, config);
+        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(originalCaseDoc, config));
+
+        Iterator<Element> iterator = originalCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
+        String originalCaseHashValue = iterator.next().getAttributeValue("value");
+        Assert.assertNotNull("Hash value returned for original case document should not be null.", originalCaseHashValue);
+
+        String upperCaseValue = originalValue.toUpperCase(Locale.ENGLISH);
+        Document upperCaseDoc = buildNormalizeCaseTestDocument(fieldName, upperCaseValue);
+        HashHelper.generateHashes(upperCaseDoc, config);
+        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(upperCaseDoc, config));
+
+        iterator = upperCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
+        String upperCaseHashValue = iterator.next().getAttributeValue("value");
+        Assert.assertNotNull("Hash value returned for upper case document should not be null.", upperCaseHashValue);
+
+        String lowerCaseValue = originalValue.toLowerCase(Locale.ENGLISH);
+        Document lowerCaseDoc = buildNormalizeCaseTestDocument(fieldName, lowerCaseValue);
+        HashHelper.generateHashes(lowerCaseDoc, config);
+        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(lowerCaseDoc, config));
+
+        iterator = lowerCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
+        String lowerCaseHashValue = iterator.next().getAttributeValue("value");
+        Assert.assertNotNull("Hash value returned for lower case document should not be null.", lowerCaseHashValue);
+
+        Assert.assertEquals("Generated hash value should be the same for original value and upper case value.",
+                originalCaseHashValue, upperCaseHashValue);
+        Assert.assertEquals("Generated hash value should be the same for original value and lower case value.",
+                originalCaseHashValue, lowerCaseHashValue);
+
+        //generate another hash value that doesn't normalize case and verify it is different
+        {
+            List<Field> fields = new ArrayList<>();
+
+            Field testField = new Field();
+            testField.name = fieldName;
+            fields.add(testField);
+
+            List<HashFunction> hashFunctions = new ArrayList<>();
+            hashFunctions.add(HashFunction.XXHASH64);
+            HashConfiguration hashConfiguration = new HashConfiguration();
+            hashConfiguration.fields = fields;
+            hashConfiguration.hashFunctions = hashFunctions;
+            hashConfiguration.scope = Scope.EMAIL_THREAD;
+            config = Arrays.asList(hashConfiguration);
+        }
+
+        Document noNormalizeCaseDoc = buildNormalizeCaseTestDocument(fieldName, originalValue);
+
+        HashHelper.generateHashes(noNormalizeCaseDoc, config);
+        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(noNormalizeCaseDoc, config));
+
+        iterator = noNormalizeCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
+        String noNormalizeCaseHashValue = iterator.next().getAttributeValue("value");
+        Assert.assertNotNull("Hash value returned for no normalizaion on case document should not be null.",
+                noNormalizeCaseHashValue);
+
+        Assert.assertNotEquals("Generated hash value should be different for original value between normalize " +
+                        "and no normalization runs.",
+                noNormalizeCaseHashValue, originalCaseHashValue);
+        Assert.assertNotEquals("Generated hash value should be different for upper case normalized value and no " +
+                        "normalization value.",
+                noNormalizeCaseHashValue, upperCaseHashValue);
+        Assert.assertNotEquals("Generated hash value should be different for lower case normalized value and no " +
+                        "normalization value.",
+                noNormalizeCaseHashValue, lowerCaseHashValue);
+    }
+
+    private Document buildNormalizeCaseTestDocument(String fieldName, String fieldValue)
+            throws JDOMException, IOException {
+        String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                + "<root>"
+                + "<"+fieldName+">"
+                + fieldValue
+                + "</"+fieldName+">"
+                + "</root>";
+
+        SAXBuilder saxBuilder = new SAXBuilder();
+        return saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
     }
 
     /**

@@ -43,5 +43,10 @@ public enum NormalizationType
     /**
      * Normalizes email priority values to a standard form.
      */
-    NORMALIZE_PRIORITY
+    NORMALIZE_PRIORITY,
+
+    /**
+     * Normalizes case of characters.
+     */
+    NORMALIZE_CASE
 }
