@@ -84,6 +84,7 @@ public class MarkupDocumentEngine
      * @param codec codec to use in creation of dataSource
      * @param dataStore data store implementation
      * @param config Markup Worker configuration
+     * @param emailSplitter Python email splitter that can be shared over multiple threads.
      * @return MarkupWorkerResult object containing the result of the workers processing
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
@@ -91,18 +92,12 @@ public class MarkupDocumentEngine
      * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
      */
     public MarkupWorkerResult markupDocument(final MarkupWorkerTask task, final DataStore dataStore, final Codec codec,
-                                             final MarkupWorkerConfiguration config) throws InterruptedException, ConfigurationException,
-                                                                                            JDOMException, ExecutionException
+                                             final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter)
+        throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
     {
-        final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
-        try {
-            final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
-            MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
-                                                       codec, dataStore, config, emailSplitter);
-            return result;
-        } finally {
-            jepThreadPool.shutdown();
-        }
+        MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
+                                                   codec, dataStore, config, emailSplitter);
+        return result;
     }
 
     /**

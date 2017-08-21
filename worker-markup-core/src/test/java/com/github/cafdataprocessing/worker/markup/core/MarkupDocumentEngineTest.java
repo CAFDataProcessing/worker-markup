@@ -86,7 +86,7 @@ try{
                 isEmail
         );
         MarkupWorkerResult firstMarkupWorkerResult =
-                markupDocumentEngine.markupDocument(firstMarkupWorkerTask, dataStore, codec, config);
+                markupDocumentEngine.markupDocument(firstMarkupWorkerTask, dataStore, codec, config, emailSplitter);
 
         Assert.assertNotNull("Should have got a markup result.", firstMarkupWorkerResult);
         Optional<NameValuePair> firstMarkupWorkerComparisonHashOptional = firstMarkupWorkerResult.fieldList.stream().filter(fi -> fi.name.equals("COMPARISON_HASH")).findFirst();
@@ -107,7 +107,7 @@ try{
                 isEmail
         );
         MarkupWorkerResult secondMarkupWorkerResult =
-                markupDocumentEngine.markupDocument(secondMarkupWorkerTask, dataStore, codec, config);
+                markupDocumentEngine.markupDocument(secondMarkupWorkerTask, dataStore, codec, config, emailSplitter);
         Assert.assertNotNull("Should have got a markup result.", firstMarkupWorkerResult);
         Optional<NameValuePair> secondMarkupWorkerComparisonHashOptional = secondMarkupWorkerResult.fieldList.stream()
                 .filter(fi -> fi.name.equals("COMPARISON_HASH")).findFirst();

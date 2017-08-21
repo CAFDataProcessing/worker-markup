@@ -15,6 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
 import com.github.cafdataprocessing.worker.markup.core.MarkupDocumentEngine;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import com.hpe.caf.api.Codec;
@@ -41,19 +42,22 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
      */
     private static final Logger LOG = LoggerFactory.getLogger(MarkupWorker.class);
     private final DataStore dataStore;
+    private final EmailSplitter emailSplitter;
 
     public MarkupWorker(final MarkupWorkerTask task,
                         final DataStore dataStore,
                         final String outputQueue,
                         final Codec codec,
                         final MarkupWorkerConfiguration config,
-                        final MarkupDocumentEngine markupDocument)
+                        final MarkupDocumentEngine markupDocument,
+                        final EmailSplitter emailSplitter)
         throws InvalidTaskException
     {
         super(task, outputQueue, codec);
         this.dataStore = Objects.requireNonNull(dataStore);
         this.config = config;
         this.markupDocument = markupDocument;
+        this.emailSplitter = emailSplitter;
     }
 
     @Override
@@ -97,7 +101,7 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
     {
         LOG.info("Starting work");
         try {
-            return markupDocument.markupDocument(getTask(), dataStore, getCodec(), config);
+            return markupDocument.markupDocument(getTask(), dataStore, getCodec(), config, emailSplitter);
         } catch (JDOMException jdome) {
             LOG.error("Error during JDOM parsing. ", jdome);
             return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
