@@ -41,11 +41,9 @@ import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MarkupDocumentEngine implements AutoCloseable
+public class MarkupDocumentEngine
 {
     private static final Logger LOG = LoggerFactory.getLogger(MarkupDocumentEngine.class);
-    private final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
-    private final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
 
     /**
      * Public method to expose Markup Worker logic to a Document Worker
@@ -54,11 +52,12 @@ public class MarkupDocumentEngine implements AutoCloseable
      * @param hashConfiguration The hash configuration to use when generating document hashes
      * @param outputFields The list of fields the worker should output
      * @param isEmail if the document is of email type.
+     * @param emailSplitter python email splitter that is used across multiple threads
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      */
     public void markupDocument(final Document document, final List<HashConfiguration> hashConfiguration,
-                               final List<OutputField> outputFields, final boolean isEmail)
+                               final List<OutputField> outputFields, final boolean isEmail, final EmailSplitter emailSplitter)
         throws InterruptedException, ConfigurationException
     {
         final MarkupWorkerConfiguration config = document.getApplication().getService(ConfigurationSource.class)
@@ -67,7 +66,7 @@ public class MarkupDocumentEngine implements AutoCloseable
 
         try {
             MarkupWorkerResult result = markupDocument(ConvertSourceData.getSourceData(document), hashConfiguration, outputFields, isEmail,
-                                                       new JsonCodec(), dataStore, config);
+                                                       new JsonCodec(), dataStore, config, emailSplitter);
             ConvertWorkerResult.updateDocument(document, result);
         } catch (JDOMException jdome) {
             LOG.error("Error during JDOM parsing. ", jdome);
@@ -95,9 +94,15 @@ public class MarkupDocumentEngine implements AutoCloseable
                                              final MarkupWorkerConfiguration config) throws InterruptedException, ConfigurationException,
                                                                                             JDOMException, ExecutionException
     {
-        MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
-                                                   codec, dataStore, config);
-        return result;
+        final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
+        try {
+            final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
+            MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
+                                                       codec, dataStore, config, emailSplitter);
+            return result;
+        } finally {
+            jepThreadPool.shutdown();
+        }
     }
 
     /**
@@ -118,7 +123,7 @@ public class MarkupDocumentEngine implements AutoCloseable
      */
     private MarkupWorkerResult markupDocument(final Multimap<String, ReferencedData> sourceData, final List<HashConfiguration> hashConfiguration,
                                               final List<OutputField> outputFields, final boolean isEmail, final Codec codec, final DataStore dataStore,
-                                              final MarkupWorkerConfiguration config)
+                                              final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter)
         throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
     {
 
@@ -167,11 +172,5 @@ public class MarkupDocumentEngine implements AutoCloseable
             LOG.error("Error during splitting of emails. ", ee);
             throw ee;
         }
-    }
-
-    @Override
-    public void close()
-    {
-        jepThreadPool.shutdown();
     }
 }

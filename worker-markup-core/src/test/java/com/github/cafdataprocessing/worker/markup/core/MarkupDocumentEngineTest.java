@@ -34,6 +34,8 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Basic testing for MarkupDocumentEngine
@@ -45,6 +47,8 @@ public class MarkupDocumentEngineTest {
      */
     @Test
     public void fieldOrderingIrrelevantForHashTest() throws WorkerException, ConfigurationException, InterruptedException, JDOMException, ExecutionException {
+        final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
+        final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
         MarkupDocumentEngine markupDocumentEngine = new MarkupDocumentEngine();
         HashConfiguration hashConfiguration = new HashConfiguration();
         hashConfiguration.name = "Comparison";
@@ -62,8 +66,8 @@ public class MarkupDocumentEngineTest {
         boolean isEmail = false;
 
         Document documentToTest = buildDocumentForHashOrderingTest();
-
-        markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail);
+try{
+        markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail, emailSplitter);
         com.hpe.caf.worker.document.model.Field documentComparisonHashField = documentToTest.getField("COMPARISON_HASH");
         Assert.assertTrue("COMPARISON_HASH field on worker-document returned should have values.",
                 documentComparisonHashField.hasValues());
@@ -116,6 +120,9 @@ public class MarkupDocumentEngineTest {
 
         Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint the first time.",
                 firstMarkupWorkerComparisonHash.value, secondMarkupWorkerComparisonHash.value);
+        } finally {
+            jepThreadPool.shutdown();
+        }
     }
 
     /**
