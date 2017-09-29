@@ -23,6 +23,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.github.cafdataprocessing.worker.markup.core.configuration.AddEmailHeadersConfiguration;
 import com.hpe.caf.api.worker.WorkerConfiguration;
 
 /**
@@ -30,6 +31,11 @@ import com.hpe.caf.api.worker.WorkerConfiguration;
  */
 public class MarkupWorkerConfiguration extends WorkerConfiguration
 {
+    /**
+     * Whether headers for emails should be added to the start of a specified field
+     */
+    private AddEmailHeadersConfiguration addEmailHeadersDuringMarkup;
+
     /**
      * Output queue to return results to RabbitMQ.
      */
@@ -59,6 +65,16 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
 
     public MarkupWorkerConfiguration()
     {
+    }
+
+    public AddEmailHeadersConfiguration getAddEmailHeadersDuringMarkup()
+    {
+        return addEmailHeadersDuringMarkup;
+    }
+
+    public void setAddEmailHeadersDuringMarkup(AddEmailHeadersConfiguration addEmailHeadersDuringMarkup)
+    {
+        this.addEmailHeadersDuringMarkup = addEmailHeadersDuringMarkup;
     }
 
     public String getOutputQueue()

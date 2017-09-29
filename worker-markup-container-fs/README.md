@@ -25,6 +25,10 @@ The Markup Worker specific configuration that can be controlled through the defa
 |              |  `CAF_WORKER_NAME` with '-out' appended to the value if present                 |             |
 |  threads   |   `CAF_MARKUP_WORKER_THREADS`                                         |   2       |
 |             |   `CAF_WORKER_THREADS`                                             |          |
+| addEmailHeadersDuringMarkup.enabled   |  `CAF_MARKUP_WORKER_ADD_EMAIL_HEADERS_ENABLED`    | true  |
+| addEmailHeadersDuringMarkup.field   |  `CAF_MARKUP_WORKER_ADD_EMAIL_HEADERS_FIELD`    | "CONTENT"  |
+
+During markup of an email the markup worker can make header information available as part of a specified field, making the headers available for use in hash and output configurations. The field should be specified via `addEmailHeadersDuringMarkup.field` and whether this behaviour is active via `addEmailHeadersDuringMarkup.enabled`.
 
 
 ## Feature Testing

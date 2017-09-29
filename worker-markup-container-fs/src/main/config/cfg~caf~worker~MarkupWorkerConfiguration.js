@@ -19,6 +19,10 @@
     "outputQueue": getenv("CAF_WORKER_OUTPUT_QUEUE")
     || (getenv("CAF_WORKER_BASE_QUEUE_NAME") || getenv("CAF_WORKER_NAME") || "worker") + "-out",
     "threads": getenv("CAF_MARKUP_WORKER_THREADS") || getenv("CAF_WORKER_THREADS") || 1,
+    "addEmailHeadersDuringMarkup": {
+        "enabled": getenv("CAF_MARKUP_WORKER_ADD_EMAIL_HEADERS_ENABLED") || false,
+        "fieldName": getenv("CAF_MARKUP_WORKER_ADD_EMAIL_HEADERS_FIELD") || "CONTENT"
+    },
     "emailHeaderMappings": {
         "From": ["Von", "De", "Van", "Fra", "Från"],
         "Subject": ["Betreff", "Asunto", "Objet"],

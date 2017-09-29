@@ -18,7 +18,7 @@ package com.github.cafdataprocessing.worker.markup.core;
 public class XmlFieldEntry
 {
     private final String name;
-    private final String text;
+    private String text;
 
     public XmlFieldEntry(String name, String text)
     {
@@ -35,4 +35,6 @@ public class XmlFieldEntry
     {
         return text;
     }
+
+    public void setText(String text) { this.text = text;}
 }

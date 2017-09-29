@@ -16,14 +16,15 @@
 package com.github.cafdataprocessing.worker.markup.core;
 
 import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
+import com.github.cafdataprocessing.worker.markup.core.configuration.AddEmailHeadersConfiguration;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MarkupWorkerExceptions;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.Codec;
+import com.hpe.caf.api.CodecException;
 import com.hpe.caf.api.ConfigurationException;
 import com.hpe.caf.api.ConfigurationSource;
 import com.hpe.caf.api.worker.DataStore;
 import com.hpe.caf.api.worker.DataStoreSource;
-import com.hpe.caf.codec.JsonCodec;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
 import com.hpe.caf.worker.document.model.Document;
@@ -33,10 +34,10 @@ import com.hpe.caf.worker.markup.MarkupWorkerStatus;
 import com.hpe.caf.worker.markup.MarkupWorkerTask;
 import com.hpe.caf.worker.markup.OutputField;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,10 +64,26 @@ public class MarkupDocumentEngine
         final MarkupWorkerConfiguration config = document.getApplication().getService(ConfigurationSource.class)
             .getConfiguration(MarkupWorkerConfiguration.class);
         final DataStore dataStore = document.getApplication().getService(DataStore.class);
+        final Codec codec = document.getApplication().getService(Codec.class);
+
+        String addEmailHeadersDuringMarkupOverrideStr = document.getCustomData("addEmailHeadersDuringMarkup");
+        AddEmailHeadersConfiguration addEmailHeadersDuringMarkupOverride = null;
+        if(addEmailHeadersDuringMarkupOverrideStr!=null) {
+            try {
+                addEmailHeadersDuringMarkupOverride =
+                        codec.deserialise(addEmailHeadersDuringMarkupOverrideStr.getBytes(
+                                Charset.forName("UTF-8")), AddEmailHeadersConfiguration.class
+                        );
+            } catch (CodecException e) {
+                LOG.warn("'addEmailHeadersDuringMarkup' was passed on document customData but failed to deserialize " +
+                                "value. Setting from Markup configuration shall be used.",
+                        e);
+            }
+        }
 
         try {
             MarkupWorkerResult result = markupDocument(ConvertSourceData.getSourceData(document), hashConfiguration, outputFields, isEmail,
-                                                       new JsonCodec(), dataStore, config, emailSplitter);
+                                                       codec, dataStore, config, emailSplitter, addEmailHeadersDuringMarkupOverride);
             ConvertWorkerResult.updateDocument(document, result);
         } catch (JDOMException jdome) {
             LOG.error("Error during JDOM parsing. ", jdome);
@@ -96,7 +113,7 @@ public class MarkupDocumentEngine
         throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
     {
         MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
-                                                   codec, dataStore, config, emailSplitter);
+                                                   codec, dataStore, config, emailSplitter, null);
         return result;
     }
 
@@ -110,6 +127,9 @@ public class MarkupDocumentEngine
      * @param codec codec to use in creation of dataSource
      * @param dataStore data store implementation
      * @param config Markup Worker configuration
+     * @param emailSplitter emailSplitter instance to use in splitting emails in the document
+     * @param addEmailHeadersConfigurationOverride can be passed to override the settings in {@code config} object for
+     *                                             adding email headers
      * @return MarkupWorkerResult object containing the result of the workers processing
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
@@ -118,7 +138,8 @@ public class MarkupDocumentEngine
      */
     private MarkupWorkerResult markupDocument(final Multimap<String, ReferencedData> sourceData, final List<HashConfiguration> hashConfiguration,
                                               final List<OutputField> outputFields, final boolean isEmail, final Codec codec, final DataStore dataStore,
-                                              final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter)
+                                              final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter,
+                                              final AddEmailHeadersConfiguration addEmailHeadersConfigurationOverride)
         throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
     {
 
@@ -133,9 +154,19 @@ public class MarkupDocumentEngine
                 FieldNameMapper.mapFieldNames(sourceData);
             }
 
+            // Use either a provided addEmailHeadersConfiguration or the one provided in the config
+            AddEmailHeadersConfiguration addEmailHeadersConfiguration;
+            if(addEmailHeadersConfigurationOverride!=null){
+                addEmailHeadersConfiguration = addEmailHeadersConfigurationOverride;
+            }
+            else {
+                addEmailHeadersConfiguration = config.getAddEmailHeadersDuringMarkup();
+            }
+
             // Convert the dataMap to an xml document
             DataSource dataSource = new DataStoreSource(dataStore, codec);
-            final List<XmlFieldEntry> xmlFieldEntries = XmlConverter.getXmlFieldEntries(dataSource, sourceData);
+            final List<XmlFieldEntry> xmlFieldEntries =
+                    XmlConverter.getXmlFieldEntries(dataSource, sourceData, isEmail, addEmailHeadersConfiguration);
 
             org.jdom2.Document doc = GetXmlDocument.getXmlDocument(xmlFieldEntries);
             // Split the content into email tags and mark up the headers and body tags
