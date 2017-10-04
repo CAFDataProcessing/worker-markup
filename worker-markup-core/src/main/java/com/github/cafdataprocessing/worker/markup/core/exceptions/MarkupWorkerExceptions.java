@@ -25,4 +25,5 @@ public final class MarkupWorkerExceptions extends Exception
     
     public static final String JDOMEXCEPTION_FAILURE = "MARKUP_WORKER_FAILURE_0001";
     public static final String EXECUTION_EXCEPTION = "MARKUP_WORKER_FAILURE_0002";
+    public static final String ADD_HEADERS_EXCEPTION = "MARKUP_WORKER_FAILURE_0003";
 }

@@ -73,7 +73,8 @@ public class MarkupDocumentEngine
             LOG.error("Error during splitting of emails. ", ee);
             document.addFailure(MarkupWorkerExceptions.EXECUTION_EXCEPTION, "Error during splitting of emails.");
         } catch (AddHeadersException ee) {
-            LOG.error("Error adding header values to email.", ee);
+            LOG.error("Error adding header values to email. ", ee);
+            document.addFailure(MarkupWorkerExceptions.ADD_HEADERS_EXCEPTION, "Error adding headers to email.");
         }
     }
 
