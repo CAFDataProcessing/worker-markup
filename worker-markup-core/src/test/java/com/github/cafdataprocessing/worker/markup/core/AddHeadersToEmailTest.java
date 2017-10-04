@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 Hewlett Packard Enterprise Development LP.
+ * Copyright 2015-2017 EntIT Software LLC, a Micro Focus company.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.configuration.AddEmailHeadersConfiguration;
+import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.worker.DataStore;
@@ -43,7 +43,7 @@ public class AddHeadersToEmailTest {
      * provided in the passed source data.
      */
     @Test
-    public void addAllHeadersTest() throws DataStoreException {
+    public void addAllHeadersTest() throws DataStoreException, AddHeadersException {
         DataStore store = new InMemoryDataStore();
         DataSource dataSource = new DataStoreSource(store, new JsonCodec());
         Multimap<String, ReferencedData> sourceData = ArrayListMultimap.create();
@@ -62,11 +62,9 @@ public class AddHeadersToEmailTest {
         String contentValue = getContentValueForTest();
         sourceData.put(fieldToAddHeadersTo, ReferencedData.getWrappedData(contentValue.getBytes(Charset.forName("UTF-8"))));
 
-        AddEmailHeadersConfiguration addEmailHeadersConfiguration = new AddEmailHeadersConfiguration();
-        addEmailHeadersConfiguration.setEnabled(true);
-        addEmailHeadersConfiguration.setFieldName(fieldToAddHeadersTo);
+        boolean addEmailHeaders = true;
         List<XmlFieldEntry> returnedEntries =
-                XmlConverter.getXmlFieldEntries(dataSource, sourceData, true, addEmailHeadersConfiguration);
+                XmlConverter.getXmlFieldEntries(dataSource, sourceData, true, addEmailHeaders);
         Optional<XmlFieldEntry> updatedFieldOptional =
                 returnedEntries.stream().filter(ent -> ent.getName().equals(fieldToAddHeadersTo)).findFirst();
         Assert.assertTrue("Expected the field to add headers to to have been returned in XML entries.",
@@ -111,11 +109,11 @@ public class AddHeadersToEmailTest {
 
         // Update the start index to the entirety of from, to, cc and bcc strings plus the new lines
         updatedValueCheckStartIndex = updatedValueCheckEndIndex + 1;
-        String expectedSentHeaderValue = "Date: Wed, 20 Sep 2017 08:34:58 +0000";
+        String expectedSentHeaderPrefix = "Date: ";
         updatedValueCheckEndIndex =
-                updatedValueCheckStartIndex + expectedSentHeaderValue.length();
+                updatedValueCheckStartIndex + expectedSentHeaderPrefix.length() + sentValue.length();
         Assert.assertEquals("Updated text should have 'sent' header at expected position.",
-                expectedSentHeaderValue,
+                expectedSentHeaderPrefix + sentValue,
                 updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
 
 
@@ -147,7 +145,7 @@ public class AddHeadersToEmailTest {
      * Tests that when some header values are omitted that the output is as expected.
      */
     @Test
-    public void addSomeHeadersTest() throws DataStoreException {
+    public void addSomeHeadersTest() throws DataStoreException, AddHeadersException {
         DataStore store = new InMemoryDataStore();
         DataSource dataSource = new DataStoreSource(store, new JsonCodec());
         Multimap<String, ReferencedData> sourceData = ArrayListMultimap.create();
@@ -162,11 +160,9 @@ public class AddHeadersToEmailTest {
         String contentValue = getContentValueForTest();
         sourceData.put(fieldToAddHeadersTo, ReferencedData.getWrappedData(contentValue.getBytes(Charset.forName("UTF-8"))));
 
-        AddEmailHeadersConfiguration addEmailHeadersConfiguration = new AddEmailHeadersConfiguration();
-        addEmailHeadersConfiguration.setEnabled(true);
-        addEmailHeadersConfiguration.setFieldName(fieldToAddHeadersTo);
+        boolean addEmailHeaders = true;
         List<XmlFieldEntry> returnedEntries =
-                XmlConverter.getXmlFieldEntries(dataSource, sourceData, true, addEmailHeadersConfiguration);
+                XmlConverter.getXmlFieldEntries(dataSource, sourceData, true, addEmailHeaders);
         Optional<XmlFieldEntry> updatedFieldOptional =
                 returnedEntries.stream().filter(ent -> ent.getName().equals(fieldToAddHeadersTo)).findFirst();
         Assert.assertTrue("Expected the field to add headers to to have been returned in XML entries.",

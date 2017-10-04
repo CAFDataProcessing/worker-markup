@@ -15,15 +15,13 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.configuration.AddEmailHeadersConfiguration;
-import com.google.common.base.Strings;
+import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.worker.TaskFailedException;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.DataSourceException;
 import com.hpe.caf.util.ref.ReferencedData;
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.jdom2.Document;
@@ -33,14 +31,22 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public final class XmlConverter
 {
+    private static final Map<String, String> HEADER_DISPLAY_NAMES_TO_SOURCES = ImmutableMap.<String, String> builder()
+            .put("From", "from")
+            .put("To", "to")
+            .put("CC", "cc")
+            .put("BCC", "bcc")
+            .put("Date", "sent")
+            .put("Subject", "subject")
+            .put("Importance", "priority")
+            .build();
     private static final Logger LOG = LoggerFactory.getLogger(XmlConverter.class);
-    private static final Parser NATTY_PARSER = new Parser(TimeZone.getTimeZone("UTC"));
+
 
     private XmlConverter()
     {
@@ -52,28 +58,22 @@ public final class XmlConverter
      * @param dataSource the remote data store which can be used to resolve the values of reference fields
      * @param sourceData the value of the field, or a reference that can be used to retrieve the value of the field
      * @param isEmail whether the entries are being retrieved for an email
-     * @param addEmailHeadersConfiguration the configuration to use if email headers should be added to the generated xml
-     *                                     field entries.
+     * @param shouldAddEmailHeaders whether email headers should be added to the generated xml field entry for CONTENT
      *
      * @return a list of name-value pairs which can be used to create xml elements without further sanitisation
+     * @throws AddHeadersException if there is a failure adding email headers to field value
      */
     public static List<XmlFieldEntry> getXmlFieldEntries(final DataSource dataSource,
                                                          final Multimap<String, ReferencedData> sourceData,
                                                          final boolean isEmail,
-                                                         final AddEmailHeadersConfiguration addEmailHeadersConfiguration)
+                                                         final boolean shouldAddEmailHeaders)
+            throws AddHeadersException
     {
         // Get the collection of fields
         final Collection<Map.Entry<String, ReferencedData>> fields = sourceData.entries();
 
         // Create an empty list which the xml field entries will be added to
         final List<XmlFieldEntry> xmlFieldEntries = new ArrayList<>(fields.size());
-
-        boolean shouldAddEmailHeaders =
-                addEmailHeadersConfiguration != null && addEmailHeadersConfiguration.isEnabled() ? true : false;
-        String addEmailHeadersFieldName = null;
-        if(shouldAddEmailHeaders){
-            addEmailHeadersFieldName = addEmailHeadersConfiguration.getFieldName();
-        }
 
         // Cycle through the fields and add them to the list
         for (Map.Entry<String, ReferencedData> referencedDataEntry : fields) {
@@ -112,8 +112,8 @@ public final class XmlConverter
             }
         }
 
-        if(isEmail && shouldAddEmailHeaders && addEmailHeadersFieldName!=null){
-            addEmailHeadersToXmlFieldEntries(addEmailHeadersFieldName, xmlFieldEntries);
+        if(isEmail && shouldAddEmailHeaders){
+            addEmailHeadersToXmlFieldEntries(xmlFieldEntries);
         }
 
         //sort the xml field entries so they are not dependent on the order the sourceData fields are in
@@ -145,68 +145,30 @@ public final class XmlConverter
         return doc;
     }
 
-    private static void addEmailHeadersToXmlFieldEntries(String fieldToAddTo, List<XmlFieldEntry> sourceEntries)
+    private static void addEmailHeadersToXmlFieldEntries(List<XmlFieldEntry> sourceEntries)
+            throws AddHeadersException
     {
         StringBuilder headersBuilder = new StringBuilder();
         // Build headers
-        appendEmailHeaderToBuilder(headersBuilder, "From", "from", sourceEntries);
-        appendEmailHeaderToBuilder(headersBuilder, "To", "to", sourceEntries);
-        appendEmailHeaderToBuilder(headersBuilder, "CC", "cc", sourceEntries);
-        appendEmailHeaderToBuilder(headersBuilder, "BCC", "bcc", sourceEntries);
-        appendEmailDateHeaderToBuilder(headersBuilder, sourceEntries);
-        appendEmailHeaderToBuilder(headersBuilder, "Subject", "subject", sourceEntries);
+        for(Map.Entry<String, String> displayNameToSource: HEADER_DISPLAY_NAMES_TO_SOURCES.entrySet()) {
+            appendEmailHeaderToBuilder(headersBuilder, displayNameToSource.getKey(), displayNameToSource.getValue(),
+                    sourceEntries);
+        }
 
         // Add a new line indicating break in headers section.
         headersBuilder.append("\n");
 
         for(XmlFieldEntry entryToUpdate: sourceEntries.stream()
-                .filter(ent -> ent.getName().equals(fieldToAddTo))
+                .filter(ent -> ent.getName().equals("CONTENT"))
                 .collect(Collectors.toList())){
             entryToUpdate.setText(headersBuilder.toString() + entryToUpdate.getText());
         }
     }
 
-    private static void appendEmailDateHeaderToBuilder(StringBuilder headersBuilder, List<XmlFieldEntry> sourceEntries){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss Z", Locale.ROOT);
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Optional<String> sentValueOptional = sourceEntries.stream()
-                .filter(ent -> ent.getName().toLowerCase(Locale.ENGLISH).equals("sent"))
-                .map(ent -> ent.getText()).findFirst();
-        if(!sentValueOptional.isPresent()){
-            LOG.info("No value found on field to use for date header. No date value added to email headers during markup.");
-            return;
-        }
-        String sentValue = sentValueOptional.get();
-        if(Strings.isNullOrEmpty(sentValue)){
-            LOG.info("Empty value found on field to use for date header. No date value added to email headers during markup.");
-            return;
-        }
-        List<DateGroup> nattyDateGroups = NATTY_PARSER.parse(sentValue);
-        if(nattyDateGroups.isEmpty()){
-            LOG.info("No date group found in field to use for date header. No date value added to email headers during markup.");
-            return;
-        }
-        DateGroup matchedDateGroup  = nattyDateGroups.get(0);
-        final List<Date> dates = matchedDateGroup.getDates();
-
-        if (dates == null || dates.size() <= 0) {
-            LOG.info("No dates found in field to use for date header. No date value added to email headers during markup.");
-            return;
-        }
-
-        final Date date = dates.get(0);
-
-        if (date == null) {
-            LOG.info("Invalid date value returned from field to use for date header. No date value added to email headers during markup.");
-            return;
-        }
-
-        headersBuilder.append("Date: ").append(dateFormat.format(date));
-        headersBuilder.append("\n");
-    }
-
     private static void appendEmailHeaderToBuilder(StringBuilder headersBuilder, String headerStartText,
-                                                   String headerSourceFieldName, List<XmlFieldEntry> sourceEntries){
+                                                   String headerSourceFieldName, List<XmlFieldEntry> sourceEntries)
+        throws AddHeadersException
+    {
         List<String> headerValues = sourceEntries.stream()
                 .filter(ent -> ent.getName().toLowerCase(Locale.ENGLISH).equals(headerSourceFieldName))
                 .map(ent -> ent.getText())
@@ -215,15 +177,16 @@ public final class XmlConverter
         if(headerValues.isEmpty()){
             LOG.info("No '" + headerSourceFieldName + "' values to add in email headers during markup.");
         }
+        else if (headerValues.size() > 1) {
+            throw new AddHeadersException("Unable to add email headers. Multiple field entries found for header: "
+                    +headerSourceFieldName);
+        }
         else{
             headersBuilder.append(headerStartText+": ");
-            Iterator headersIterator = headerValues.iterator();
-            headersBuilder.append(headersIterator.next());
-            while(headersIterator.hasNext()){
-
-                headersBuilder.append("; ");
-                headersBuilder.append(headersIterator.next());
-            }
+            String headerValue = headerSourceFieldName.equals("priority")
+                    ? Normalizations.normalizePriority(headerValues.get(0))
+                    : headerValues.get(0);
+            headersBuilder.append(headerValue);
             headersBuilder.append("\n");
         }
     }

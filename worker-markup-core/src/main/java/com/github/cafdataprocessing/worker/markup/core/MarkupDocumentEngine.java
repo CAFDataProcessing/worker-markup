@@ -16,11 +16,10 @@
 package com.github.cafdataprocessing.worker.markup.core;
 
 import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
-import com.github.cafdataprocessing.worker.markup.core.configuration.AddEmailHeadersConfiguration;
+import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MarkupWorkerExceptions;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.Codec;
-import com.hpe.caf.api.CodecException;
 import com.hpe.caf.api.ConfigurationException;
 import com.hpe.caf.api.ConfigurationSource;
 import com.hpe.caf.api.worker.DataStore;
@@ -28,19 +27,13 @@ import com.hpe.caf.api.worker.DataStoreSource;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
 import com.hpe.caf.worker.document.model.Document;
-import com.hpe.caf.worker.markup.HashConfiguration;
-import com.hpe.caf.worker.markup.MarkupWorkerResult;
-import com.hpe.caf.worker.markup.MarkupWorkerStatus;
-import com.hpe.caf.worker.markup.MarkupWorkerTask;
-import com.hpe.caf.worker.markup.OutputField;
-
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
+import com.hpe.caf.worker.markup.*;
 import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MarkupDocumentEngine
 {
@@ -67,23 +60,11 @@ public class MarkupDocumentEngine
         final Codec codec = document.getApplication().getService(Codec.class);
 
         String addEmailHeadersDuringMarkupOverrideStr = document.getCustomData("addEmailHeadersDuringMarkup");
-        AddEmailHeadersConfiguration addEmailHeadersDuringMarkupOverride = null;
-        if(addEmailHeadersDuringMarkupOverrideStr!=null) {
-            try {
-                addEmailHeadersDuringMarkupOverride =
-                        codec.deserialise(addEmailHeadersDuringMarkupOverrideStr.getBytes(
-                                Charset.forName("UTF-8")), AddEmailHeadersConfiguration.class
-                        );
-            } catch (CodecException e) {
-                LOG.warn("'addEmailHeadersDuringMarkup' was passed on document customData but failed to deserialize " +
-                                "value. Setting from Markup configuration shall be used.",
-                        e);
-            }
-        }
 
         try {
-            MarkupWorkerResult result = markupDocument(ConvertSourceData.getSourceData(document), hashConfiguration, outputFields, isEmail,
-                                                       codec, dataStore, config, emailSplitter, addEmailHeadersDuringMarkupOverride);
+            MarkupWorkerResult result = markupDocument(ConvertSourceData.getSourceData(document), hashConfiguration,
+                    outputFields, isEmail, codec, dataStore, config, emailSplitter,
+                    Boolean.parseBoolean(addEmailHeadersDuringMarkupOverrideStr));
             ConvertWorkerResult.updateDocument(document, result);
         } catch (JDOMException jdome) {
             LOG.error("Error during JDOM parsing. ", jdome);
@@ -91,6 +72,8 @@ public class MarkupDocumentEngine
         } catch (ExecutionException ee) {
             LOG.error("Error during splitting of emails. ", ee);
             document.addFailure(MarkupWorkerExceptions.EXECUTION_EXCEPTION, "Error during splitting of emails.");
+        } catch (AddHeadersException ee) {
+            LOG.error("Error adding header values to email.", ee);
         }
     }
 
@@ -103,6 +86,7 @@ public class MarkupDocumentEngine
      * @param config Markup Worker configuration
      * @param emailSplitter Python email splitter that can be shared over multiple threads.
      * @return MarkupWorkerResult object containing the result of the workers processing
+     * @throws AddHeadersException throws when there is a failure adding headers to email field value
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
@@ -110,7 +94,7 @@ public class MarkupDocumentEngine
      */
     public MarkupWorkerResult markupDocument(final MarkupWorkerTask task, final DataStore dataStore, final Codec codec,
                                              final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter)
-        throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
+        throws AddHeadersException, InterruptedException, ConfigurationException, JDOMException, ExecutionException
     {
         MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
                                                    codec, dataStore, config, emailSplitter, null);
@@ -128,19 +112,22 @@ public class MarkupDocumentEngine
      * @param dataStore data store implementation
      * @param config Markup Worker configuration
      * @param emailSplitter emailSplitter instance to use in splitting emails in the document
-     * @param addEmailHeadersConfigurationOverride can be passed to override the settings in {@code config} object for
-     *                                             adding email headers
+     * @param addEmailHeadersOverride can be passed to override the settings in {@code config} object specifying whether
+     *                                email headers should be added to content field value
      * @return MarkupWorkerResult object containing the result of the workers processing
+     * @throws AddHeadersException throws when there is a failure adding headers to email field value
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
      * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
      */
-    private MarkupWorkerResult markupDocument(final Multimap<String, ReferencedData> sourceData, final List<HashConfiguration> hashConfiguration,
-                                              final List<OutputField> outputFields, final boolean isEmail, final Codec codec, final DataStore dataStore,
+    private MarkupWorkerResult markupDocument(final Multimap<String, ReferencedData> sourceData,
+                                              final List<HashConfiguration> hashConfiguration,
+                                              final List<OutputField> outputFields, final boolean isEmail,
+                                              final Codec codec, final DataStore dataStore,
                                               final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter,
-                                              final AddEmailHeadersConfiguration addEmailHeadersConfigurationOverride)
-        throws InterruptedException, ConfigurationException, JDOMException, ExecutionException
+                                              final Boolean addEmailHeadersOverride)
+        throws AddHeadersException, InterruptedException, ConfigurationException, JDOMException, ExecutionException
     {
 
         final MarkupHeadersAndBody markupEngine = new MarkupHeadersAndBody(config.getEmailHeaderMappings(),
@@ -154,19 +141,19 @@ public class MarkupDocumentEngine
                 FieldNameMapper.mapFieldNames(sourceData);
             }
 
-            // Use either a provided addEmailHeadersConfiguration or the one provided in the config
-            AddEmailHeadersConfiguration addEmailHeadersConfiguration;
-            if(addEmailHeadersConfigurationOverride!=null){
-                addEmailHeadersConfiguration = addEmailHeadersConfigurationOverride;
+            // Use either a provided addEmailHeaders value or the one provided in the config
+            boolean addEmailHeaders;
+            if(addEmailHeadersOverride!=null){
+                addEmailHeaders = addEmailHeadersOverride.booleanValue();
             }
             else {
-                addEmailHeadersConfiguration = config.getAddEmailHeadersDuringMarkup();
+                addEmailHeaders = config.shouldAddEmailHeadersDuringMarkup();
             }
 
             // Convert the dataMap to an xml document
             DataSource dataSource = new DataStoreSource(dataStore, codec);
             final List<XmlFieldEntry> xmlFieldEntries =
-                    XmlConverter.getXmlFieldEntries(dataSource, sourceData, isEmail, addEmailHeadersConfiguration);
+                    XmlConverter.getXmlFieldEntries(dataSource, sourceData, isEmail, addEmailHeaders);
 
             org.jdom2.Document doc = GetXmlDocument.getXmlDocument(xmlFieldEntries);
             // Split the content into email tags and mark up the headers and body tags
@@ -196,6 +183,9 @@ public class MarkupDocumentEngine
 
         } catch (ExecutionException ee) {
             LOG.error("Error during splitting of emails. ", ee);
+            throw ee;
+        } catch (AddHeadersException ee) {
+            LOG.error("Error adding headers to email.", ee);
             throw ee;
         }
     }

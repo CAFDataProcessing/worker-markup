@@ -15,8 +15,7 @@
  */
 package com.github.cafdataprocessing.worker.markup.core.Hashing;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
+import com.github.cafdataprocessing.worker.markup.core.Normalizations;
 import com.hpe.caf.worker.markup.*;
 import net.openhft.hashing.LongHashFunction;
 import org.jdom2.Attribute;
@@ -28,8 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -44,17 +41,6 @@ public class HashHelper
     private static final String ERR_MSG_NO_FIELDS_SPECIFIED = "No fields have been specified in the hash configuration. You must specify fields to be included in the hash.";
     private static final String ERR_MSG_DOCUMENT_NULL = "The document is null.";
     private static final String ERR_MSG_NO_TYPE = "No type has been specified in the hash configuration. This has been defaulted to be EMAIL_SPECIFIC.";
-
-    private static final Map<String, String> PRIORITY_NORMALIZATIONS = ImmutableMap.<String, String> builder()
-            .put("0", "Low")
-            .put("1", "Normal")
-            .put("2", "High")
-            .put("lowest", "Low")
-            .put("low", "Low")
-            .put("normal", "Normal")
-            .put("high", "High")
-            .put("highest", "High")
-            .build();
 
     private HashHelper()
     {
@@ -282,19 +268,19 @@ public class HashHelper
                 normalizedStr = currentElementValue;
                 break;
             case REMOVE_WHITESPACE:
-                normalizedStr = removeAllWhitespace(currentElementValue);
+                normalizedStr = Normalizations.removeAllWhitespace(currentElementValue);
                 break;
             case REMOVE_WHITESPACE_AND_LINKS:
-                normalizedStr = removeAllWhitespaceAndLinks(currentElementValue);
+                normalizedStr = Normalizations.removeAllWhitespaceAndLinks(currentElementValue);
                 break;
             case NAME_ONLY:
-                normalizedStr = nameOnly(currentElementValue);
+                normalizedStr = Normalizations.nameOnly(currentElementValue);
                 break;
             case NORMALIZE_PRIORITY:
-                normalizedStr = normalizePriority(currentElementValue);
+                normalizedStr = Normalizations.normalizePriority(currentElementValue);
                 break;
             case NORMALIZE_CASE:
-                normalizedStr = normalizeCase(currentElementValue);
+                normalizedStr = Normalizations.normalizeCase(currentElementValue);
                 break;
             default:
                 LOG.error("normalizeValueAndAddToXMLElement: Error - '{}'",
@@ -377,78 +363,6 @@ public class HashHelper
         }
     }
 
-    /**
-     * Remove all whitespace and newlines from a String.
-     *
-     * @param str
-     * @return String
-     */
-    private static String removeAllWhitespace(String str)
-    {
-        String normalizedString = str.replaceAll("\\s+", "");
-        return normalizedString;
-    }
-
-    /**
-     * Removes whitespace and then removes &lt; &gt; tags and content (links)
-     */
-    private static String removeAllWhitespaceAndLinks(String str)
-    {
-        // Remove whitespace characters.
-        str = str.replaceAll("\\s+", "");
-        // Search for a <, remove non whitespace characters until the next > character (including the < and >).
-        str = str.replaceAll("<\\S+?>", "");
-        // Remove reply email quotation marks (> characters)
-        str = str.replaceAll(">", "");
-        str = str.replaceAll("‘", "'");
-        str = str.replaceAll("’", "'");
-        str = str.replaceAll("“", "\"");
-        str = str.replaceAll("”", "\"");
-        str = str.replaceAll("–", "-");
-        return str;
-    }
-
-    /**
-     * If the string begins with ' it assumes it is of the type '&lt;user@email.xxx&gt;' and so removes the '&lt;' and '&gt;'.
-     *
-     * Otherwise it removes these tags and their content and strips out ' and " punctuation.
-     */
-    private static String nameOnly(String str)
-    {
-        // Remove whitespace.
-        str = str.replaceAll("\\s+", "");
-        // Search for a < character, remove all non-whitespace and whitespace characters until the next >, including the < and >.
-        str = str.replaceAll("<[^,;]+>", "");
-        // Remove double quotation marks.
-        str = str.replaceAll("\"", "");
-        // Remove single quotation marks.
-        str = str.replaceAll("\'", "");
-        // Remove reply email quotation marks (> characters)
-        str = str.replaceAll(">", "");
-        // Replace semicolons to comas
-        str = str.replaceAll(";", ",");
-        return str;
-    }
-
-    /**
-     * Returns a normalized case version of the provided string.
-     * @param str Value to normalize case for.
-     * @return Normalized case version of provided string value.
-     */
-    private static String normalizeCase(final String str){
-        return str.toLowerCase(Locale.ENGLISH);
-    }
-
-    /**
-     * If the supplied string is a recognized email priority value then this is converted to a standard form.
-     *
-     * Otherwise the supplied string is returned.
-     */
-    private static String normalizePriority(final String str)
-    {
-        final String normalizedPriority = PRIORITY_NORMALIZATIONS.get(str.trim().toLowerCase());
-        return Strings.isNullOrEmpty(normalizedPriority) ? str : normalizedPriority;
-    }
 
     /**
      * Perform xxHash64 hashing on a string.
