@@ -18,6 +18,7 @@ package com.hpe.caf.worker.markup;
 import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
 import com.github.cafdataprocessing.worker.markup.core.MarkupDocumentEngine;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
+import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.hpe.caf.api.Codec;
 import com.hpe.caf.api.ConfigurationException;
 import com.hpe.caf.api.worker.*;
@@ -110,6 +111,9 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
             return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
         } catch (ConfigurationException ex) {
             LOG.error("Error during retrieval of configuration. ", ex);
+            return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
+        } catch (AddHeadersException ex) {
+            LOG.error("Error adding headers to email. ", ex);
             return createErrorResult(MarkupWorkerStatus.WORKER_FAILED);
         }
     }

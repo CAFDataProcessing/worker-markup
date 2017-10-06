@@ -143,13 +143,7 @@ public class MarkupDocumentEngine
             }
 
             // Use either a provided addEmailHeaders value or the one provided in the config
-            boolean addEmailHeaders;
-            if(addEmailHeadersOverride!=null){
-                addEmailHeaders = addEmailHeadersOverride.booleanValue();
-            }
-            else {
-                addEmailHeaders = config.shouldAddEmailHeadersDuringMarkup();
-            }
+            boolean addEmailHeaders = addEmailHeadersOverride != null ? addEmailHeadersOverride.booleanValue() : config.shouldAddEmailHeadersDuringMarkup();
 
             // Convert the dataMap to an xml document
             DataSource dataSource = new DataStoreSource(dataStore, codec);

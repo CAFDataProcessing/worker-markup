@@ -79,7 +79,7 @@ public final class XmlConverter
         for (Map.Entry<String, ReferencedData> referencedDataEntry : fields) {
             // Get the field name and value
             final String fieldName = referencedDataEntry.getKey();
-            String fieldValue = getContentAsStringEx(dataSource, referencedDataEntry);
+            final String fieldValue = getContentAsStringEx(dataSource, referencedDataEntry);
 
             // Sanitise them for use in xml
             final String elementName = XmlParsingHelper.removeInvalidXmlElementNameChars(fieldName, "UnreadableField");
