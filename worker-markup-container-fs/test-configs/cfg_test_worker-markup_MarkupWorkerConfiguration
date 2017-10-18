@@ -20,6 +20,7 @@
       "FAMILY_TYPE" : "FAMILY_DOC_FORMAT_CODE",
       "PRIORITY" : "priority",
       "ADDRESS_CC" : "cc",
-      "ADDRESS_FROM" : "from"
+      "ADDRESS_FROM" : "from",
+      "ADDRESS_TO" : "to"
     }
 }

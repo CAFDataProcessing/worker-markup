@@ -17,6 +17,7 @@ package com.hpe.caf.worker.markup;
 
 import com.google.common.collect.Multimap;
 import com.hpe.caf.worker.testing.FileTestInputData;
+
 import java.util.List;
 
 public class MarkupTestInput extends FileTestInputData
@@ -28,6 +29,8 @@ public class MarkupTestInput extends FileTestInputData
     private List<OutputField> outputFieldList;
 
     private boolean isEmail;
+
+    private String contentFieldName;
 
     public Multimap<String, String> getSourceData()
     {
@@ -67,5 +70,25 @@ public class MarkupTestInput extends FileTestInputData
     public void setEmail(boolean isEmail)
     {
         this.isEmail = isEmail;
+    }
+
+    /**
+     * Getter for property 'contentFieldName'.
+     *
+     * @return Value for property 'contentFieldName'.
+     */
+    public String getContentFieldName()
+    {
+        return contentFieldName;
+    }
+
+    /**
+     * Setter for property 'contentFieldName'.
+     *
+     * @param contentFieldName Value to set for property 'contentFieldName'.
+     */
+    public void setContentFieldName(String contentFieldName)
+    {
+        this.contentFieldName = contentFieldName;
     }
 }

@@ -30,5 +30,15 @@
         "On": ["Le", "W dniu", "Op", "Am", "På", "Den"],
         "Separator": ["użytkownik"],
         "Wrote": ["a écrit", "napisał", "schreef", "verzond", "geschreven", "schrieb", "skrev"]
+    },
+    "inputFieldMappings": {
+        "TYPE": "DOC_FORMAT_CODE",
+        "IS_ROOT_DOC": "IS_ROOT",
+        "CONTENT_PRIMARY": "CONTENT",
+        "FAMILY_TYPE" : "FAMILY_DOC_FORMAT_CODE",
+        "PRIORITY" : "priority",
+        "ADDRESS_CC" : "cc",
+        "ADDRESS_FROM" : "from",
+        "ADDRESS_TO" : "to"
     }
 });

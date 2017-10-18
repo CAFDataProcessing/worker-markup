@@ -15,6 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -22,8 +23,8 @@ import com.hpe.caf.util.ref.ReferencedData;
 import com.hpe.caf.worker.testing.FileInputWorkerTaskFactory;
 import com.hpe.caf.worker.testing.TestConfiguration;
 import com.hpe.caf.worker.testing.TestItem;
-import java.nio.charset.StandardCharsets;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map.Entry;
 
 public class MarkupWorkerTaskFactory extends FileInputWorkerTaskFactory<MarkupWorkerTask, MarkupTestInput, MarkupTestExpectation>
@@ -62,8 +63,13 @@ public class MarkupWorkerTaskFactory extends FileInputWorkerTaskFactory<MarkupWo
             sourceDataMap.put(key, refData);
         }
 
-        if (!sourceDataMap.containsKey("CONTENT")) {
-            sourceDataMap.put("CONTENT", sourceData);
+        String contentFieldName = testItem.getInputData().getContentFieldName();
+        if (Strings.isNullOrEmpty(contentFieldName)) {
+            contentFieldName = "CONTENT";
+        }
+
+        if (!sourceDataMap.containsKey(contentFieldName)) {
+            sourceDataMap.put(contentFieldName, sourceData);
         }
 
         task.sourceData = sourceDataMap;
