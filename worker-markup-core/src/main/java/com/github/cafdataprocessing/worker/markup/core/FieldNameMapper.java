@@ -17,12 +17,15 @@ package com.github.cafdataprocessing.worker.markup.core;
 
 import com.google.common.collect.Multimap;
 import com.hpe.caf.util.ref.ReferencedData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public final class FieldNameMapper
 {
+    private static final Logger LOG = LoggerFactory.getLogger(FieldNameMapper.class);
     public static final String KV_MSG_MAIL_CONVERSATION_TOPIC = "conversationtopic";
     public static final String KV_MSG_MAIL_CONVERSATION_INDEX = "caf-mail-conversation-index";
     public static final String KV_MSG_MAIL_INTERNET_MESSAGE_ID = "internetmessageid";
@@ -65,20 +68,34 @@ public final class FieldNameMapper
     /**
      * Standardises the key names in the specified Multimap
      */
-    public static void mapFieldNames(Multimap<String, ReferencedData> mapData)
+    public static void mapFieldNames(Multimap<String, ReferencedData> mapData, boolean isEmail, Map<String, String> inputFieldMappings)
     {
-        //Loop to go iterate through newKeyNames and perform a check to see if it exists in mapData, if it does - Create a new key-value pair with the original
-        //Values. Then remove the old key-value pairs.
-        for (Map.Entry<String, String> entry : newKeyNames.entrySet()) {
-            final String key = entry.getKey();
-
-            if (mapData.containsKey(key)) {
-
-                // For each value associated with the KV key, put the value into the new CAF key name
-                mapData.get(key).stream().forEach(mapDataValue -> mapData.put(entry.getValue(), mapDataValue));
-                // Remove the instances of the KV key
-                mapData.removeAll(key);
+        if (inputFieldMappings != null) {
+            LOG.trace("Input Field mappings were provided.");
+            for (Map.Entry<String, String> entry : inputFieldMappings.entrySet()) {
+                renameField(mapData, entry);
             }
+        }
+        if (isEmail) {
+            //Loop to go iterate through newKeyNames and perform a check to see if it exists in mapData, if it does - Create a new key-value pair with the original
+            //Values. Then remove the old key-value pairs.
+            for (Map.Entry<String, String> entry : newKeyNames.entrySet()) {
+                renameField(mapData, entry);
+            }
+        }
+
+    }
+
+    private static void renameField(Multimap<String, ReferencedData> mapData, Map.Entry<String, String> entry)
+    {
+        LOG.trace("Trying to rename field {} to {}", entry.getKey(), entry.getValue());
+        final String key = entry.getKey();
+        if (mapData.containsKey(key)) {
+            LOG.trace("Field found, renaming field {} to {}", entry.getKey(), entry.getValue());
+            // For each value associated with the KV key, put the value into the new CAF key name
+            mapData.get(key).stream().forEach(mapDataValue -> mapData.put(entry.getValue(), mapDataValue));
+            // Remove the instances of the KV key
+            mapData.removeAll(key);
         }
     }
 }

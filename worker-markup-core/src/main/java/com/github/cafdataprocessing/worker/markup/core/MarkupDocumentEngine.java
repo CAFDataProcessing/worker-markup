@@ -28,7 +28,11 @@ import com.hpe.caf.api.worker.DataStoreSource;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
 import com.hpe.caf.worker.document.model.Document;
-import com.hpe.caf.worker.markup.*;
+import com.hpe.caf.worker.markup.HashConfiguration;
+import com.hpe.caf.worker.markup.MarkupWorkerResult;
+import com.hpe.caf.worker.markup.MarkupWorkerStatus;
+import com.hpe.caf.worker.markup.MarkupWorkerTask;
+import com.hpe.caf.worker.markup.OutputField;
 import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,9 +146,7 @@ public class MarkupDocumentEngine
 
         try {
             // Standardize the dataMap key-value pairs
-            if (isEmail) {
-                FieldNameMapper.mapFieldNames(sourceData);
-            }
+            FieldNameMapper.mapFieldNames(sourceData, isEmail, config.getInputFieldMappings());
 
             // Use either a provided addEmailHeaders value or the one provided in the config
             boolean addEmailHeaders = addEmailHeadersOverride != null ? addEmailHeadersOverride.booleanValue() : config.shouldAddEmailHeadersDuringMarkup();

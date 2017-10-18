@@ -48,7 +48,7 @@ public class FieldNameMapperTest
         dataMap.put(FieldNameMapper.KV_MSG_MAIL_IN_REPLY_TO, secondMailInReplyTo);
 
         //Transform the fields in the map to CAF recognised metadata fields
-        FieldNameMapper.mapFieldNames(dataMap);
+        FieldNameMapper.mapFieldNames(dataMap, true, null);
 
         // Check that the KV MSG format fields were transformed to their CAF types
         testThatMailFieldsTransformedToCafTypes(dataMap);
@@ -70,7 +70,7 @@ public class FieldNameMapperTest
         dataMap.put(FieldNameMapper.KV_EML_MAIL_IN_REPLY_TO, secondMailInReplyTo);
 
         //Transform the fields in the map to CAF recognised metadata fields
-        FieldNameMapper.mapFieldNames(dataMap);
+        FieldNameMapper.mapFieldNames(dataMap, true, null);
 
         // Check that the KV EML format fields were transformed to their CAF types
         testThatMailFieldsTransformedToCafTypes(dataMap);

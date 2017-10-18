@@ -15,15 +15,15 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import java.util.List;
-import java.util.Map;
+import com.hpe.caf.api.Configuration;
+import com.hpe.caf.api.worker.WorkerConfiguration;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.hpe.caf.api.worker.WorkerConfiguration;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Configuration for the MarkupWorker, read in from test-configs/cfg_test_worker-markup-MarkupWorkerConfiguration.
@@ -48,6 +48,14 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
     @Min(1)
     @Max(20)
     private int threads;
+
+    /**
+     * A map of source to target field names.
+     * If provided, Markup Worker will use it to internally map (rename) input field names to the provided values.
+     * Map keys specify input field names, map values - target field names which will be used in the markup worker.
+     */
+    @Configuration
+    private Map<String, String> inputFieldMappings;
 
     /**
      * A map of field names to be mapped to a standardised field name.
@@ -114,5 +122,25 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
     public void setCondensedHeaderMultiLangMappings(Map<String, List<String>> condensedHeaderMultiLangMappings)
     {
         this.condensedHeaderMultiLangMappings = condensedHeaderMultiLangMappings;
+    }
+
+    /**
+     * Getter for property 'inputFieldMappings'.
+     *
+     * @return Value for property 'inputFieldMappings'.
+     */
+    public Map<String, String> getInputFieldMappings()
+    {
+        return inputFieldMappings;
+    }
+
+    /**
+     * Setter for property 'inputFieldMappings'.
+     *
+     * @param inputFieldMappings Value to set for property 'inputFieldMappings'.
+     */
+    public void setInputFieldMappings(Map<String, String> inputFieldMappings)
+    {
+        this.inputFieldMappings = inputFieldMappings;
     }
 }
