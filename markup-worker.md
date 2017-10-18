@@ -31,7 +31,7 @@ The client also supplies a list of [OutputFields](#outputfield) in the task mess
 
 ## Configuration
 
-The Markup Worker uses the standard `CAF-API` system of `ConfigurationSource`. The worker specific configuration is [MarkupWorkerConfiguration](https://github.com/CAFDataProcessing/worker-markup/blob/develop/worker-markup/src/main/java/com/hpe/caf/worker/markup/MarkupWorkerConfiguration.java) which has the options:
+The Markup Worker uses the standard `CAF-API` system of `ConfigurationSource`. The worker specific configuration is [MarkupWorkerConfiguration](https://github.com/CAFDataProcessing/worker-markup/blob/develop/worker-markup-core/src/main/java/com/github/cafdataprocessing/worker/markup/core/MarkupWorkerConfiguration.java) which has the options:
 
 - `outputQueue`: the output queue to return results to RabbitMQ.
 - `threads`: the number of threads to use in the worker.

@@ -122,8 +122,8 @@
     </dependencyManagement>
 
     <modules>
-       <!-- <module>jep-talon-install-script</module>
-        <module>jep-talon-image</module>-->
+        <module>jep-talon-install-script</module>
+        <module>jep-talon-image</module>
         <module>worker-markup-core</module>
         <module>worker-markup</module>
         <module>worker-markup-shared</module>
