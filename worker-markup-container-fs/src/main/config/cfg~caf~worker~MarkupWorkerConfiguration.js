@@ -32,6 +32,7 @@
         "Wrote": ["a écrit", "napisał", "schreef", "verzond", "geschreven", "schrieb", "skrev"]
     },
     "inputFieldMappings": {
+        "HASH": "BINARY_HASH_SHA1",
         "TYPE": "DOC_FORMAT_CODE",
         "IS_ROOT_DOC": "IS_ROOT",
         "CONTENT_PRIMARY": "CONTENT",
