@@ -18,19 +18,14 @@ package com.github.cafdataprocessing.worker.markup.core;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.api.worker.TaskFailedException;
 import com.hpe.caf.util.ref.DataSource;
-import com.hpe.caf.util.ref.DataSourceException;
 import com.hpe.caf.util.ref.ReferencedData;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,7 +41,6 @@ public final class XmlConverter
             .put("Importance", "priority")
             .build();
     private static final Logger LOG = LoggerFactory.getLogger(XmlConverter.class);
-
 
     private XmlConverter()
     {
@@ -79,7 +73,7 @@ public final class XmlConverter
         for (Map.Entry<String, ReferencedData> referencedDataEntry : fields) {
             // Get the field name and value
             final String fieldName = referencedDataEntry.getKey();
-            final String fieldValue = getContentAsStringEx(dataSource, referencedDataEntry);
+            final String fieldValue = ReferencedDataRetrieval.getContentAsStringEx(dataSource, referencedDataEntry.getValue());
 
             // Sanitise them for use in xml
             final String elementName = XmlParsingHelper.removeInvalidXmlElementNameChars(fieldName, "UnreadableField");
@@ -191,31 +185,5 @@ public final class XmlConverter
         }
     }
 
-    private static String getContentAsStringEx(final DataSource dataSource, final Map.Entry<String, ReferencedData> referencedDataEntry)
-    {
-        try {
-            return getContentAsString(dataSource, referencedDataEntry);
-        } catch (DataSourceException dse) {
-            throw new TaskFailedException("Failed to retrieve content from storage", dse);
-        } catch (IOException ioe) {
-            throw new TaskFailedException("Failed to read input stream from storage", ioe);
-        }
-    }
 
-    private static String getContentAsString(DataSource dataSource, Map.Entry<String, ReferencedData> referencedDataEntry)
-        throws DataSourceException, IOException
-    {
-        try(InputStream dataStream = referencedDataEntry.getValue().acquire(dataSource))
-        {
-            final byte[] refDataBytes = IOUtils.toByteArray(dataStream);
-            try {
-                // Get content using UTF-8
-                return IOUtils.toString(refDataBytes, "UTF-8");
-            } catch (Exception e) {
-                // Catch and retry with 1252 encoding.
-                LOG.error("Failed to convert to utf8", e);
-                return IOUtils.toString(refDataBytes, "Windows-1252");
-            }
-        }
-    }
 }

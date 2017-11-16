@@ -145,14 +145,15 @@ public class MarkupDocumentEngine
         LOG.info("Starting work");
 
         try {
+            DataSource dataSource = new DataStoreSource(dataStore, codec);
+
             // Standardize the dataMap key-value pairs
-            FieldNameMapper.mapFieldNames(sourceData, isEmail, config.getInputFieldMappings());
+            FieldNameMapper.mapFieldNames(sourceData, isEmail, config.getInputFieldMappings(), dataSource);
 
             // Use either a provided addEmailHeaders value or the one provided in the config
             boolean addEmailHeaders = addEmailHeadersOverride != null ? addEmailHeadersOverride.booleanValue() : config.shouldAddEmailHeadersDuringMarkup();
 
             // Convert the dataMap to an xml document
-            DataSource dataSource = new DataStoreSource(dataStore, codec);
             final List<XmlFieldEntry> xmlFieldEntries =
                     XmlConverter.getXmlFieldEntries(dataSource, sourceData, isEmail, addEmailHeaders);
 

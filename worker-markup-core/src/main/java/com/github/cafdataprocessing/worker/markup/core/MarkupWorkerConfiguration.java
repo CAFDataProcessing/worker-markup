@@ -52,10 +52,9 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
     /**
      * A map of source to target field names.
      * If provided, Markup Worker will use it to internally map (rename) input field names to the provided values.
-     * Map keys specify input field names, map values - target field names which will be used in the markup worker.
      */
     @Configuration
-    private Map<String, String> inputFieldMappings;
+    private List<InputFieldMapping> inputFieldMappings;
 
     /**
      * A map of field names to be mapped to a standardised field name.
@@ -129,7 +128,7 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
      *
      * @return Value for property 'inputFieldMappings'.
      */
-    public Map<String, String> getInputFieldMappings()
+    public List<InputFieldMapping> getInputFieldMappings()
     {
         return inputFieldMappings;
     }
@@ -139,7 +138,7 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
      *
      * @param inputFieldMappings Value to set for property 'inputFieldMappings'.
      */
-    public void setInputFieldMappings(Map<String, String> inputFieldMappings)
+    public void setInputFieldMappings(List<InputFieldMapping> inputFieldMappings)
     {
         this.inputFieldMappings = inputFieldMappings;
     }

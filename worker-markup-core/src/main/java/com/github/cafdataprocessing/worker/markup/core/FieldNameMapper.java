@@ -16,11 +16,14 @@
 package com.github.cafdataprocessing.worker.markup.core;
 
 import com.google.common.collect.Multimap;
+import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class FieldNameMapper
@@ -68,12 +71,13 @@ public final class FieldNameMapper
     /**
      * Standardises the key names in the specified Multimap
      */
-    public static void mapFieldNames(Multimap<String, ReferencedData> mapData, boolean isEmail, Map<String, String> inputFieldMappings)
+    public static void mapFieldNames(final Multimap<String, ReferencedData> mapData, final boolean isEmail,
+                                     final List<InputFieldMapping> inputFieldMappings, final DataSource dataSource)
     {
         if (inputFieldMappings != null) {
             LOG.trace("Input Field mappings were provided.");
-            for (Map.Entry<String, String> entry : inputFieldMappings.entrySet()) {
-                renameField(mapData, entry);
+            for (InputFieldMapping entry : inputFieldMappings) {
+                renameField(mapData, entry, dataSource);
             }
         }
         if (isEmail) {
@@ -83,10 +87,9 @@ public final class FieldNameMapper
                 renameField(mapData, entry);
             }
         }
-
     }
 
-    private static void renameField(Multimap<String, ReferencedData> mapData, Map.Entry<String, String> entry)
+    private static void renameField(final Multimap<String, ReferencedData> mapData, final Map.Entry<String, String> entry)
     {
         LOG.trace("Trying to rename field {} to {}", entry.getKey(), entry.getValue());
         final String key = entry.getKey();
@@ -97,5 +100,49 @@ public final class FieldNameMapper
             // Remove the instances of the KV key
             mapData.removeAll(key);
         }
+    }
+
+    private static void renameField(final Multimap<String, ReferencedData> mapData, final InputFieldMapping inputFieldMapping,
+                                    final DataSource dataSource)
+    {
+        LOG.trace("Trying to rename field {} to {}", inputFieldMapping.inputField, inputFieldMapping.mapToField);
+        if (mapData.containsKey(inputFieldMapping.inputField)) {
+            LOG.trace("Field found, renaming field {} to {}", inputFieldMapping.inputField, inputFieldMapping.mapToField);
+            // For each value associated with the input field, put the value into the new CAF field name
+            for(ReferencedData mapDataValue: mapData.get(inputFieldMapping.inputField))
+            {
+                if(inputFieldMapping.transform!=null)
+                {
+                    ReferencedData transformedValue;
+                    switch (inputFieldMapping.transform)
+                    {
+                        case epochSecondsToISO8601:
+                            transformedValue = epochSecondsToISO8601Transform(mapDataValue, dataSource);
+                            break;
+                        default:
+                            throw new RuntimeException("Unrecognized transform specified on input field mapping: "
+                                    +inputFieldMapping.transform.toString());
+                    }
+                    mapData.put(inputFieldMapping.mapToField, transformedValue);
+                }
+                else
+                {
+                    mapData.put(inputFieldMapping.mapToField, mapDataValue);
+                }
+            }
+            // Remove the instances of the input field in its original form
+            mapData.removeAll(inputFieldMapping.inputField);
+        }
+    }
+
+    private static ReferencedData epochSecondsToISO8601Transform(ReferencedData inputValue, DataSource dataSource)
+    {
+        LOG.debug("Retrieving epoch seconds value to transform to ISO8601");
+        String valueToTransform = ReferencedDataRetrieval.getContentAsStringEx(dataSource, inputValue);
+        LOG.debug("Parsing epoch seconds value to long.");
+        long input = Long.parseLong(valueToTransform);
+        String transformedValue = Instant.ofEpochSecond(input).toString();
+        LOG.debug("Transformed epoch seconds value to ISO-8601 value.");
+        return ReferencedData.getWrappedData(transformedValue.getBytes());
     }
 }
