@@ -86,7 +86,8 @@ public class MarkupDocumentEngine
             document.addFailure(MarkupWorkerExceptions.ADD_HEADERS_EXCEPTION, "Error adding headers to email.");
         } catch (MappingException ee) {
             LOG.error("Error mapping input fields for markup. ", ee);
-            document.addFailure(MarkupWorkerExceptions.MAPPING_EXCEPTION, "Error mapping input fields for markup.");
+            document.addFailure(MarkupWorkerExceptions.MAPPING_EXCEPTION, "Error mapping input fields for markup. "
+                    +ee.getMessage());
         }
     }
 
