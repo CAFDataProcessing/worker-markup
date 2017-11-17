@@ -15,6 +15,7 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
@@ -70,9 +71,15 @@ public final class FieldNameMapper
 
     /**
      * Standardises the key names in the specified Multimap
+     * @param mapData map of data to standardise. New fields will be added to this and old fields removed.
+     * @param isEmail whether these fields are for an email.
+     * @param inputFieldMappings mappings specifying input fields to map to new field names.
+     * @param dataSource to retrieve data for referenced data if necessary
+     * @throws MappingException if a failure occurs trying to map fields
      */
     public static void mapFieldNames(final Multimap<String, ReferencedData> mapData, final boolean isEmail,
                                      final List<InputFieldMapping> inputFieldMappings, final DataSource dataSource)
+        throws MappingException
     {
         if (inputFieldMappings != null) {
             LOG.trace("Input Field mappings were provided.");
@@ -104,6 +111,7 @@ public final class FieldNameMapper
 
     private static void renameField(final Multimap<String, ReferencedData> mapData, final InputFieldMapping inputFieldMapping,
                                     final DataSource dataSource)
+            throws MappingException
     {
         LOG.trace("Trying to rename field {} to {}", inputFieldMapping.inputField, inputFieldMapping.mapToField);
         if (mapData.containsKey(inputFieldMapping.inputField)) {
@@ -117,7 +125,7 @@ public final class FieldNameMapper
                     switch (inputFieldMapping.transform)
                     {
                         case epochSecondsToISO8601:
-                            transformedValue = epochSecondsToISO8601Transform(mapDataValue, dataSource);
+                            transformedValue = epochSecondsToISO8601Transform(inputFieldMapping.inputField, mapDataValue, dataSource);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized transform specified on input field mapping: "
@@ -135,12 +143,22 @@ public final class FieldNameMapper
         }
     }
 
-    private static ReferencedData epochSecondsToISO8601Transform(ReferencedData inputValue, DataSource dataSource)
+    private static ReferencedData epochSecondsToISO8601Transform(String fieldName, ReferencedData inputValue,
+                                                                 DataSource dataSource)
+            throws MappingException
     {
         LOG.debug("Retrieving epoch seconds value to transform to ISO8601");
         String valueToTransform = ReferencedDataRetrieval.getContentAsStringEx(dataSource, inputValue);
         LOG.debug("Parsing epoch seconds value to long.");
-        long input = Long.parseLong(valueToTransform);
+        long input;
+        try
+        {
+            input = Long.parseLong(valueToTransform);
+        }
+        catch(NumberFormatException e)
+        {
+            throw new MappingException("Unable to parse expected epoch seconds value for field: "+fieldName, e);
+        }
         String transformedValue = Instant.ofEpochSecond(input).toString();
         LOG.debug("Transformed epoch seconds value to ISO-8601 value.");
         return ReferencedData.getWrappedData(transformedValue.getBytes());

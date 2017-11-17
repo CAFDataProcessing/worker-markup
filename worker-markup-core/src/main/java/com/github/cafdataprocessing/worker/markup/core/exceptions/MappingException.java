@@ -16,15 +16,27 @@
 package com.github.cafdataprocessing.worker.markup.core.exceptions;
 
 /**
- *
- * @author mcgreeva
+ * Exception to be thrown if an error occurs during mapping of input fields.
  */
-public final class MarkupWorkerExceptions extends Exception
-{
-    private MarkupWorkerExceptions(){}
-    
-    public static final String JDOMEXCEPTION_FAILURE = "MARKUP_WORKER_FAILURE_0001";
-    public static final String EXECUTION_EXCEPTION = "MARKUP_WORKER_FAILURE_0002";
-    public static final String ADD_HEADERS_EXCEPTION = "MARKUP_WORKER_FAILURE_0003";
-    public static final String MAPPING_EXCEPTION = "MARKUP_WORKER_FAILURE_0004";
+public class MappingException extends Exception {
+    /**
+     * Create a new MappingException
+     *
+     * @param message information about this exception
+     */
+    public MappingException(final String message)
+    {
+        super(message);
+    }
+
+    /**
+     * Create a new MappingException
+     *
+     * @param message information about this exception
+     * @param cause the original cause of this exception
+     */
+    public MappingException(final String message, final Throwable cause)
+    {
+        super(message, cause);
+    }
 }

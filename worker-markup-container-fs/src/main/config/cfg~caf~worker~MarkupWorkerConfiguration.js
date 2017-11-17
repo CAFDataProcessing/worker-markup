@@ -30,16 +30,4 @@
         "On": ["Le", "W dniu", "Op", "Am", "På", "Den"],
         "Separator": ["użytkownik"],
         "Wrote": ["a écrit", "napisał", "schreef", "verzond", "geschreven", "schrieb", "skrev"]
-    "inputFieldMappings": [
-        {"inputField": "HASH", "mapToField": "BINARY_HASH_SHA1"},
-        {"inputField": "TYPE", "mapToField": "DOC_FORMAT_CODE"},
-        {"inputField": "IS_ROOT_DOC", "mapToField": "IS_ROOT"},
-        {"inputField": "CONTENT_PRIMARY", "mapToField": "CONTENT"},
-        {"inputField": "FAMILY_TYPE", "mapToField": "FAMILY_DOC_FORMAT_CODE"},
-        {"inputField": "PRIORITY", "mapToField": "priority"},
-        {"inputField": "ADDRESS_CC", "mapToField": "cc"},
-        {"inputField": "ADDRESS_FROM", "mapToField": "from"},
-        {"inputField": "ADDRESS_TO", "mapToField": "to"},
-        {"inputField": "DATE_POSTED", "mapToField": "sent", "transform": "epochSecondsToISO8601"}
-    ]
-});
+}});

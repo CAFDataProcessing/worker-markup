@@ -17,6 +17,7 @@ package com.github.cafdataprocessing.worker.markup.core;
 
 import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
+import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MarkupWorkerExceptions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
@@ -83,6 +84,9 @@ public class MarkupDocumentEngine
         } catch (AddHeadersException ee) {
             LOG.error("Error adding header values to email. ", ee);
             document.addFailure(MarkupWorkerExceptions.ADD_HEADERS_EXCEPTION, "Error adding headers to email.");
+        } catch (MappingException ee) {
+            LOG.error("Error mapping input fields for markup. ", ee);
+            document.addFailure(MarkupWorkerExceptions.MAPPING_EXCEPTION, "Error mapping input fields for markup.");
         }
     }
 
@@ -100,10 +104,12 @@ public class MarkupDocumentEngine
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
      * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
+     * @throws MappingException throws when an error occurs mapping input fields for use during markup.
      */
     public MarkupWorkerResult markupDocument(final MarkupWorkerTask task, final DataStore dataStore, final Codec codec,
                                              final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter)
-        throws AddHeadersException, InterruptedException, ConfigurationException, JDOMException, ExecutionException
+        throws AddHeadersException, InterruptedException, ConfigurationException,
+            JDOMException, ExecutionException, MappingException
     {
         MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
                                                    codec, dataStore, config, emailSplitter, null);
@@ -129,6 +135,7 @@ public class MarkupDocumentEngine
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
      * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
+     * @throws MappingException throws when an error occurs mapping input fields for use during markup.
      */
     private MarkupWorkerResult markupDocument(final Multimap<String, ReferencedData> sourceData,
                                               final List<HashConfiguration> hashConfiguration,
@@ -136,7 +143,8 @@ public class MarkupDocumentEngine
                                               final Codec codec, final DataStore dataStore,
                                               final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter,
                                               final Boolean addEmailHeadersOverride)
-        throws AddHeadersException, InterruptedException, ConfigurationException, JDOMException, ExecutionException
+        throws AddHeadersException, InterruptedException, ConfigurationException, JDOMException,
+            ExecutionException, MappingException
     {
 
         final MarkupHeadersAndBody markupEngine = new MarkupHeadersAndBody(config.getEmailHeaderMappings(),
