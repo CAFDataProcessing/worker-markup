@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class XmlConverter
 {
@@ -158,34 +159,26 @@ public final class XmlConverter
     private static void appendEmailHeaderToBuilder(StringBuilder headersBuilder, String headerStartText,
                                                    String headerSourceFieldName, List<XmlFieldEntry> sourceEntries)
     {
-        List<String> headerValues = sourceEntries.stream()
-                .filter(ent -> ent.getName().toLowerCase(Locale.ENGLISH).equals(headerSourceFieldName))
-                .map(ent -> ent.getText())
-                .collect(Collectors.toList());
+        Stream<XmlFieldEntry> headerEntriesStream = sourceEntries.stream()
+                .filter(ent -> ent.getName().toLowerCase(Locale.ENGLISH).equals(headerSourceFieldName));
+        Stream<String> headerValuesStream;
+        if("priority".equals(headerSourceFieldName))
+        {
+            headerValuesStream = headerEntriesStream.map(ent -> Normalizations.normalizePriority(ent.getText()));
+        }
+        else
+        {
+            headerValuesStream = headerEntriesStream.map(ent -> ent.getText());
+        }
+        List<String> headerValues = headerValuesStream.collect(Collectors.toList());
 
         if(headerValues.isEmpty()){
             LOG.info("No '" + headerSourceFieldName + "' values to add in email headers during markup.");
         }
         else{
-            boolean isPriorityHeader = headerSourceFieldName.equals("priority");
-
             headersBuilder.append(headerStartText+": ");
-            Iterator headersIterator = headerValues.iterator();
-            String headerValue = isPriorityHeader == true
-                    ? Normalizations.normalizePriority((String)headersIterator.next())
-                    : (String)headersIterator.next();
-            headersBuilder.append(headerValue);
-            while(headersIterator.hasNext())
-            {
-                headersBuilder.append("; ");
-                headerValue = isPriorityHeader == true
-                        ? Normalizations.normalizePriority((String)headersIterator.next())
-                        : (String)headersIterator.next();
-                headersBuilder.append(headerValue);
-            }
+            headersBuilder.append(String.join("; ", headerValues));
             headersBuilder.append("\n");
         }
     }
-
-
 }
