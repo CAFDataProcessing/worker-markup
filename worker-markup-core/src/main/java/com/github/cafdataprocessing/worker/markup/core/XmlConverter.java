@@ -15,7 +15,6 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.util.ref.DataSource;
@@ -28,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class XmlConverter
 {
@@ -55,13 +55,11 @@ public final class XmlConverter
      * @param shouldAddEmailHeaders whether email headers should be added to the generated xml field entry for CONTENT
      *
      * @return a list of name-value pairs which can be used to create xml elements without further sanitisation
-     * @throws AddHeadersException if there is a failure adding email headers to field value
      */
     public static List<XmlFieldEntry> getXmlFieldEntries(final DataSource dataSource,
                                                          final Multimap<String, ReferencedData> sourceData,
                                                          final boolean isEmail,
                                                          final boolean shouldAddEmailHeaders)
-            throws AddHeadersException
     {
         // Get the collection of fields
         final Collection<Map.Entry<String, ReferencedData>> fields = sourceData.entries();
@@ -140,7 +138,6 @@ public final class XmlConverter
     }
 
     private static void addEmailHeadersToXmlFieldEntries(List<XmlFieldEntry> sourceEntries)
-            throws AddHeadersException
     {
         StringBuilder headersBuilder = new StringBuilder();
         // Build headers
@@ -161,29 +158,27 @@ public final class XmlConverter
 
     private static void appendEmailHeaderToBuilder(StringBuilder headersBuilder, String headerStartText,
                                                    String headerSourceFieldName, List<XmlFieldEntry> sourceEntries)
-        throws AddHeadersException
     {
-        List<String> headerValues = sourceEntries.stream()
-                .filter(ent -> ent.getName().toLowerCase(Locale.ENGLISH).equals(headerSourceFieldName))
-                .map(ent -> ent.getText())
-                .collect(Collectors.toList());
+        Stream<XmlFieldEntry> headerEntriesStream = sourceEntries.stream()
+                .filter(ent -> ent.getName().toLowerCase(Locale.ENGLISH).equals(headerSourceFieldName));
+        Stream<String> headerValuesStream;
+        if("priority".equals(headerSourceFieldName))
+        {
+            headerValuesStream = headerEntriesStream.map(ent -> Normalizations.normalizePriority(ent.getText()));
+        }
+        else
+        {
+            headerValuesStream = headerEntriesStream.map(ent -> ent.getText());
+        }
+        List<String> headerValues = headerValuesStream.collect(Collectors.toList());
 
         if(headerValues.isEmpty()){
             LOG.info("No '" + headerSourceFieldName + "' values to add in email headers during markup.");
         }
-        else if (headerValues.size() > 1) {
-            throw new AddHeadersException("Unable to add email headers. Multiple field entries found for header: "
-                    +headerSourceFieldName);
-        }
         else{
             headersBuilder.append(headerStartText+": ");
-            String headerValue = headerSourceFieldName.equals("priority")
-                    ? Normalizations.normalizePriority(headerValues.get(0))
-                    : headerValues.get(0);
-            headersBuilder.append(headerValue);
+            headersBuilder.append(String.join("; ", headerValues));
             headersBuilder.append("\n");
         }
     }
-
-
 }

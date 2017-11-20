@@ -16,7 +16,6 @@
 package com.github.cafdataprocessing.worker.markup.core;
 
 import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
-import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MarkupWorkerExceptions;
 import com.google.common.base.Strings;
@@ -81,9 +80,6 @@ public class MarkupDocumentEngine
         } catch (ExecutionException ee) {
             LOG.error("Error during splitting of emails. ", ee);
             document.addFailure(MarkupWorkerExceptions.EXECUTION_EXCEPTION, "Error during splitting of emails.");
-        } catch (AddHeadersException ee) {
-            LOG.error("Error adding header values to email. ", ee);
-            document.addFailure(MarkupWorkerExceptions.ADD_HEADERS_EXCEPTION, "Error adding headers to email.");
         } catch (MappingException ee) {
             LOG.error("Error mapping input fields for markup. ", ee);
             document.addFailure(MarkupWorkerExceptions.MAPPING_EXCEPTION, "Error mapping input fields for markup. "
@@ -100,7 +96,6 @@ public class MarkupDocumentEngine
      * @param config Markup Worker configuration
      * @param emailSplitter Python email splitter that can be shared over multiple threads.
      * @return MarkupWorkerResult object containing the result of the workers processing
-     * @throws AddHeadersException throws when there is a failure adding headers to email field value
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
@@ -109,7 +104,7 @@ public class MarkupDocumentEngine
      */
     public MarkupWorkerResult markupDocument(final MarkupWorkerTask task, final DataStore dataStore, final Codec codec,
                                              final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter)
-        throws AddHeadersException, InterruptedException, ConfigurationException,
+        throws InterruptedException, ConfigurationException,
             JDOMException, ExecutionException, MappingException
     {
         MarkupWorkerResult result = markupDocument(task.sourceData, task.hashConfiguration, task.outputFields, task.isEmail,
@@ -131,7 +126,6 @@ public class MarkupDocumentEngine
      * @param addEmailHeadersOverride can be passed to override the settings in {@code config} object specifying whether
      *                                email headers should be added to content field value
      * @return MarkupWorkerResult object containing the result of the workers processing
-     * @throws AddHeadersException throws when there is a failure adding headers to email field value
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
@@ -144,7 +138,7 @@ public class MarkupDocumentEngine
                                               final Codec codec, final DataStore dataStore,
                                               final MarkupWorkerConfiguration config, final EmailSplitter emailSplitter,
                                               final Boolean addEmailHeadersOverride)
-        throws AddHeadersException, InterruptedException, ConfigurationException, JDOMException,
+        throws InterruptedException, ConfigurationException, JDOMException,
             ExecutionException, MappingException
     {
 
@@ -194,9 +188,6 @@ public class MarkupDocumentEngine
 
         } catch (ExecutionException ee) {
             LOG.error("Error during splitting of emails. ", ee);
-            throw ee;
-        } catch (AddHeadersException ee) {
-            LOG.error("Error adding headers to email.", ee);
             throw ee;
         }
     }
