@@ -15,7 +15,6 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -48,7 +47,8 @@ public class MarkupDocumentEngineTest {
      * SourceData entry points.
      */
     @Test
-    public void fieldOrderingIrrelevantForHashTest() throws WorkerException, ConfigurationException, InterruptedException, JDOMException, ExecutionException, AddHeadersException, MappingException
+    public void fieldOrderingIrrelevantForHashTest() throws WorkerException, ConfigurationException, InterruptedException,
+            JDOMException, ExecutionException, MappingException
     {
         final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
         final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));

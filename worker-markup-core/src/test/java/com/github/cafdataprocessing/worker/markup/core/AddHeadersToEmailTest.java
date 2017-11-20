@@ -15,7 +15,6 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.api.worker.DataStore;
@@ -43,7 +42,7 @@ public class AddHeadersToEmailTest {
      * provided in the passed source data.
      */
     @Test
-    public void addAllHeadersTest() throws DataStoreException, AddHeadersException {
+    public void addAllHeadersTest() throws DataStoreException {
         DataStore store = new InMemoryDataStore();
         DataSource dataSource = new DataStoreSource(store, new JsonCodec());
         Multimap<String, ReferencedData> sourceData = ArrayListMultimap.create();
@@ -145,7 +144,7 @@ public class AddHeadersToEmailTest {
      * Tests that when some header values are omitted that the output is as expected.
      */
     @Test
-    public void addSomeHeadersTest() throws DataStoreException, AddHeadersException {
+    public void addSomeHeadersTest() throws DataStoreException {
         DataStore store = new InMemoryDataStore();
         DataSource dataSource = new DataStoreSource(store, new JsonCodec());
         Multimap<String, ReferencedData> sourceData = ArrayListMultimap.create();
