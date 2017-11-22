@@ -19,6 +19,9 @@ import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingExcepti
 import com.google.common.collect.Multimap;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,6 +130,9 @@ public final class FieldNameMapper
                         case epochSecondsToISO8601:
                             transformedValue = epochSecondsToISO8601Transform(inputFieldMapping.inputField, mapDataValue, dataSource);
                             break;
+                        case hexDecodeAndBase64Encode:
+                            transformedValue = hexDecodeAndBase64Encode(inputFieldMapping.inputField, mapDataValue, dataSource);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized transform specified on input field mapping: "
                                     +inputFieldMapping.transform.toString());
@@ -162,5 +168,25 @@ public final class FieldNameMapper
         String transformedValue = Instant.ofEpochSecond(input).toString();
         LOG.debug("Transformed epoch seconds value to ISO-8601 value.");
         return ReferencedData.getWrappedData(transformedValue.getBytes());
+    }
+
+    private static ReferencedData hexDecodeAndBase64Encode(String fieldName, ReferencedData inputValue,
+                                                           DataSource dataSource) throws MappingException
+    {
+        LOG.debug("Retrieving hex value to transform to base 64 value.");
+        String valueToTransform = ReferencedDataRetrieval.getContentAsStringEx(dataSource, inputValue);
+
+        LOG.debug("Decoding expected hex value for field");
+        byte[] decodedValue;
+        try
+        {
+            decodedValue = Hex.decodeHex(valueToTransform.toCharArray());
+        } catch (DecoderException e)
+        {
+            throw new MappingException("Unable to hex decode value for field: "+fieldName, e);
+        }
+        byte[] base64EncodedValue = Base64.encodeBase64(decodedValue);
+        LOG.debug("Transformed hex value to base 64 encoded value.");
+        return ReferencedData.getWrappedData(base64EncodedValue);
     }
 }

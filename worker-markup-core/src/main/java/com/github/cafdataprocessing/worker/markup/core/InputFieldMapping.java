@@ -41,6 +41,10 @@ public class InputFieldMapping
         /**
          * Convert epoch seconds to ISO-8601 date format.
          */
-        epochSecondsToISO8601
+        epochSecondsToISO8601,
+        /**
+         * Performs hex decode on value and then base 64 encodes the value
+         */
+        hexDecodeAndBase64Encode
     }
 }
