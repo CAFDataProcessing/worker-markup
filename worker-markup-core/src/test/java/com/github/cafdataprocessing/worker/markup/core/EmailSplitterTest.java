@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
 public class EmailSplitterTest
 {
     /**
-     * Tests for running EmailSplitter with 2 emails and a divider between them
+     * Tests that the given email doesn't cause a stack overflow in email splitting code.
      *
      * @throws java.util.concurrent.ExecutionException
      * @throws java.lang.InterruptedException
