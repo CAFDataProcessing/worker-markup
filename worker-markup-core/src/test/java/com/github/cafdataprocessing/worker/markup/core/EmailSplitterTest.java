@@ -148,8 +148,8 @@ public class EmailSplitterTest
             + "Thanks, Andy\n"
             + "\n";
         String expectedDivider = "---------- Forwarded message ----------\n"
-            + "   \n"
-            + "\n";
+            +"   \n"
+            +"\n";
         String expectedEmail2 = "From: Smith, Conal\n"
             + "Sent: 22 July 2016 11:21 AM\n"
             + "To: Paul, Navamoni\n"
@@ -235,6 +235,7 @@ public class EmailSplitterTest
         Assert.assertTrue("Assert the third email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(4).getValue().equals(expectedEmail3));
     }
 
+
     /**
      * Tests for running EmailSplitter with two emails and a divider in the body.
      *
@@ -264,7 +265,7 @@ public class EmailSplitterTest
             + "     \n"
             + "\n"
             + "asdsadw \n"
-            + "\n";
+            +"\n";
         String expectedEmail2 = "From: Smith, Conal\n"
             + "Sent: 22 July 2016 11:21 AM\n"
             + "To: Paul, Navamoni\n"
@@ -503,16 +504,15 @@ public class EmailSplitterTest
         Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
         return doc;
     }
-
     /**
      * Create dummy document containing one email
      *
      * @return
      */
-    private Document createDocumentWithSuppliedStrings(String... args) throws JDOMException, IOException
+    private Document createDocumentWithSuppliedStrings(String ... args) throws JDOMException, IOException
     {
         String str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<root>" + "<CONTENT>";
-        for (String s : args) {
+        for(String s : args){
             str = str + s;
         }
         str = str + "</CONTENT>" + "</root>";
@@ -522,7 +522,6 @@ public class EmailSplitterTest
         Document doc = saxBuilder.build(new ByteArrayInputStream(str.getBytes()));
         return doc;
     }
-
     /**
      * Create dummy document containing two emails
      *
