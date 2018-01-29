@@ -53,7 +53,7 @@ public class EmailSplitter
          * - "*-+[^-]+-+\s*" matches the actual divider text i.e. "---- abc ----"
          * - "$" makes sure the divider is at the end of the line.
          */
-        this.dividerPattern = Pattern.compile("(\n|^)(( |>)*-+[^-]+-+\\s*)$");
+        this.dividerPattern = Pattern.compile("(\n|^)(( |>)*+-++[^-]++-++\\s*+)$");
     }
 
     public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException {

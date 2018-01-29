@@ -48,7 +48,7 @@ public class EmailSplitterTest
     @Test
     public void overflowTest() throws ExecutionException, InterruptedException, JDOMException, IOException
     {
-        String expectedEmail1 = "From: \"IntercontinentalExchange feedback@intcx.com\" <IMCEANOTES-IntercontinentalExchange+20+3Cfeedback+40intcx+2Ecom+3E@ENRON.com>\n" +
+        final String expectedEmail1 = "From: \"IntercontinentalExchange feedback@intcx.com\" <IMCEANOTES-IntercontinentalExchange+20+3Cfeedback+40intcx+2Ecom+3E@ENRON.com>\n" +
                 "To: \"iceuserslist@list.intcx.com\" <iceuserslist@list.intcx.com>\n" +
                 "CC: \"sales@intcx.com\" <sales@intcx.com> , \"icehelpdesk@intcx.com\" <icehelpdesk@intcx.com>\n" +
                 "Date: Wed, 2 Jan 2002 17:40:33 -0800\n" +
@@ -67,12 +67,12 @@ public class EmailSplitterTest
                 "***********\n" +
                 "\n";
 
-        Document doc = createDocumentWithSuppliedStrings(StringEscapeUtils.escapeHtml(expectedEmail1));
+        final Document doc = createDocumentWithSuppliedStrings(StringEscapeUtils.escapeHtml(expectedEmail1));
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
+        final JepExecutor j = Mockito.mock(JepExecutor.class);
         when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0));
 
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        final EmailSplitter emailSplitter = new EmailSplitter(j);
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
@@ -148,8 +148,8 @@ public class EmailSplitterTest
             + "Thanks, Andy\n"
             + "\n";
         String expectedDivider = "---------- Forwarded message ----------\n"
-            +"   \n"
-            +"\n";
+            + "   \n"
+            + "\n";
         String expectedEmail2 = "From: Smith, Conal\n"
             + "Sent: 22 July 2016 11:21 AM\n"
             + "To: Paul, Navamoni\n"
@@ -235,7 +235,6 @@ public class EmailSplitterTest
         Assert.assertTrue("Assert the third email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(4).getValue().equals(expectedEmail3));
     }
 
-
     /**
      * Tests for running EmailSplitter with two emails and a divider in the body.
      *
@@ -265,7 +264,7 @@ public class EmailSplitterTest
             + "     \n"
             + "\n"
             + "asdsadw \n"
-            +"\n";
+            + "\n";
         String expectedEmail2 = "From: Smith, Conal\n"
             + "Sent: 22 July 2016 11:21 AM\n"
             + "To: Paul, Navamoni\n"
@@ -504,15 +503,16 @@ public class EmailSplitterTest
         Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
         return doc;
     }
+
     /**
      * Create dummy document containing one email
      *
      * @return
      */
-    private Document createDocumentWithSuppliedStrings(String ... args) throws JDOMException, IOException
+    private Document createDocumentWithSuppliedStrings(String... args) throws JDOMException, IOException
     {
         String str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<root>" + "<CONTENT>";
-        for( String s : args){
+        for (String s : args) {
             str = str + s;
         }
         str = str + "</CONTENT>" + "</root>";
@@ -522,7 +522,6 @@ public class EmailSplitterTest
         Document doc = saxBuilder.build(new ByteArrayInputStream(str.getBytes()));
         return doc;
     }
-
 
     /**
      * Create dummy document containing two emails
