@@ -512,7 +512,7 @@ public class EmailSplitterTest
     private Document createDocumentWithSuppliedStrings(String ... args) throws JDOMException, IOException
     {
         String str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<root>" + "<CONTENT>";
-        for(String s : args){
+        for( String s : args){
             str = str + s;
         }
         str = str + "</CONTENT>" + "</root>";
@@ -522,6 +522,8 @@ public class EmailSplitterTest
         Document doc = saxBuilder.build(new ByteArrayInputStream(str.getBytes()));
         return doc;
     }
+
+
     /**
      * Create dummy document containing two emails
      *
