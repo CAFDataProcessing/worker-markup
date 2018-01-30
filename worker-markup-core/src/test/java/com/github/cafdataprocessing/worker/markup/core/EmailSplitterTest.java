@@ -75,7 +75,8 @@ public class EmailSplitterTest
         final EmailSplitter emailSplitter = new EmailSplitter(j);
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
+        Assert.assertTrue("Assert the first email is as expected.", 
+                          doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
     }
 
     /**
