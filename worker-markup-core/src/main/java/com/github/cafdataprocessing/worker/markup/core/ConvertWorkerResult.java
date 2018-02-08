@@ -30,10 +30,10 @@ public class ConvertWorkerResult
 
     public static void updateDocument(final Document document, final MarkupWorkerResult markupWorkerResult)
     {
-        document.getField("MARKUPWORKER_STATUS").add(markupWorkerResult.workerStatus.toString());
+        document.getField("MARKUPWORKER_STATUS").set(markupWorkerResult.workerStatus.toString());
         
         markupWorkerResult.fieldList.forEach((entry) -> {
-            document.getField(entry.name).add(entry.value);
+            document.getField(entry.name).set(entry.value);
         });
     }
 }
