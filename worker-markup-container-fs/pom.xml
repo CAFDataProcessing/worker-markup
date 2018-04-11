@@ -72,11 +72,6 @@
             <type>tar.gz</type>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.cafapi</groupId>
-            <artifactId>container-cert-script</artifactId>
-            <type>tar.gz</type>
-        </dependency>
     </dependencies>
 
     <build>
@@ -354,7 +349,6 @@
                                                 <useProjectArtifact>false</useProjectArtifact>
                                                 <scope>runtime</scope>
                                                 <excludes>
-                                                    <exclude>com.github.cafapi:container-cert-script</exclude>
                                                     <exclude>com.github.cafdataprocessing:util-email-content-segregation-script</exclude>
                                                 </excludes>
                                             </dependencySet>
@@ -362,7 +356,6 @@
                                                 <useProjectArtifact>false</useProjectArtifact>
                                                 <unpack>true</unpack>
                                                 <includes>
-                                                    <include>com.github.cafapi:container-cert-script</include>
                                                     <include>com.github.cafdataprocessing:util-email-content-segregation-script</include>
                                                 </includes>
                                             </dependencySet>
