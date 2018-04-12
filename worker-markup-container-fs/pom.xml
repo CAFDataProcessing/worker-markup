@@ -311,13 +311,6 @@
                                     <Git.Branch>${git.branch}</Git.Branch>
                                     <Git.Commit>${git.revision}</Git.Commit>
                                 </labels>
-
-                                <!-- The entry point will be the worker.sh executable. -->
-                                <entryPoint>
-                                    <exec>
-                                        <args>/maven/worker.sh</args>
-                                    </exec>
-                                </entryPoint>
                                 <assembly>
                                     <mode>tar</mode>
                                     <inline>
