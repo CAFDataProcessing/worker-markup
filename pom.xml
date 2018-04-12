@@ -103,7 +103,6 @@
 
     <properties>
         <caf.worker-document-framework.version>3.4.0-SNAPSHOT</caf.worker-document-framework.version>
-        <containers.jep-talon.name>cafinternal/prereleases:opensuse-jeptalon-1.0.0-SNAPSHOT</containers.jep-talon.name>
         <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
         <dockerDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerDataProcessingOrg>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>

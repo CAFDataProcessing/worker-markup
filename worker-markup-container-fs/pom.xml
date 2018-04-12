@@ -304,7 +304,7 @@
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
                                 <maintainer>conal.smith@hpe.com</maintainer>
-                                <from>${containers.jep-talon.name}</from>
+                                <from>cafinternal/prereleases:opensuse-jeptalon-1.0.0-SNAPSHOT</from>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
                                     <Build.Date>${maven.build.timestamp}</Build.Date>
