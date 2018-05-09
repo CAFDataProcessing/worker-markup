@@ -114,7 +114,7 @@ public class EmailSplitter
      */
     private static List<String> separatedIndividualMessages(String emailContent, List<Integer> indexes)
     {
-        LOG.info("Attempting to split and return separated emails");
+        LOG.debug("Attempting to split and return separated emails");
 
         List<String> separatedEmails = new ArrayList<>();
 

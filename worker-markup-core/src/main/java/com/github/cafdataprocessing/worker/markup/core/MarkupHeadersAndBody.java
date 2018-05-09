@@ -179,7 +179,7 @@ public class MarkupHeadersAndBody
                 throw new RuntimeException("Logic error detected.  E-mail fidelity has been lost!");
             }
         }
-        LOG.debug("Markup of Headers and Body complete");
+        LOG.info("Markup of Headers and Body complete");
     }
 
     /**

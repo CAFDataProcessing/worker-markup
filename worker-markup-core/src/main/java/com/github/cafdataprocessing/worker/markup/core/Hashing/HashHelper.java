@@ -59,7 +59,7 @@ public class HashHelper
      */
     public static void generateHashes(Document document, List<HashConfiguration> hashConfiguration) throws JDOMException
     {
-        LOG.info("Identifying where to perform hash.");
+        LOG.debug("Identifying where to perform hash.");
         if (hashConfiguration != null) {
             for (HashConfiguration config : hashConfiguration) {
                 validateInputs(document, config);
@@ -89,7 +89,7 @@ public class HashHelper
      */
     private static void generateEmailSpecificHashes(final Document document, final HashConfiguration hashConfiguration)
     {
-        LOG.info("Starting email specific hash generation based on hash configuration received from task (doc).");
+        LOG.debug("Starting email specific hash generation based on hash configuration received from task (doc).");
 
         final Element rootElement = document.getRootElement();
 
@@ -106,7 +106,7 @@ public class HashHelper
      */
     private static void generateEmailSpecificHashes(final Element parentElement, final HashConfiguration hashConfiguration)
     {
-        LOG.info("Starting email specific hash generation based on hash configuration received from task (parent).");
+        LOG.debug("Starting email specific hash generation based on hash configuration received from task (parent).");
 
         // Iterate through the email tag elements.
         for (Element e : parentElement.getChildren("email")) {
@@ -119,7 +119,7 @@ public class HashHelper
             // hash the tempXMLElement and add it to the email element
             hashAndAddToDocument(e, hashConfiguration, tempXMLElement);
 
-            LOG.info("recursivelyGenerateHashesAndAddToDocument: Info - '{}'", "Hashing complete for the current email.");
+            LOG.debug("recursivelyGenerateHashesAndAddToDocument: Info - '{}'", "Hashing complete for the current email.");
         }
     }
 
@@ -158,7 +158,7 @@ public class HashHelper
      */
     private static void generateEmailThreadHashes(Document document, HashConfiguration hashConfiguration)
     {
-        LOG.info("Starting email thread hash generation based on hash configuration received from task.");
+        LOG.debug("Starting email thread hash generation based on hash configuration received from task.");
 
         // Temporary document for storing the fields to be hashed.
         final Element tempXMLElement = new Element("root");
@@ -169,7 +169,7 @@ public class HashHelper
 
         // hash the tempXMLElement and add it to the root element
         hashAndAddToDocument(document.getRootElement(), hashConfiguration, tempXMLElement);
-        LOG.info("generateEmailThreadHashes: Info - '{}'", "Hashing complete for the current email.");
+        LOG.debug("generateEmailThreadHashes: Info - '{}'", "Hashing complete for the current email.");
     }
 
     /*

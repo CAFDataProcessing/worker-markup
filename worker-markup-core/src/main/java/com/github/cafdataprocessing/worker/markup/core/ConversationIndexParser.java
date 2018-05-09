@@ -116,7 +116,7 @@ public class ConversationIndexParser
         ObjectMapper mapper = new ObjectMapper();
 
         //  Mail message conversation index expected to be base64 encoded.
-        LOG.info("parseConversationIndex: Decoding conversation index value ...");
+        LOG.debug("parseConversationIndex: Decoding conversation index value ...");
         byte[] bytes = Base64.decodeBase64(conversationIndex);
 
         //  Conversation index length should be 22 bytes plus extra 5 bytes per child mail message.
@@ -128,7 +128,7 @@ public class ConversationIndexParser
         //  Bytes 6-22 used for unique identifier.
         //  Remaining bytes used for reply messages in blocks of 5 bytes.
         //  Identify header date from first 6 bytes.
-        LOG.info("parseConversationIndex: Identifying header date value from conversation index bytes.");
+        LOG.debug("parseConversationIndex: Identifying header date value from conversation index bytes.");
         byte[] headerDateBytes = Arrays.copyOfRange(bytes, 0, 6);
         ArrayList<Byte> list = new ArrayList<>();
         for (byte b : headerDateBytes) {
@@ -156,7 +156,7 @@ public class ConversationIndexParser
         Instant dateInstant = Instant.ofEpochMilli(msFromEpoch);
 
         //  Generate unique identifier based on bytes 6-22.
-        LOG.info("parseConversationIndex: Generating unique identifier from conversation index bytes.");
+        LOG.debug("parseConversationIndex: Generating unique identifier from conversation index bytes.");
         byte[] guidBytes = Arrays.copyOfRange(bytes, 6, 22);
         ByteBuffer bb = ByteBuffer.wrap(guidBytes);
         UUID id = new UUID(bb.getLong(), bb.getLong());
@@ -171,7 +171,7 @@ public class ConversationIndexParser
         ArrayList<ChildMailMessage> childMessages = new ArrayList<>();
         Instant previousChildMessageInstant = dateInstant;
         for (int i = 0; i < childBlockCount; i++) {
-            LOG.info("parseConversationIndex: Parsing child message metadata.");
+            LOG.debug("parseConversationIndex: Parsing child message metadata.");
 
             //  Bytes 0-3 used for the time difference in child messages.
             //  Byte 4 used for for random number and sequence count.
@@ -183,7 +183,7 @@ public class ConversationIndexParser
             byte[] childRemainderBytes = Arrays.copyOfRange(childMessageBytes, 4, 5);
 
             //  Parse first 4 bytes for child message time difference.
-            LOG.info("parseConversationIndex: Identifying date of the child message.");
+            LOG.debug("parseConversationIndex: Identifying date of the child message.");
             ArrayList<Byte> childMessageDate = new ArrayList<>();
             for (byte b : childMessageDateBytes) {
                 childMessageDate.add(b);
@@ -201,7 +201,7 @@ public class ConversationIndexParser
 
             //  Parse final byte to get random number and sequence count.
             //  First 4 bits for Random Number, last 4 bits for Sequence Count.
-            LOG.info("parseConversationIndex: Identifying random number and sequence count.");
+            LOG.debug("parseConversationIndex: Identifying random number and sequence count.");
             int randomNo = ((int) childRemainderBytes[0] & 0xFF) >> 4;
             int sequenceCount = ((int) childRemainderBytes[0] & 0xFF) >> 8;
             ChildMailMessage cmm = new ChildMailMessage(childMessageInstant, randomNo, sequenceCount);

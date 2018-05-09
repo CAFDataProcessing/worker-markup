@@ -84,7 +84,7 @@ public final class XmlConverter
 
             // Parse conversation index value for MSG and EML files if supplied
             if (fieldName.equals("CAF_MAIL_CONVERSATION_INDEX")) {
-                LOG.info("convertToXML: Mail message conversation index key detected ...");
+                LOG.debug("convertToXML: Mail message conversation index key detected ...");
 
                 // Only parse if the value is Base64 encoded.
                 if (Base64.isBase64(fieldValue)) {
@@ -169,7 +169,7 @@ public final class XmlConverter
                 .collect(Collectors.toList());
 
         if(headerValues.isEmpty()){
-            LOG.info("No '" + headerSourceFieldName + "' values to add in email headers during markup.");
+            LOG.debug("No '" + headerSourceFieldName + "' values to add in email headers during markup.");
         }
         else if (headerValues.size() > 1) {
             throw new AddHeadersException("Unable to add email headers. Multiple field entries found for header: "

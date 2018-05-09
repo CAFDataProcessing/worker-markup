@@ -39,7 +39,7 @@ public class JepExecutor
 
     public List<Integer> getMessageIndexes(String emailContent) throws JDOMException, ExecutionException, InterruptedException
     {
-        LOG.info("Attempting to call python script 'split_email'");
+        LOG.debug("Attempting to call python script 'split_email'");
 
         Callable<List<Integer>> callPython = () -> ContentSegregation.splitEmail(emailContent);
         Future<List<Integer>> futureResult = jepThreadPool.submit(callPython);
