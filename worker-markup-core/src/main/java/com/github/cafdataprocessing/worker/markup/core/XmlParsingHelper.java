@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 public class XmlParsingHelper
 {
     private static final Logger LOG = LoggerFactory.getLogger(XmlParsingHelper.class);
+    private static final String ILLEGAL_START_CHARACTER_PREFIX = "ILLEGAL_START_CHARACTER_PREFIX";
 
     private XmlParsingHelper()
     {
@@ -64,6 +65,12 @@ public class XmlParsingHelper
             }
         } else {
             elementName = name;
+        }
+        
+        if (elementName.matches("^[0-9].*")) {
+            elementName = ILLEGAL_START_CHARACTER_PREFIX + elementName;
+            // replace illegal characters from within the entity name incase it was missed in any previous checks
+            elementName = elementName.replace(":", "");
         }
 
         return elementName;
