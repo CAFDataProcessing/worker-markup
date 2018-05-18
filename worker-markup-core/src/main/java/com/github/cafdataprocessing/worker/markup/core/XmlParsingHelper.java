@@ -53,6 +53,16 @@ public class XmlParsingHelper
         return name;
     }
 
+    /**
+     * This method will sanitize an elements name by removing illegal XML characters. i.e. "£$%FROM£$" will be returned as "FROM" In a
+     * case were the the first valid start character is found a few characters into the name, the character will be moved to be the first
+     * character of the new element name, i.e. "11:11AM               cc" will then be changed to "A1111Mcc" for the element name. 
+     * This is due to the A being the first valid XML start character found in the name, so this is placed at the start of the new element
+     * name, all other valid XML name characters are then appended after it.
+     *
+     * @param name XML Element name to be sanitized of invalid XML characters
+     * @return String representation of the statized element name or null if no valid XML start character can be found in the name.
+     */
     private static String sanitizeElementName(final String name)
     {
         LOG.debug("Removing invalid characters from Header Element Name: [" + name + "]");
@@ -67,7 +77,7 @@ public class XmlParsingHelper
             }
         }
         // Check that an acceptable start character was found, if not return null
-        return startChar == null ? startChar : startChar + sb.toString();
+        return startChar == null ? null : startChar + sb.toString();
     }
 
     /**
