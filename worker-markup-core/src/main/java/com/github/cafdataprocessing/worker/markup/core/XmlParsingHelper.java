@@ -58,32 +58,16 @@ public class XmlParsingHelper
         LOG.debug("Removing invalid characters from Header Element Name: [" + name + "]");
         final char[] nameCharArray = name.toCharArray();
         final StringBuilder sb = new StringBuilder(name.length());
-
+        String startChar = null;
         for (final char c : nameCharArray) {
-            if (Verifier.isXMLNameStartCharacter(c) && c != ':') {
-                LOG.debug("Identified valid start character for element name: " + c);
+            if (Verifier.isXMLNameStartCharacter(c) && c != ':' && startChar == null) {
+                startChar = String.valueOf(c);
+            } else if (Verifier.isXMLNameCharacter(c) && c != ':') {
                 sb.append(c);
-                break;
             }
         }
         // Check that an acceptable start character was found, if not return null
-        if (sb.toString().isEmpty()) {
-            return null;
-        }
-        boolean skippedStartChar = false;
-        // Parse name for invalid character and remove invalid characters
-        for (final char c : nameCharArray) {
-            //Skip the first instance of the starting character of the element name as it has already been added
-            if (String.valueOf(c).equals(sb.toString()) && !skippedStartChar) {
-                skippedStartChar = true;
-                continue;
-            }
-            // append each valid character to the element name
-            if (Verifier.isXMLNameCharacter(c) && c != ':') {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
+        return startChar == null ? startChar : startChar + sb.toString();
     }
 
     /**
