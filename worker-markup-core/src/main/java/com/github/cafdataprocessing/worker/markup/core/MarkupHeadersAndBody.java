@@ -200,7 +200,6 @@ public class MarkupHeadersAndBody
         }
     }
 
-
     /**
      * Handle the correct markup of the From header field which is surrounded with '*' (i.e *From:*), and split onto two lines.
      *
