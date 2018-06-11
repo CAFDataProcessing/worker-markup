@@ -180,7 +180,26 @@ public class MarkupHeadersAndBody
             }
         }
         LOG.info("Markup of Headers and Body complete");
+
+        // Fix for SCMOD-4128 to untag and detach erroneous emails which have blank headers.
+        for (int i = 1; i < emailElements.size(); i++) {
+
+            Element header = (Element) emailElements.get(i).getContent().get(0);
+            Element body = (Element) emailElements.get(i).getContent().get(1);
+
+            if (header.getContentSize() == 0 && body.getContentSize() == 0)  {
+                emailElements.get(i).detach();
+            }
+            if (header.getContentSize() == 0) {
+                String currentBody = ((Element) emailElements.get(i).getContent().get(1)).getText();
+                String previousBody = ((Element) emailElements.get(i-1).getContent().get(1)).getText();
+                String newBody = previousBody + currentBody;
+                ((Element) emailElements.get(i-1).getContent().get(1)).setText(newBody);
+                emailElements.get(i).detach();
+            }
+        }
     }
+
 
     /**
      * Handle the correct markup of the From header field which is surrounded with '*' (i.e *From:*), and split onto two lines.
