@@ -181,19 +181,20 @@ public class MarkupHeadersAndBody
         }
         LOG.info("Markup of Headers and Body complete");
 
-        // Fix for SCMOD-4128 to untag and detach erroneous emails which have blank headers.
+        /* Fix to untag erroneous emails which have blank header & body. The index starts with 1 because
+        the header information of the parent email is missing */
         for (int i = 1; i < emailElements.size(); i++) {
 
-            Element header = (Element) emailElements.get(i).getContent().get(0);
-            Element body = (Element) emailElements.get(i).getContent().get(1);
+           final Element header = (Element) emailElements.get(i).getContent().get(0);
+           final Element body = (Element) emailElements.get(i).getContent().get(1);
 
             if (header.getContentSize() == 0 && body.getContentSize() == 0)  {
                 emailElements.get(i).detach();
             }
-            if (header.getContentSize() == 0) {
-                String currentBody = ((Element) emailElements.get(i).getContent().get(1)).getText();
-                String previousBody = ((Element) emailElements.get(i-1).getContent().get(1)).getText();
-                String newBody = previousBody + currentBody;
+            else if (header.getContentSize() == 0) {
+                final String currentBody = body.getText();
+                final String previousBody = ((Element) emailElements.get(i-1).getContent().get(1)).getText();
+                final String newBody = previousBody + currentBody;
                 ((Element) emailElements.get(i-1).getContent().get(1)).setText(newBody);
                 emailElements.get(i).detach();
             }
