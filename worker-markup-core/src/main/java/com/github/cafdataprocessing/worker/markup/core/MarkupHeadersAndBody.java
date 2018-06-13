@@ -183,11 +183,9 @@ public class MarkupHeadersAndBody
 
         /* Fix to untag erroneous emails which have blank header & body. The index starts with 1 because
         the header information of the parent email is missing */
-        for (int i = 1; i < emailElements.size(); i++) {
-
-           final Element header = (Element) emailElements.get(i).getContent().get(0);
-           final Element body = (Element) emailElements.get(i).getContent().get(1);
-
+        for (int i = emailElements.size()-1; i>0; i--) {
+            final Element header = (Element) emailElements.get(i).getContent().get(0);
+            final Element body = (Element) emailElements.get(i).getContent().get(1);
             if (header.getContentSize() == 0 && body.getContentSize() == 0)  {
                 emailElements.get(i).detach();
             }
