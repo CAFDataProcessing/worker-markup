@@ -102,9 +102,9 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-   /*
-    * Testing markup of headers surrounded with asterisks
-    */
+    /*
+     * Testing markup of headers surrounded with asterisks
+     */
     @Test
     public void testHeaderSurroundedWithAsterisks() throws IOException, JDOMException
     {
@@ -119,9 +119,9 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-   /*
-    * Testing markup of headers surrounded with asterisks and the From field split over two lines
-    */
+    /*
+     * Testing markup of headers surrounded with asterisks and the From field split over two lines
+     */
     @Test
     public void testFromFieldSurroundedWithAsterisksWithFromValueSplit() throws IOException, JDOMException
     {
@@ -136,9 +136,9 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-   /*
-    * Testing markup of headers surrounded with asterisks and the From field split over two lines and From is not the first field
-    */
+    /*
+     * Testing markup of headers surrounded with asterisks and the From field split over two lines and From is not the first field
+     */
     @Test
     public void testFromFieldSurroundedWithAsterisksWithFromValueSplitFromNotFirst() throws IOException, JDOMException
     {
@@ -153,9 +153,9 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-   /*
-    * Testing markup of headers surrounded with asterisks,the From field split over two lines, and in a different language
-    */
+    /*
+     * Testing markup of headers surrounded with asterisks,the From field split over two lines, and in a different language
+     */
     @Test
     public void testFromFieldSurroundedWithAsterisksOtherLanguage() throws IOException, JDOMException
     {
@@ -188,7 +188,7 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
-     * Testing markup of multiple email tags 
+     * Testing markup of multiple email tags
      */
     @Test
     public void testMarkupOfMultipleEmailsTags() throws IOException, JDOMException
@@ -227,7 +227,7 @@ public class MarkupOfHeadersAndBodyTest
 
     /*
      * Testing that when Talon miss identifies an element such as 'date' and places it within a single email it does not hit
-     * a run time exception. 
+     * a run time exception.
      */
     @Test
     public void testMarkupOfOneLineInEmailElement() throws IOException, JDOMException
@@ -276,6 +276,20 @@ public class MarkupOfHeadersAndBodyTest
 
         assertEquals(docForComparisonValue, docMarkedupValue);
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+    }
+
+   @Test
+    public void testEmailUntag() throws IOException, JDOMException
+    {
+       Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntag.xml");
+       MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+       Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUnTagMarkedup.xml");
+
+       String docMarkedupValue = xmlDocument.getRootElement().getValue();
+       String docForComparisonValue = docForComparison.getRootElement().getValue();
+
+       assertEquals(docForComparisonValue, docMarkedupValue);
+       assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
     /**

@@ -15,6 +15,7 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafdataprocessing.worker.markup.core.EmailSquash;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import org.jdom2.Attribute;
@@ -166,7 +167,7 @@ public class MarkupHeadersAndBody
                 else if (line.contains(":*")) {
                     bodyIndex++;
                     addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
-                }else {
+                } else {
                     break;
                 }
             }
@@ -181,22 +182,7 @@ public class MarkupHeadersAndBody
         }
         LOG.info("Markup of Headers and Body complete");
 
-        /* Fix to untag erroneous emails which have blank header & body. The index starts with 1 because
-        the header information of the parent email is missing */
-        for (int i = emailElements.size()-1; i>0; i--) {
-            final Element header = (Element) emailElements.get(i).getContent().get(0);
-            final Element body = (Element) emailElements.get(i).getContent().get(1);
-            if (header.getContentSize() == 0 && body.getContentSize() == 0)  {
-                emailElements.get(i).detach();
-            }
-            else if (header.getContentSize() == 0) {
-                final String currentBody = body.getText();
-                final String previousBody = ((Element) emailElements.get(i-1).getContent().get(1)).getText();
-                final String newBody = previousBody + currentBody;
-                ((Element) emailElements.get(i-1).getContent().get(1)).setText(newBody);
-                emailElements.get(i).detach();
-            }
-        }
+        EmailSquash.untagFalseEmails(emailElements);
     }
 
     /**
