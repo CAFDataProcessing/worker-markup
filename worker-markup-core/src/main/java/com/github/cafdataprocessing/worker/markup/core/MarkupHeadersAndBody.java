@@ -15,7 +15,6 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafdataprocessing.worker.markup.core.EmailSquash;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import org.jdom2.Attribute;
