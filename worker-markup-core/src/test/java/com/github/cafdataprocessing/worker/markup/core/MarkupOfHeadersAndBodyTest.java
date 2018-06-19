@@ -283,7 +283,7 @@ public class MarkupOfHeadersAndBodyTest
     {
         Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntag.xml");
         MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
-        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUnTagMarkedup.xml");
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagMarkedup.xml");
 
         String docMarkedupValue = xmlDocument.getRootElement().getValue();
         String docForComparisonValue = docForComparison.getRootElement().getValue();
