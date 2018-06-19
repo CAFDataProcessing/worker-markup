@@ -103,8 +103,8 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
-     * Testing markup of headers surrounded with asterisks
-     */
+    * Testing markup of headers surrounded with asterisks
+    */
     @Test
     public void testHeaderSurroundedWithAsterisks() throws IOException, JDOMException
     {
@@ -120,8 +120,8 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
-     * Testing markup of headers surrounded with asterisks and the From field split over two lines
-     */
+    * Testing markup of headers surrounded with asterisks and the From field split over two lines
+    */
     @Test
     public void testFromFieldSurroundedWithAsterisksWithFromValueSplit() throws IOException, JDOMException
     {
@@ -137,8 +137,8 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
-     * Testing markup of headers surrounded with asterisks and the From field split over two lines and From is not the first field
-     */
+    * Testing markup of headers surrounded with asterisks and the From field split over two lines and From is not the first field
+    */
     @Test
     public void testFromFieldSurroundedWithAsterisksWithFromValueSplitFromNotFirst() throws IOException, JDOMException
     {
@@ -154,8 +154,8 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
-     * Testing markup of headers surrounded with asterisks,the From field split over two lines, and in a different language
-     */
+    * Testing markup of headers surrounded with asterisks,the From field split over two lines, and in a different language
+    */
     @Test
     public void testFromFieldSurroundedWithAsterisksOtherLanguage() throws IOException, JDOMException
     {
