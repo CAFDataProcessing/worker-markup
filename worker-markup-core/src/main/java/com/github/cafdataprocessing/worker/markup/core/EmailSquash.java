@@ -25,12 +25,22 @@ public final class EmailSquash
     {
     }
 
+    /**
+     * Untags emails with blank headers except the parent email
+     *
+     * @param emailElements The number of emails from which the false ones are to untagged
+     **/
     public static void untagFalseEmails(final List<Element> emailElements)
     {
+        // The loop starts with 1 because the we do not have header information of the parent email
         for (int i = emailElements.size() - 1; i > 0; i--) {
 
             final Element emailElement = emailElements.get(i);
             final Element headersElement = (Element) emailElement.getContent().get(0);
+
+            //If the header of an email is null and has a body it will untag that email and attach the body of the
+            //untagged email to the previous email.
+            //If the header and body both are null it will directly untag that email.
 
             if (headersElement.getContentSize() == 0) {
                 final Element bodyElement = (Element) emailElement.getContent().get(1);
