@@ -31,17 +31,18 @@ public final class EmailSquash
 
             final Element emailElement = emailElements.get(i);
             final Element headersElement = (Element) emailElement.getContent().get(0);
-            final Element bodyElement = (Element) emailElement.getContent().get(1);
 
-            if (headersElement.getContentSize() == 0 && bodyElement.getContentSize() == 0) {
-                emailElement.detach();
-            } else if (headersElement.getContentSize() == 0) {
-                final Element previousEmailElement = emailElements.get(i - 1);
-                final Element previousBodyElement = (Element) previousEmailElement.getContent().get(1);
-                final String currentBodyText = bodyElement.getText();
-                final String previousBodyText = previousBodyElement.getText();
-                final String newBodyText = previousBodyText + currentBodyText;
-                previousBodyElement.setText(newBodyText);
+            if (headersElement.getContentSize() == 0) {
+                final Element bodyElement = (Element) emailElement.getContent().get(1);
+                if (bodyElement.getContentSize() > 0) {
+                    final Element previousEmailElement = emailElements.get(i - 1);
+                    final Element previousBodyElement = (Element) previousEmailElement.getContent().get(1);
+                    final String currentBodyText = bodyElement.getText();
+                    final String previousBodyText = previousBodyElement.getText();
+                    final String newBodyText = previousBodyText + currentBodyText;
+                    previousBodyElement.setText(newBodyText);
+                }
+
                 emailElement.detach();
             }
         }
