@@ -62,6 +62,26 @@ public class MarkupDocumentEngine
     {
         final MarkupWorkerConfiguration config = document.getApplication().getService(ConfigurationSource.class)
             .getConfiguration(MarkupWorkerConfiguration.class);
+        markupDocument(document, hashConfiguration, outputFields, isEmail, emailSplitter, config);
+    }
+
+    /**
+     * Public method to expose Markup Worker logic to a Document Worker
+     *
+     * @param document Instance of document worker document object
+     * @param hashConfiguration The hash configuration to use when generating document hashes
+     * @param outputFields The list of fields the worker should output
+     * @param isEmail if the document is of email type.
+     * @param emailSplitter python email splitter that is used across multiple threads
+     * @param config Markup worker configuration to use while processing document
+     * @throws InterruptedException throws in cases of a thread being interrupted during processing.
+     * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
+     */
+    public void markupDocument(final Document document, final List<HashConfiguration> hashConfiguration,
+                               final List<OutputField> outputFields, final boolean isEmail, final EmailSplitter emailSplitter,
+                               final MarkupWorkerConfiguration config)
+        throws InterruptedException, ConfigurationException
+    {
         final DataStore dataStore = document.getApplication().getService(DataStore.class);
         final Codec codec = document.getApplication().getService(Codec.class);
 
