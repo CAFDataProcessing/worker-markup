@@ -70,15 +70,15 @@ public class MarkupDocumentEngineTest {
 
         Document documentToTest = buildDocumentForHashOrderingTest();
         try {
-            markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail, emailSplitter);
+            final MarkupWorkerConfiguration config = documentToTest.getApplication().getService(ConfigurationSource.class)
+                .getConfiguration(MarkupWorkerConfiguration.class);
+            markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail, emailSplitter, config);
             com.hpe.caf.worker.document.model.Field documentComparisonHashField = documentToTest.getField("COMPARISON_HASH");
             Assert.assertTrue("COMPARISON_HASH field on worker-document returned should have values.",
                     documentComparisonHashField.hasValues());
             String documentComparisonHash = documentComparisonHashField.getStringValues().get(0);
 
             Codec codec = new JsonCodec();
-            final MarkupWorkerConfiguration config = documentToTest.getApplication().getService(ConfigurationSource.class)
-                    .getConfiguration(MarkupWorkerConfiguration.class);
             final DataStore dataStore = documentToTest.getApplication().getService(DataStore.class);
             Multimap<String, ReferencedData> sourceData = buildSourceDataForHashOrderingTest();
 

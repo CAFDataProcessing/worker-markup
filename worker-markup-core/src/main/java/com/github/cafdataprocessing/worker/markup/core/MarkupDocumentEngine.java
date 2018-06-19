@@ -53,15 +53,15 @@ public class MarkupDocumentEngine
      * @param outputFields The list of fields the worker should output
      * @param isEmail if the document is of email type.
      * @param emailSplitter python email splitter that is used across multiple threads
+     * @param config markup worker configuration to use during processing
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
      * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
      */
     public void markupDocument(final Document document, final List<HashConfiguration> hashConfiguration,
-                               final List<OutputField> outputFields, final boolean isEmail, final EmailSplitter emailSplitter)
+                               final List<OutputField> outputFields, final boolean isEmail, final EmailSplitter emailSplitter,
+                               final MarkupWorkerConfiguration config)
         throws InterruptedException, ConfigurationException
     {
-        final MarkupWorkerConfiguration config = document.getApplication().getService(ConfigurationSource.class)
-            .getConfiguration(MarkupWorkerConfiguration.class);
         final DataStore dataStore = document.getApplication().getService(DataStore.class);
         final Codec codec = document.getApplication().getService(Codec.class);
 
