@@ -277,19 +277,39 @@ public class MarkupOfHeadersAndBodyTest
         assertEquals(docForComparisonValue, docMarkedupValue);
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
-
+/*
+ * Test for Untaging emails which have empty headers and empty body.
+ */
     @Test
-    public void testEmailUntag() throws IOException, JDOMException
+    public void testEmailUntagWithEmptyHeadersEmptyBody() throws IOException, JDOMException
     {
-        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntag.xml");
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBody.xml");
         MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
-        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagMarkedup.xml");
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBodyMarkedup.xml");
 
         String docMarkedupValue = xmlDocument.getRootElement().getValue();
         String docForComparisonValue = docForComparison.getRootElement().getValue();
 
         assertEquals(docForComparisonValue, docMarkedupValue);
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+
+    }
+
+    /*
+     * Test for Untaging emails which have empty headers and non empty body.
+     */
+    @Test
+    public void testEmailUntagWithEmptyHeadersNonEmptyBody() throws IOException, JDOMException
+    {
+        Document xmlDocument2 = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBody.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument2, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison2 = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBodyMarkedup.xml");
+
+        String docMarkedupValue2 = xmlDocument2.getRootElement().getValue();
+        String docForComparisonValue2 = docForComparison2.getRootElement().getValue();
+
+        assertEquals(docForComparisonValue2, docMarkedupValue2);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison2, xmlDocument2));
     }
 
     /**
