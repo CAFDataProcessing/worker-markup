@@ -19,14 +19,13 @@ import org.jdom2.Element;
 
 import java.util.List;
 
-/**
- * Created by Morvin Shah on 6/14/2018.
- */
-public final class EmailSquash {
+public final class EmailSquash
+{
+    private EmailSquash()
+    {
+    }
 
-    private EmailSquash(){}
     public static void untagFalseEmails(final List<Element> emailElements)
-
     {
         for (int i = emailElements.size() - 1; i > 0; i--) {
             final Element header = (Element) emailElements.get(i).getContent().get(0);
@@ -34,16 +33,13 @@ public final class EmailSquash {
 
             if (header.getContentSize() == 0 && body.getContentSize() == 0) {
                 emailElements.get(i).detach();
-            }
-            else if (header.getContentSize() == 0) {
+            } else if (header.getContentSize() == 0) {
                 final String currentBody = body.getText();
                 final String previousBody = ((Element) emailElements.get(i - 1).getContent().get(1)).getText();
                 final String newBody = previousBody + currentBody;
                 ((Element) emailElements.get(i - 1).getContent().get(1)).setText(newBody);
                 emailElements.get(i).detach();
             }
-
         }
     }
 }
-

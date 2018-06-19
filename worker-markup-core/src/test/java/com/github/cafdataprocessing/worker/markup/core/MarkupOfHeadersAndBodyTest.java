@@ -278,18 +278,18 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-   @Test
+    @Test
     public void testEmailUntag() throws IOException, JDOMException
     {
-       Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntag.xml");
-       MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
-       Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUnTagMarkedup.xml");
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntag.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUnTagMarkedup.xml");
 
-       String docMarkedupValue = xmlDocument.getRootElement().getValue();
-       String docForComparisonValue = docForComparison.getRootElement().getValue();
+        String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        String docForComparisonValue = docForComparison.getRootElement().getValue();
 
-       assertEquals(docForComparisonValue, docMarkedupValue);
-       assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+        assertEquals(docForComparisonValue, docMarkedupValue);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
     /**
