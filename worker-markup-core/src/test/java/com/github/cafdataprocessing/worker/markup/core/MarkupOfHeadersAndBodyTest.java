@@ -102,7 +102,7 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-    /*
+   /*
     * Testing markup of headers surrounded with asterisks
     */
     @Test
@@ -119,7 +119,7 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-    /*
+   /*
     * Testing markup of headers surrounded with asterisks and the From field split over two lines
     */
     @Test
@@ -136,7 +136,7 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-    /*
+   /*
     * Testing markup of headers surrounded with asterisks and the From field split over two lines and From is not the first field
     */
     @Test
@@ -153,7 +153,7 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
-    /*
+   /*
     * Testing markup of headers surrounded with asterisks,the From field split over two lines, and in a different language
     */
     @Test
@@ -188,7 +188,7 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
-     * Testing markup of multiple email tags
+     * Testing markup of multiple email tags 
      */
     @Test
     public void testMarkupOfMultipleEmailsTags() throws IOException, JDOMException
@@ -227,7 +227,7 @@ public class MarkupOfHeadersAndBodyTest
 
     /*
      * Testing that when Talon miss identifies an element such as 'date' and places it within a single email it does not hit
-     * a run time exception.
+     * a run time exception. 
      */
     @Test
     public void testMarkupOfOneLineInEmailElement() throws IOException, JDOMException

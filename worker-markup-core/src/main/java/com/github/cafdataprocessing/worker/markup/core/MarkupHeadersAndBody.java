@@ -167,7 +167,7 @@ public class MarkupHeadersAndBody
                 else if (line.contains(":*")) {
                     bodyIndex++;
                     addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
-                } else {
+                }else {
                     break;
                 }
             }
