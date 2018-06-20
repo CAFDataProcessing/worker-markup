@@ -301,15 +301,15 @@ public class MarkupOfHeadersAndBodyTest
     @Test
     public void testEmailUntagWithEmptyHeadersNonEmptyBody() throws IOException, JDOMException
     {
-        Document xmlDocument2 = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBody.xml");
-        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument2, emailHeaderMappings, condensedHeaderMultiLangMappings);
-        Document docForComparison2 = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBodyMarkedup.xml");
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBody.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBodyMarkedup.xml");
 
-        String docMarkedupValue2 = xmlDocument2.getRootElement().getValue();
-        String docForComparisonValue2 = docForComparison2.getRootElement().getValue();
+        String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        String docForComparisonValue = docForComparison.getRootElement().getValue();
 
-        assertEquals(docForComparisonValue2, docMarkedupValue2);
-        assertTrue(TestUtility.compareHeaderElements(docForComparison2, xmlDocument2));
+        assertEquals(docForComparisonValue, docMarkedupValue);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
     /**
