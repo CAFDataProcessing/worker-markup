@@ -277,9 +277,10 @@ public class MarkupOfHeadersAndBodyTest
         assertEquals(docForComparisonValue, docMarkedupValue);
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
-/*
- * Test for Untaging emails which have empty headers and empty body.
- */
+
+    /*
+     * Test for Untaging emails which have empty headers and empty body.
+     */
     @Test
     public void testEmailUntagWithEmptyHeadersEmptyBody() throws IOException, JDOMException
     {
@@ -292,7 +293,6 @@ public class MarkupOfHeadersAndBodyTest
 
         assertEquals(docForComparisonValue, docMarkedupValue);
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
-
     }
 
     /*
