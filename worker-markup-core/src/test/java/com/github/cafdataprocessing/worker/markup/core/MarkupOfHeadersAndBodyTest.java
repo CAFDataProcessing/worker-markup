@@ -285,14 +285,14 @@ public class MarkupOfHeadersAndBodyTest
     @Test
     public void testEmailUntagWithEmptyHeadersEmptyBody() throws IOException, JDOMException
     {
-        final Document expectedDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBody.xml");
-        MarkupHeadersAndBody.markUpHeadersAndBody(expectedDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
-        final Document actualDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBodyMarkedup.xml");
+        final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBody.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        final Document expectedDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBodyMarkedup.xml");
 
-        final String docMarkedupValue = new XMLOutputter().outputString(actualDocument);
-        final String docForComparisonValue = new XMLOutputter().outputString(expectedDocument);
+        final String actualDocumentXml = new XMLOutputter().outputString(xmlDocument);
+        final String expectedDocumentXml = new XMLOutputter().outputString(expectedDocument);
 
-        assertTrue(docForComparisonValue.equals(docMarkedupValue));
+        assertEquals(expectedDocumentXml, actualDocumentXml);
     }
 
     /*
@@ -301,14 +301,14 @@ public class MarkupOfHeadersAndBodyTest
     @Test
     public void testEmailUntagWithEmptyHeadersNonEmptyBody() throws IOException, JDOMException
     {
-        final Document expectedDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBody.xml");
-        MarkupHeadersAndBody.markUpHeadersAndBody(expectedDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
-        final Document actualDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBodyMarkedup.xml");
+        final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBody.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        final Document expectedDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBodyMarkedup.xml");
 
-        final String docMarkedupValue = new XMLOutputter().outputString(actualDocument);
-        final String docForComparisonValue = new XMLOutputter().outputString(expectedDocument);
+        final String actualDocumentXml = new XMLOutputter().outputString(xmlDocument);
+        final String expectedDocumentXml = new XMLOutputter().outputString(expectedDocument);
 
-        assertTrue(docForComparisonValue.equals(docMarkedupValue));
+        assertEquals(expectedDocumentXml, actualDocumentXml);
     }
 
     /**
