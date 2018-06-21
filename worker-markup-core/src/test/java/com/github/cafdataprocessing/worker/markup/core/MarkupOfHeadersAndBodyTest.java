@@ -27,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
+import org.jdom2.output.XMLOutputter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -288,8 +289,8 @@ public class MarkupOfHeadersAndBodyTest
         MarkupHeadersAndBody.markUpHeadersAndBody(expectedDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
         final Document actualDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBodyMarkedup.xml");
 
-        final String docMarkedupValue = actualDocument.getRootElement().getValue();
-        final String docForComparisonValue = expectedDocument.getRootElement().getValue();
+        final String docMarkedupValue = new XMLOutputter().outputString(actualDocument);
+        final String docForComparisonValue = new XMLOutputter().outputString(expectedDocument);
 
         assertTrue(docForComparisonValue.equals(docMarkedupValue));
     }
@@ -304,8 +305,8 @@ public class MarkupOfHeadersAndBodyTest
         MarkupHeadersAndBody.markUpHeadersAndBody(expectedDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
         final Document actualDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBodyMarkedup.xml");
 
-        final String docMarkedupValue = actualDocument.getRootElement().getValue();
-        final String docForComparisonValue = expectedDocument.getRootElement().getValue();
+        final String docMarkedupValue = new XMLOutputter().outputString(actualDocument);
+        final String docForComparisonValue = new XMLOutputter().outputString(expectedDocument);
 
         assertTrue(docForComparisonValue.equals(docMarkedupValue));
     }
