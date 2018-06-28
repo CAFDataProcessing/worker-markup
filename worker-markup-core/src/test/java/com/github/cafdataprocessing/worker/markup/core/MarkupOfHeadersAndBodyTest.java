@@ -282,7 +282,7 @@ public class MarkupOfHeadersAndBodyTest
     /*
      * Test for Untaging emails which have empty headers and empty body.
      */
-    @Test
+   @Test
     public void testEmailUntagWithEmptyHeadersEmptyBody() throws IOException, JDOMException
     {
         final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersEmptyBody.xml");
@@ -303,7 +303,7 @@ public class MarkupOfHeadersAndBodyTest
     /*
      * Test for Untaging emails which have empty headers and non empty body.
      */
-    @Test
+   @Test
     public void testEmailUntagWithEmptyHeadersNonEmptyBody() throws IOException, JDOMException
     {
         final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagWithEmptyHeadersNonEmptyBody.xml");
@@ -321,6 +321,23 @@ public class MarkupOfHeadersAndBodyTest
         assertEquals(expectedDocumentXml, actualDocumentXml);
     }
 
+    @Test
+    public void testEmailUntagHavingDividerWithEmptyHeadersEmptyBody() throws IOException, JDOMException
+    {
+        final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagHavingDividerWithEmptyHeadersEmptyBody.xml");
+        final String preMarkupValue = xmlDocument.getRootElement().getValue();
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        final String postMarkupValue = xmlDocument.getRootElement().getValue();
+
+        assertEquals(preMarkupValue, postMarkupValue);
+
+        final Document expectedDocument = TestUtility.readXmlFile("src/test/resources/xml/EmailUntagHavingDividerWithEmptyHeadersEmptyBodyMarkedup.xml");
+
+        final String actualDocumentXml = new XMLOutputter().outputString(xmlDocument);
+        final String expectedDocumentXml = new XMLOutputter().outputString(expectedDocument);
+
+        assertEquals(expectedDocumentXml, actualDocumentXml);
+    }
     /**
      * Fail test for null documents.
      *
