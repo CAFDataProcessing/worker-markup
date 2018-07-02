@@ -31,20 +31,18 @@ public final class EmailSquash {
     public static void untagFalseEmails(final Element parentElement) {
         final List<Element> emailElements = parentElement.getChildren();
 
-        // The loop starts with 1 because the we do not have header information of the parent email
+        // The loop ignores the 0th element as we don't have it's header information
         for (int i = emailElements.size() - 1; i > 0; i--) {
             final Element previousElement = emailElements.get(i - 1);
             final Element currentElement = emailElements.get(i);
-            INNERLOOP:
-            if ((currentElement.getName().equals("email"))) {
+            if (currentElement.getName().equals("email")) {
                 final Element headersElement = (Element) currentElement.getContent().get(0);
                 final Element bodyElement = (Element) currentElement.getContent().get(1);
-                if ((previousElement.getName().equals("divider"))) {
+                if (previousElement.getName().equals("divider")) {
                     if (headersElement.getContentSize() == 0 && (bodyElement.getContentSize() == 0  ||
-                            bodyElement.getContent().get(0).getValue().equals(""))) {
+                            (bodyElement.getContentSize() == 1 && bodyElement.getContent().get(0).getValue().isEmpty()))) {
                         currentElement.detach();
                     }
-                    break INNERLOOP;
                 }
                 else{
                     if (headersElement.getContentSize() == 0) {
