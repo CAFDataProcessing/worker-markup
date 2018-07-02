@@ -26,7 +26,7 @@ public final class EmailSquash {
     /**
      * Untags emails with blank headers except the parent email.
      *
-     * @param parentElement The number of emails from which the false ones are to untagged
+     * @param parentElement The element from which the false emails are to be untagged.It also includes dividers
      */
     public static void untagFalseEmails(final Element parentElement) {
         final List<Element> emailElements = parentElement.getChildren();
