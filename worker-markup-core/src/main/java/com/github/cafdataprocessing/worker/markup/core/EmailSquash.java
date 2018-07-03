@@ -19,8 +19,10 @@ import org.jdom2.Element;
 
 import java.util.List;
 
-public final class EmailSquash {
-    private EmailSquash() {
+public final class EmailSquash
+{
+    private EmailSquash()
+    {
     }
 
     /**
@@ -28,7 +30,8 @@ public final class EmailSquash {
      *
      * @param parentElement The element from which the false emails are to be untagged.It also includes dividers
      */
-    public static void untagFalseEmails(final Element parentElement) {
+    public static void untagFalseEmails(final Element parentElement)
+    {
         final List<Element> emailElements = parentElement.getChildren();
 
         // The loop ignores the 0th element as we don't have it's header information
