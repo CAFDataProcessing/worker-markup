@@ -37,16 +37,16 @@ public final class EmailSquash {
             final Element currentElement = emailElements.get(i);
             if (currentElement.getName().equals("email")) {
                 final Element headersElement = (Element) currentElement.getContent().get(0);
-                final Element bodyElement = (Element) currentElement.getContent().get(1);
-                if (previousElement.getName().equals("divider")) {
-                    if (headersElement.getContentSize() == 0 && (bodyElement.getContentSize() == 0  ||
-                            (bodyElement.getContentSize() == 1 && bodyElement.getContent().get(0).getValue().isEmpty()))) {
-                        currentElement.detach();
-                    }
-                }
-                else{
-                    if (headersElement.getContentSize() == 0) {
-                        if (bodyElement.getContentSize() > 0) {
+                if (headersElement.getContentSize() == 0) {
+                    final Element bodyElement = (Element) currentElement.getContent().get(1);
+                    final int bodyElementContentSize = bodyElement.getContentSize();
+                    if (previousElement.getName().equals("divider")) {
+                        if (bodyElementContentSize == 0
+                            || (bodyElementContentSize == 1 && bodyElement.getContent().get(0).getValue().isEmpty())) {
+                            currentElement.detach();
+                        }
+                    } else {
+                        if (bodyElementContentSize > 0) {
                             final Element previousBodyElement = (Element) previousElement.getContent().get(1);
                             final String currentBodyText = bodyElement.getText();
                             final String previousBodyText = previousBodyElement.getText();
