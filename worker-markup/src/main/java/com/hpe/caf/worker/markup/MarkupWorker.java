@@ -52,10 +52,11 @@ public class MarkupWorker extends AbstractWorker<MarkupWorkerTask, MarkupWorkerR
                         final Codec codec,
                         final MarkupWorkerConfiguration config,
                         final MarkupDocumentEngine markupDocument,
-                        final EmailSplitter emailSplitter)
+                        final EmailSplitter emailSplitter,
+                        final WorkerTaskData workerTaskData)
         throws InvalidTaskException
     {
-        super(task, outputQueue, codec);
+        super(task, outputQueue, codec, workerTaskData);
         this.dataStore = Objects.requireNonNull(dataStore);
         this.config = config;
         this.markupDocument = markupDocument;
