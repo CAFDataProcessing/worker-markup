@@ -234,7 +234,7 @@ expectedOutputData:
       \ \r\nThanks,\r\nDermot\r\n \r\n \r\n</body></email><email><hash name=\"Normalized\"\
       ><config><fields><field name=\"to\" normalizationType=\"NONE\" /><field name=\"\
       body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest function=\"\
-      XXHASH64\" value=\"c81117e6259977c8\" /></hash><headers><From>From: Haroules,\
+      XXHASH64\" value=\"b3120044c19e1ab0\" /></hash><headers><From>From: Haroules,\
       \ Tony </From>\r\n<Sent dateUtc=\"2016-05-20T15:19:00Z\">Sent: 20 May 2016 3:19\
       \ PM</Sent>\r\n<To>To: Kalashian, Darin &lt;darin.kalashian@hpe.com&gt;; Chakraborty,\
       \ Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;; Knobloch, Tom &lt;tom.knobloch@hpe.com&gt;;\
@@ -255,17 +255,13 @@ expectedOutputData:
       \  And you can now query across repositories, report across repositories etc.\
       \  Currently not an option with separate instances of Git Hub.\r\nIs items 1\
       \ and 2 (in the action items), make or break concerns, or just nice to have\
-      \ ?\r\n-T\r\n</body></email><email><hash name=\"Normalized\"><config><fields><field\
-      \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
-      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
-      3e4c5062ff25691f\" /></hash><headers /><body>_____________________________________________\r\
-      \n</body></email><email><hash name=\"Normalized\"><config><fields><field name=\"\
-      to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
-      REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
-      1f044edb60c6ce7d\" /></hash><headers><From>From: Kalashian, Darin</From>\r\n\
-      <Sent dateUtc=\"2016-05-20T10:05:00Z\">Sent: Friday, May 20, 2016 10:05 AM</Sent>\r\
-      \n<To>To: Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;; Knobloch,\
-      \ Tom &lt;tom.knobloch@hpe.com&gt;; Pandit, Dwijen &lt;dwijen.pandit@hpe.com&gt;;\
+      \ ?\r\n-T\r\n_____________________________________________\r\n</body></email><email><hash\
+      \ name=\"Normalized\"><config><fields><field name=\"to\" normalizationType=\"\
+      NONE\" /><field name=\"body\" normalizationType=\"REMOVE_WHITESPACE\" /></fields></config><digest\
+      \ function=\"XXHASH64\" value=\"1f044edb60c6ce7d\" /></hash><headers><From>From:\
+      \ Kalashian, Darin</From>\r\n<Sent dateUtc=\"2016-05-20T10:05:00Z\">Sent: Friday,\
+      \ May 20, 2016 10:05 AM</Sent>\r\n<To>To: Chakraborty, Shubhendu &lt;shubhendu.chakraborty@hpe.com&gt;;\
+      \ Knobloch, Tom &lt;tom.knobloch@hpe.com&gt;; Pandit, Dwijen &lt;dwijen.pandit@hpe.com&gt;;\
       \ Puccianti, Sylvain B &lt;sylvain.puccianti@hpe.com&gt;; Carter, Sam &lt;sam.carter@hpe.com&gt;;\
       \ Jalbert, Christopher &lt;christopher.jalbert@hpe.com&gt;; Reid, Andy &lt;andrew.reid@hpe.com&gt;;\
       \ Bryson, Michael &lt;michael.bryson@hpe.com&gt;; Jain, Rahul (Rahul Jain) &lt;rahul.jain2@hpe.com&gt;;\
