@@ -140,7 +140,7 @@ public class MarkupHeadersAndBody
             final Matcher splitFromFieldMatcher = fromFieldSplitOntoTwoLines.matcher(emailText);
 
             if (splitFromFieldMatcher.find()) {
-                handleHeaderWithAsterisks(emailText, lines, fromHeaderFieldValues);
+                handleHeaderWithAsterisks(lines, fromHeaderFieldValues, splitFromFieldMatcher);
             }
 
             for (String line : lines) {
@@ -192,22 +192,18 @@ public class MarkupHeadersAndBody
      * @param lines the emailText as separate lines.
      * @param fromHeaderFieldValues the full field value for the 'From' header.
      */
-    private void handleHeaderWithAsterisks(final String emailText, final String[] lines, final List<String> fromHeaderFieldValues)
+    private void handleHeaderWithAsterisks(final String[] lines, final List<String> fromHeaderFieldValues,
+                                           final Matcher splitFromFieldMatcher)
     {
-        // Check to see if the the from field is split onto two lines.
-        final Matcher splitFromFieldMatcher = fromFieldSplitOntoTwoLines.matcher(emailText);
-
-        if (splitFromFieldMatcher.find()) {
-            for (final String line : lines) {
-                // For a line which matches the format:
-                // "*From:*example.emailaddress.com
-                // [mailto:example.emailaddress.com] *On Behalf Of *Bloggs, Joe"
-                // Add these lines to a list so that they can be marked up together later.
-                if (line.equals(splitFromFieldMatcher.group("FirstPartFromField"))) {
-                    fromHeaderFieldValues.add(line);
-                } else if (line.equals(splitFromFieldMatcher.group("SecondPartFromField"))) {
-                    fromHeaderFieldValues.add(line);
-                }
+        for (final String line : lines) {
+            // For a line which matches the format:
+            // "*From:*example.emailaddress.com
+            // [mailto:example.emailaddress.com] *On Behalf Of *Bloggs, Joe"
+            // Add these lines to a list so that they can be marked up together later.
+            if (line.equals(splitFromFieldMatcher.group("FirstPartFromField"))) {
+                fromHeaderFieldValues.add(line);
+            } else if (line.equals(splitFromFieldMatcher.group("SecondPartFromField"))) {
+                fromHeaderFieldValues.add(line);
             }
         }
     }
@@ -455,7 +451,7 @@ public class MarkupHeadersAndBody
             if(on_list != null) on_pattern_quoted.addAll(on_list.stream().map(Pattern::quote).collect(Collectors.toList()));
             if(separator_list != null) separator_pattern_quoted.addAll(separator_list.stream().map(Pattern::quote).collect(Collectors.toList()));
             if(wrote_list != null) wrote_pattern_quoted.addAll(wrote_list.stream().map(Pattern::quote).collect(Collectors.toList()));
-        }
+            }
 
         // Join the arrays into one string separated with or separator "|".
         return "(-*[>]?[ ]?(" + String.join("|", on_pattern_quoted) + ")[ ])(.*)(" + String.join("|", separator_pattern_quoted)
