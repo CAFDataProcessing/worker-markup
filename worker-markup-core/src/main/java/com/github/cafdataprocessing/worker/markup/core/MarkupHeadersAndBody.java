@@ -38,11 +38,9 @@ public class MarkupHeadersAndBody
     public static final String FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX
         = "(?<FirstPartFromField>[> ]{0,}\\*.*:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}[\\r]?)?+\\n"
         + "(?<SecondPartFromField>[> ]{0,}\\[.*:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*[\\r]?)";
-    public static final String GENERAL_CHECKS_ONE = ">";
-    public static final String GENERAL_CHECKS_TWO = "*";
-    public static final String GENERAL_CHECKS_THREE = "\n";
-    public static final String CHECK_FOR_ASTERISKS = "[> ]{0,}\\*+";
-    public static final String CHECK_FOR_TWO_ROWS = "\\n+";
+    public static final String GENERAL_CHECK_ONE = ">";
+    public static final String GENERAL_CHECK_TWO = "*";
+    public static final String GENERAL_CHECK_THREE = "\n";
 
     /*
       The following GROUP_IDs correspond to the capturing groups in the RE_ON_DATE_SMB_WROTE regular expression.
@@ -60,9 +58,7 @@ public class MarkupHeadersAndBody
     private final Map<String, List<String>> emailHeaderMappings;
     private final Pattern condensedHeaderRegEx;
     private final Pattern fromFieldSplitOntoTwoLines;
-    private final Pattern checkForAskerisks;
-    private final Pattern checkForTwoRows;
-    private final List<String> thingsToBeChecked;
+    private final List<String> multilangHeadersElements;
 
     public MarkupHeadersAndBody(
         final Map<String, List<String>> emailHeaderMappings,
@@ -73,11 +69,9 @@ public class MarkupHeadersAndBody
 
         // Set up the regular expression that matches the condensed header
         final String onDateSomebodyWroteRegEx = regexSetup(condensedHeaderMultilangMappings);
-        this.thingsToBeChecked = fillInList(condensedHeaderMultilangMappings);
+        this.multilangHeadersElements = fillInList(condensedHeaderMultilangMappings);
         this.condensedHeaderRegEx = Pattern.compile(onDateSomebodyWroteRegEx);
         this.fromFieldSplitOntoTwoLines = Pattern.compile(FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX);
-        this.checkForAskerisks = Pattern.compile(CHECK_FOR_ASTERISKS);
-        this.checkForTwoRows = Pattern.compile(CHECK_FOR_TWO_ROWS);
     }
 
     /**
@@ -123,8 +117,6 @@ public class MarkupHeadersAndBody
         final Parser nattyParser = new Parser(TimeZone.getTimeZone("UTC"));
 
         Matcher splitFromFieldMatcher = null;
-//        Matcher checkForAsterisksMatcher = null;
-//        Matcher checkForTwoRowsMatcher = null;
 
         for (final Element emailElement : emailElements) {
             final String emailText = emailElement.getText();
@@ -154,22 +146,11 @@ public class MarkupHeadersAndBody
             // each line containing an email address.
             if (splitFromFieldMatcher == null) {
                 splitFromFieldMatcher = fromFieldSplitOntoTwoLines.matcher(emailText);
-//                checkForAsterisksMatcher = checkForAskerisks.matcher(emailText);
-//                checkForTwoRowsMatcher = checkForTwoRows.matcher(emailText);
             } else {
                 splitFromFieldMatcher = splitFromFieldMatcher.reset(emailText);
-//                checkForAsterisksMatcher = checkForAsterisksMatcher.reset(emailText);
-//                checkForTwoRowsMatcher = checkForTwoRowsMatcher.reset(emailText);
             }
 
-//            if (checkForAsterisksMatcher.find()) {
-//                if (checkForTwoRowsMatcher.find()) {
-//                    if (splitFromFieldMatcher.find()) {
-//                        handleHeaderWithAsterisks(lines, fromHeaderFieldValues, splitFromFieldMatcher);
-//                    }
-//                }
-//            }
-            if (emailText.contains(GENERAL_CHECKS_ONE) && emailText.contains(GENERAL_CHECKS_TWO) && emailText.contains(GENERAL_CHECKS_THREE)) {
+            if (emailText.contains(GENERAL_CHECK_ONE) && emailText.contains(GENERAL_CHECK_TWO) && emailText.contains(GENERAL_CHECK_THREE)) {
                 if (splitFromFieldMatcher.find()) {
                     handleHeaderWithAsterisks(lines, fromHeaderFieldValues, splitFromFieldMatcher);
                 }
@@ -227,9 +208,15 @@ public class MarkupHeadersAndBody
         EmailSquash.untagFalseEmails(parentElement);
     }
 
+    /**
+     * This method checks if the string passed contains any element from the list of multilanguage headers.
+     * 
+     * @param input a string to be checked
+     * @return true if some element has been found, false otherwise
+     */
     private boolean containsWhatSearched(String input)
     {
-        return thingsToBeChecked.parallelStream().anyMatch(input::contains);
+        return multilangHeadersElements.parallelStream().anyMatch(input::contains);
     }
 
     /**
@@ -336,7 +323,8 @@ public class MarkupHeadersAndBody
     }
 
     /**
-     * Remove invalid characters from the beginning of a header name. To allow the 'EmailHeaderMappings' to be mapped correctly.
+     * Remove invalid characters from the beginning of a header name.
+     * To allow the 'EmailHeaderMappings' to be mapped correctly.
      *
      * @param headerName the header name to have invalid characters removed.
      * @return the header name without leading invalid
@@ -489,30 +477,32 @@ public class MarkupHeadersAndBody
         wrote_pattern_quoted.add(Pattern.quote("wrote"));
         wrote_pattern_quoted.add(Pattern.quote("sent"));
 
-        if (condensedHeaderMultilangMappings != null) {
+        if(condensedHeaderMultilangMappings != null) {
             List<String> on_list = condensedHeaderMultilangMappings.get("On");
             List<String> separator_list = condensedHeaderMultilangMappings.get("Separator");
             List<String> wrote_list = condensedHeaderMultilangMappings.get("Wrote");
 
-            if (on_list != null) {
-                on_pattern_quoted.addAll(on_list.stream().map(Pattern::quote).collect(Collectors.toList()));
+            if(on_list != null) on_pattern_quoted.addAll(on_list.stream().map(Pattern::quote).collect(Collectors.toList()));
+            if(separator_list != null) separator_pattern_quoted.addAll(separator_list.stream().map(Pattern::quote).collect(Collectors.toList()));
+            if(wrote_list != null) wrote_pattern_quoted.addAll(wrote_list.stream().map(Pattern::quote).collect(Collectors.toList()));
             }
-            if (separator_list != null) {
-                separator_pattern_quoted.addAll(separator_list.stream().map(Pattern::quote).collect(Collectors.toList()));
-            }
-            if (wrote_list != null) {
-                wrote_pattern_quoted.addAll(wrote_list.stream().map(Pattern::quote).collect(Collectors.toList()));
-            }
-        }
 
         // Join the arrays into one string separated with or separator "|".
         return "(-*[>]?[ ]?(" + String.join("|", on_pattern_quoted) + ")[ ])(.*)(" + String.join("|", separator_pattern_quoted)
             + ")((.*\\n){0,2}.*)((" + String.join("|", wrote_pattern_quoted) + "):?-*.*)";
     }
 
+    /**
+     * This method creates a list of elements that could be present in the headers that we are looking for in various languages.
+     * 
+     * It is used to do a preliminary check on a stringbefore using the Matcher.find() method, which is potentially more expensive.
+     * 
+     * @param condensedHeaderMultilangMappings
+     * @return a list with all he values of the param
+     */
     private List<String> fillInList(Map<String, List<String>> condensedHeaderMultilangMappings)
     {
-        Set<String> result = new HashSet<>();
+        final Set<String> result = new HashSet<>();
         if (condensedHeaderMultilangMappings != null && !condensedHeaderMultilangMappings.isEmpty()) {
             condensedHeaderMultilangMappings.values().stream().flatMap(x -> x.stream()).forEach(result::add);
         }

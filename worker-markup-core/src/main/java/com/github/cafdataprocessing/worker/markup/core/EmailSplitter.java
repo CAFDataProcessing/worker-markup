@@ -48,19 +48,20 @@ public class EmailSplitter
         this.jepExec = jepExec;
 
         /**
-         * Searches the email line for the email divider i.e. "---------- Forwarded message ----------" - "(\n|^)" is the 1st capturing
-         * group which makes sure a divider line isn't matched if there is text before it i.e. "jdiwaowa ----- Forwarded message -----" -
-         * "( |>)*+" is the 3rd capturing group which matches any number of spaces or email quotation markers (">" symbols). -
-         * "*+-++[^-]++-++\s*+" matches the actual divider text i.e. "---- abc ----" - "$" makes sure the divider is at the end of the
-         * line. - This regex has a + quantifier after each of the quantifiers specified i.e. "*+" instead of just "*". This was done to
-         * reduce back tracing and reduce the anchor points the regex would hold on to. This modification was performed to prevent the
-         * regex from throwing StackOverflowErrors, the Jira this work relates to is SCMOD-3065.
+         * Searches the email line for the email divider i.e. "---------- Forwarded message ----------"
+         * - "(\n|^)" is the 1st capturing group which makes sure a divider line isn't matched if there is text before it i.e.
+         * "jdiwaowa   ----- Forwarded message -----"
+         * - "( |>)*+" is the 3rd capturing group which matches any number of spaces or email quotation markers (">" symbols).
+         * - "*+-++[^-]++-++\s*+" matches the actual divider text i.e. "---- abc ----"
+         * - "$" makes sure the divider is at the end of the line.
+         * - This regex has a + quantifier after each of the quantifiers specified i.e. "*+" instead of just "*". This was done to reduce
+         * back tracing and reduce the anchor points the regex would hold on to. This modification was performed to prevent the regex from
+         * throwing StackOverflowErrors, the Jira this work relates to is SCMOD-3065.
          */
         this.dividerPattern = Pattern.compile("(\n|^)(( |>)*+-++[^-]++-++\\s*+)$");
     }
 
-    public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException
-    {
+    public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException {
         LOG.info("Starting email splitting based on document received");
         validateDocument(doc);
 
