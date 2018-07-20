@@ -32,6 +32,8 @@ public class EmailSplitter
     // The DIVIDER_GROUP_ID specifies the capturing group which contains the DIVIDER_REGEX.
     public static final int DIVIDER_GROUP_ID = 2;
 
+    private static final String FORWARDED_MESSAGE_CHECKER = "--";
+
     private final JepExecutor jepExec;
     private final Pattern dividerPattern;
 
@@ -46,22 +48,23 @@ public class EmailSplitter
         this.jepExec = jepExec;
 
         /**
-         * Searches the email line for the email divider i.e. "---------- Forwarded message ----------"
-         * - "(\n|^)" is the 1st capturing group which makes sure a divider line isn't matched if there is text before it i.e.
-         * "jdiwaowa   ----- Forwarded message -----"
-         * - "( |>)*+" is the 3rd capturing group which matches any number of spaces or email quotation markers (">" symbols).
-         * - "*+-++[^-]++-++\s*+" matches the actual divider text i.e. "---- abc ----"
-         * - "$" makes sure the divider is at the end of the line.
-         * - This regex has a + quantifier after each of the quantifiers specified i.e. "*+" instead of just "*". This was done to reduce
-         * back tracing and reduce the anchor points the regex would hold on to. This modification was performed to prevent the regex from
-         * throwing StackOverflowErrors, the Jira this work relates to is SCMOD-3065.
+         * Searches the email line for the email divider i.e. "---------- Forwarded message ----------" - "(\n|^)" is the 1st capturing
+         * group which makes sure a divider line isn't matched if there is text before it i.e. "jdiwaowa ----- Forwarded message -----" -
+         * "( |>)*+" is the 3rd capturing group which matches any number of spaces or email quotation markers (">" symbols). -
+         * "*+-++[^-]++-++\s*+" matches the actual divider text i.e. "---- abc ----" - "$" makes sure the divider is at the end of the
+         * line. - This regex has a + quantifier after each of the quantifiers specified i.e. "*+" instead of just "*". This was done to
+         * reduce back tracing and reduce the anchor points the regex would hold on to. This modification was performed to prevent the
+         * regex from throwing StackOverflowErrors, the Jira this work relates to is SCMOD-3065.
          */
         this.dividerPattern = Pattern.compile("(\n|^)(( |>)*+-++[^-]++-++\\s*+)$");
     }
 
-    public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException {
+    public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException
+    {
         LOG.info("Starting email splitting based on document received");
         validateDocument(doc);
+
+        Matcher matcher = null;
 
         for (Element e : doc.getRootElement().getChildren("CONTENT")) {
             final String stringToSplit = e.getText();
@@ -71,12 +74,18 @@ public class EmailSplitter
 
             for (String email : emailList) {
                 // We will attempt to match the regex to find "---------- Forwarded Message ---------" or similar dividers
-                Matcher matcher = dividerPattern.matcher(email);
+                if (matcher == null) {
+                    matcher = dividerPattern.matcher(email);
+                } else {
+                    matcher = matcher.reset(email);
+                }
                 String divider = null; // null to make a decision later.
                 // If we find a match, strip out the divider from the email text.
-                if (matcher.find()) {
-                    divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
-                    email = email.substring(0, email.indexOf(divider));
+                if (email.contains(FORWARDED_MESSAGE_CHECKER)) {
+                    if (matcher.find()) {
+                        divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
+                        email = email.substring(0, email.indexOf(divider));
+                    }
                 }
 
                 // If the email text is empty, do not mark up an empty email with email tags.
