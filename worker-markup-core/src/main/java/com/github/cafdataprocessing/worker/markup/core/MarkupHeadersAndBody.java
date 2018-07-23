@@ -69,7 +69,7 @@ public class MarkupHeadersAndBody
 
         // Set up the regular expression that matches the condensed header
         final String onDateSomebodyWroteRegEx = regexSetup(condensedHeaderMultilangMappings);
-        this.multilangHeadersElements = fillInList(condensedHeaderMultilangMappings);
+        this.multilangHeadersElements = getListOfElementsFromCondensedHeaderMultilangMappings(condensedHeaderMultilangMappings);
         this.condensedHeaderRegEx = Pattern.compile(onDateSomebodyWroteRegEx);
         this.fromFieldSplitOntoTwoLines = Pattern.compile(FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX);
     }
@@ -182,7 +182,7 @@ public class MarkupHeadersAndBody
                     bodyIndex++;
                     addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
                 } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
-                else if (containsWhatSearched(line)) {
+                else if (checkPresenceOfMultilangHeadersElements(line)) {
                     if (matcher.find()) {
                         bodyIndex++;
                         addCondensedHeader(nattyParser, headersElement, line, matcher);
@@ -214,7 +214,7 @@ public class MarkupHeadersAndBody
      * @param input a string to be checked
      * @return true if some element has been found, false otherwise
      */
-    private boolean containsWhatSearched(String input)
+    private boolean checkPresenceOfMultilangHeadersElements(final String input)
     {
         return multilangHeadersElements.parallelStream().anyMatch(input::contains);
     }
@@ -485,7 +485,7 @@ public class MarkupHeadersAndBody
             if(on_list != null) on_pattern_quoted.addAll(on_list.stream().map(Pattern::quote).collect(Collectors.toList()));
             if(separator_list != null) separator_pattern_quoted.addAll(separator_list.stream().map(Pattern::quote).collect(Collectors.toList()));
             if(wrote_list != null) wrote_pattern_quoted.addAll(wrote_list.stream().map(Pattern::quote).collect(Collectors.toList()));
-            }
+        }
 
         // Join the arrays into one string separated with or separator "|".
         return "(-*[>]?[ ]?(" + String.join("|", on_pattern_quoted) + ")[ ])(.*)(" + String.join("|", separator_pattern_quoted)
@@ -500,7 +500,7 @@ public class MarkupHeadersAndBody
      * @param condensedHeaderMultilangMappings
      * @return a list with all he values of the param
      */
-    private List<String> fillInList(Map<String, List<String>> condensedHeaderMultilangMappings)
+    private List<String> getListOfElementsFromCondensedHeaderMultilangMappings(Map<String, List<String>> condensedHeaderMultilangMappings)
     {
         final Set<String> result = new HashSet<>();
         if (condensedHeaderMultilangMappings != null && !condensedHeaderMultilangMappings.isEmpty()) {

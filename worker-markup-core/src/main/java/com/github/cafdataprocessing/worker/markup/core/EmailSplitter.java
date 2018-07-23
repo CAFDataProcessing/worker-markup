@@ -74,15 +74,16 @@ public class EmailSplitter
             e.removeContent();
 
             for (String email : emailList) {
-                // We will attempt to match the regex to find "---------- Forwarded Message ---------" or similar dividers
-                if (matcher == null) {
-                    matcher = dividerPattern.matcher(email);
-                } else {
-                    matcher = matcher.reset(email);
-                }
+               
                 String divider = null; // null to make a decision later.
                 // If we find a match, strip out the divider from the email text.
                 if (email.contains(FORWARDED_MESSAGE_CHECKER)) {
+                     // We will attempt to match the regex to find "---------- Forwarded Message ---------" or similar dividers
+                    if (matcher == null) {
+                        matcher = dividerPattern.matcher(email);
+                    } else {
+                        matcher = matcher.reset(email);
+                    }
                     if (matcher.find()) {
                         divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
                         email = email.substring(0, email.indexOf(divider));
