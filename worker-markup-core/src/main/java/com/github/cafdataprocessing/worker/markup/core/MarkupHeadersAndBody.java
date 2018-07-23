@@ -182,13 +182,9 @@ public class MarkupHeadersAndBody
                     bodyIndex++;
                     addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
                 } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
-                else if (checkPresenceOfMultilangHeadersElements(line)) {
-                    if (matcher.find()) {
-                        bodyIndex++;
-                        addCondensedHeader(nattyParser, headersElement, line, matcher);
-                    } else {
-                        break;
-                    }
+                else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
+                    bodyIndex++;
+                    addCondensedHeader(nattyParser, headersElement, line, matcher);
                 } else {
                     break;
                 }
