@@ -36,7 +36,7 @@ public class MarkupHeadersAndBody
 
     public static final String UNREADABLE_HEADER = "UnreadableHeader";
     public static final String FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX
-        = "(?<FirstPartFromField>[> ]{0,}\\*.*:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}[\\r]?)?+\\n"
+        = "(?<FirstPartFromField>[> ]{0,}\\*.*:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}[\\r]?)\\n"
         + "(?<SecondPartFromField>[> ]{0,}\\[.*:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*[\\r]?)";
     public static final String GENERAL_CHECK_ONE = ">";
     public static final String GENERAL_CHECK_TWO = "*";
@@ -173,6 +173,10 @@ public class MarkupHeadersAndBody
                         final String fullFromFieldValue = line + "\n" + splitFromFieldMatcher.group("SecondPartFromField");
                         addStandardisedHeader(nattyParser, headersElement, lines, fullFromFieldValue, ":\\*");
                     }
+                } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
+                else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
+                    bodyIndex++;
+                    addCondensedHeader(nattyParser, headersElement, line, matcher);
                 } // Check if the line is a header i.e. TO: xxx, making sure it is not a "On x smb wrote:" with a space after the ":"
                 else if (line.contains(": ")) {
                     bodyIndex++;
@@ -181,10 +185,6 @@ public class MarkupHeadersAndBody
                 else if (line.contains(":*")) {
                     bodyIndex++;
                     addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
-                } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
-                else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
-                    bodyIndex++;
-                    addCondensedHeader(nattyParser, headersElement, line, matcher);
                 } else {
                     break;
                 }
