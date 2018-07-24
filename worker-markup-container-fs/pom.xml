@@ -415,7 +415,7 @@
                 <worker.adminport>8081</worker.adminport>
             </properties>
         </profile>
-        
+
         <profile>
             <id>nightly-test</id>
             <activation>
