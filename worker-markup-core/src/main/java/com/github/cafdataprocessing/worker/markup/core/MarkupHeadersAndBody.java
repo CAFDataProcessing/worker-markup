@@ -535,6 +535,7 @@ public class MarkupHeadersAndBody
     public static void setDateAttributeIfExists(Parser nattyParser, String headerValue, String elementName, Element header)
     {
         // Parse the header value to see if it is a date
+       try{
         List<DateGroup> nattyDateGroups = nattyParser.parse(headerValue);
         final String headerDateUtc = getDateFromNattyGroups(nattyDateGroups);
 
@@ -546,6 +547,10 @@ public class MarkupHeadersAndBody
                     + "setting the first date as the \"" + elementName + "\" attribute.");
             }
         }
+    }
+      catch (NullPointerException e) {
+            LOG.warn("Null Pointer Exception ignored due to Natty Parser bug", e);
+    }
     }
 
     /**
