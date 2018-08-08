@@ -549,7 +549,7 @@ public class MarkupHeadersAndBody
         }
     }
       catch (NullPointerException e) {
-            LOG.warn("Null Pointer Exception ignored due to Natty Parser bug", e);
+            LOG.warn("NullPointerException ignored due to Natty Parser bug", e);
     }
     }
 
