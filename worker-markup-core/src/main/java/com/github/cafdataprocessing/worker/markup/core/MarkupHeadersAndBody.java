@@ -38,9 +38,8 @@ public class MarkupHeadersAndBody
     public static final String FROM_FIELD_WITH_ASTERISKS_SPLIT_ONTO_TWO_LINES_REGEX
         = "(?<FirstPartFromField>[> ]{0,}\\*.*:\\*[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}[\\r]?)\\n"
         + "(?<SecondPartFromField>[> ]{0,}\\[.*:[A-z0-9][-A-z0-9_\\+\\.]*[A-z0-9]@[A-z0-9][-A-z0-9\\.]*[A-z0-9]\\.[A-z0-9]{1,3}\\].*[\\r]?)";
-    public static final String GENERAL_CHECK_ONE = ">";
-    public static final String GENERAL_CHECK_TWO = "*";
-    public static final String GENERAL_CHECK_THREE = "\n";
+    public static final String GENERAL_CHECK_ONE = "*";
+    public static final String GENERAL_CHECK_TWO = "\n";
 
     /*
       The following GROUP_IDs correspond to the capturing groups in the RE_ON_DATE_SMB_WROTE regular expression.
@@ -150,7 +149,7 @@ public class MarkupHeadersAndBody
                 splitFromFieldMatcher = splitFromFieldMatcher.reset(emailText);
             }
 
-            if (emailText.contains(GENERAL_CHECK_ONE) && emailText.contains(GENERAL_CHECK_TWO) && emailText.contains(GENERAL_CHECK_THREE)) {
+            if (emailText.contains(GENERAL_CHECK_ONE) && emailText.contains(GENERAL_CHECK_TWO)) {
                 if (splitFromFieldMatcher.find()) {
                     handleHeaderWithAsterisks(lines, fromHeaderFieldValues, splitFromFieldMatcher);
                 }
