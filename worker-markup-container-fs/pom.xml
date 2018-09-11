@@ -280,7 +280,6 @@
                             <alias>config</alias>
                             <name>${project.artifactId}-test-config:${project.version}</name>
                             <build>
-                                <maintainer>conal.smith@hpe.com</maintainer>
                                 <assembly>
                                     <basedir>/config</basedir>
                                     <inline>
@@ -303,7 +302,6 @@
                             <alias>worker-markup-fs</alias>
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
-                                <maintainer>conal.smith@hpe.com</maintainer>
                                 <from>cafapi/opensuse-jeptalon:1</from>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
