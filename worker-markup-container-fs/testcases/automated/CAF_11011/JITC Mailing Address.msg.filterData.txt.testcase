@@ -60,7 +60,7 @@ expectedOutputData:
       \ name=\"to\" normalizationType=\"NONE\" /><field name=\"body\" normalizationType=\"\
       REMOVE_WHITESPACE\" /></fields></config><digest function=\"XXHASH64\" value=\"\
       d546510ec82ae087\" /></hash><headers><From>From: Acfalle, Jess (Contractor)</From>\r\
-      \n<Sent dateUtc=\"2013-05-06T14:03:12Z\">Sent: Mon May  6 14:03:12 2002</Sent>\r\
+      \n<Sent dateUtc=\"2002-05-06T14:03:12Z\">Sent: Mon May  6 14:03:12 2002</Sent>\r\
       \n<To>To: FH ALL JITC WEST (AZ)</To>\r\n<Subject>Subject: JITC Mailing Address</Subject>\r\
       \n<Importance>Importance: Normal</Importance>\r\n</headers><body>\r\n\r\nALL,\r\
       \n\r\nTHIS IS HOW THE JITC RETURN ADDRESS SHOULD LOOK LIKE ACCORDING TO CENTRAL\
