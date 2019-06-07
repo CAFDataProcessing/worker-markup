@@ -103,6 +103,20 @@ public class MarkupOfHeadersAndBodyTest
         assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
+    /*
+     * Testing of the false positive detection in condensed header multi language mapping provided from configuration
+     */
+    @Test
+    public void testFalsePositiveCondensedHeaderMultiLangMappings() throws IOException, JDOMException
+    {
+        final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/FalsePositiveCondensedHeaderMultiLangMapping.xml");
+        try {
+            MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        } catch (final RuntimeException ex) {
+            assertTrue(ex.getMessage().equals("Logic error detected.  E-mail fidelity has been lost!"));
+        }
+    }
+
    /*
     * Testing markup of headers surrounded with asterisks
     */
