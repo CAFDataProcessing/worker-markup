@@ -174,8 +174,10 @@ public class MarkupHeadersAndBody
                     }
                 } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
                 else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
-                    if(addCondensedHeader(nattyParser, headersElement, line, matcher)){
-                       bodyIndex++;
+                    if (addCondensedHeader(nattyParser, headersElement, line, matcher)) {
+                        bodyIndex++;
+                    } else {
+                        break;
                     }
                 } // Check if the line is a header i.e. TO: xxx, making sure it is not a "On x smb wrote:" with a space after the ":"
                 else if (line.contains(": ")) {

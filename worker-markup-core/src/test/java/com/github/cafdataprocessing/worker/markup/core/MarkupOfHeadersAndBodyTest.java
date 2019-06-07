@@ -110,11 +110,8 @@ public class MarkupOfHeadersAndBodyTest
     public void testFalsePositiveCondensedHeaderMultiLangMappings() throws IOException, JDOMException
     {
         final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/FalsePositiveCondensedHeaderMultiLangMapping.xml");
-        try {
-            MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
-        } catch (final RuntimeException ex) {
-            assertTrue(ex.getMessage().equals("Logic error detected.  E-mail fidelity has been lost!"));
-        }
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        //No assert nessesary, if this test had failed it would have thrown a RuntimeException.
     }
 
    /*
