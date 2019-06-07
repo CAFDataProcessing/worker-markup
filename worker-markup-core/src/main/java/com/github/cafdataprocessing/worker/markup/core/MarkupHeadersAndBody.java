@@ -174,8 +174,9 @@ public class MarkupHeadersAndBody
                     }
                 } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
                 else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
-                    bodyIndex++;
-                    addCondensedHeader(nattyParser, headersElement, line, matcher);
+                    if(addCondensedHeader(nattyParser, headersElement, line, matcher)){
+                       bodyIndex++;
+                    }
                 } // Check if the line is a header i.e. TO: xxx, making sure it is not a "On x smb wrote:" with a space after the ":"
                 else if (line.contains(": ")) {
                     bodyIndex++;
@@ -248,8 +249,9 @@ public class MarkupHeadersAndBody
      * @param headersElement the header element to add the marked up headers.
      * @param line the line containing the condensed header to be marked up.
      * @param matcher the pattern matcher containing the result of our regex evaluated against the line.
+     * @return boolean returns false if the line does not meet the pattern
      */
-    private static void addCondensedHeader(Parser nattyParser, Element headersElement, String line, Matcher matcher)
+    private static boolean addCondensedHeader(Parser nattyParser, Element headersElement, String line, Matcher matcher)
     {
         // Declare the Substring object for the separator identifying indexes in the line for start and end of the separator.
         final Substring substring_separator;
@@ -261,7 +263,7 @@ public class MarkupHeadersAndBody
             // If the separator could not be found, then just skip this line.
             if (matcher.group(SEPARATOR_GROUP_ID) == null) {
                 LOG.warn("Couldn't find the date-name separator so we will skip the line: \"" + line + "\"");
-                return;
+                return true;
             }
             // Try to use the separator returned in the regex to separate the date and name
             substring_separator = getSubstringForGroup(matcher, SEPARATOR_GROUP_ID);
@@ -273,6 +275,12 @@ public class MarkupHeadersAndBody
 
         // Find the substring returned which identifies the "On "
         final Substring substring_on = getSubstringForGroup(matcher, ON_GROUP_ID);
+        if (dateTextIdentifiedByNatty != null) {
+            final int dataEndIndex = substring_on.endIndex + dateTextIdentifiedByNatty.length();
+            if (!line.substring(substring_on.endIndex, dataEndIndex).equals(dateTextIdentifiedByNatty)) {
+                return false;
+            }
+        }
 
         // Find the substring returned which identifies the "wrote:"
         final Substring substring_wrote = getSubstringForGroup(matcher, WROTE_GROUP_ID);
@@ -280,6 +288,7 @@ public class MarkupHeadersAndBody
         // Add to the headersElement the "Sent" and "From" elements and surrounding text
         compileHeaderElementForCondensedHeader(nattyParser, headersElement, line, substring_separator,
                                                dateTextIdentifiedByNatty, substring_on, substring_wrote);
+        return true;
     }
 
     /**
