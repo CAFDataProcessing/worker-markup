@@ -112,6 +112,14 @@ public class MarkupOfHeadersAndBodyTest
         final Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/FalsePositiveCondensedHeaderMultiLangMapping.xml");
         MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
         //No assert nessesary, if this test had failed it would have thrown a RuntimeException.
+        final Document docForComparison
+            = TestUtility.readXmlFile("src/test/resources/xml/FalsePositiveCondensedHeaderMultiLangMappingExpected.xml");
+
+        final String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        final String docForComparisonValue = docForComparison.getRootElement().getValue();
+
+        assertEquals(docForComparisonValue, docMarkedupValue);
+
     }
 
    /*
