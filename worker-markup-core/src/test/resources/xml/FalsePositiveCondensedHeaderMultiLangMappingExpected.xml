@@ -17,7 +17,7 @@
 -->
 <root>
     <CONTENT>
-        <email>On a Friday night, December 15 2000, Congress passed complex and highly technical legislation which essentially ensured that much of the $94,000bn over-the-counter derivatives industry would operate outside the nation's commodities laws.
+        <email><headers /><body>On a Friday night, December 15 2000, Congress passed complex and highly technical legislation which essentially ensured that much of the $94,000bn over-the-counter derivatives industry would operate outside the nation's commodities laws.
             Senator Phil Gramm helped to resurrect the legislation after the House agriculture committee added a special exemption from regulation for EnronOnline, according to Michael Greenberger, a former official of the Commodity Futures Trading Commission. The package, attached to 200 pages of legislation of an 11,000-page general public funding bill, was barely noticed in the rush to adjourn Congress. 
             Much of America's regulatory regime was devised at a time when derivatives trading consisted mainly of standardised futures contracts transacted through third-party exchanges like the Chicago Board of Trade, and involving traditional commodity products such as corn or soyabeans. 
             But during the 1980s and 1990s, a good deal of risk-management action had shifted to the over-the-counter market, where banks and trading firms negotiated bilateral contracts (often called "swaps") on an individual basis. There had also been phenomenal growth in financial contracts - hedging interest rate or currency exposures, for example. Finally, the proliferation of electronic trading systems made it easier to transact business outside the US, if regulatory regimes were kinder elsewhere. 
@@ -30,6 +30,6 @@
             However, even advocates of the lighter, less proscriptive regulatory regime had cautioned that the relatively new area of energy derivatives trading could pose issues that trading of financial swaps did not. 
             "Most dealers in the swaps market are either financial institutions subject to supervision by bank regulatory agencies, or affiliates of broker-dealers regulated by the SEC, or affiliates of FCMs [futures trading firms] subject to CFTC oversight," Bill Rainer, the CFTC's former chairman told a congressional committee in June. "The same cannot be said of trading in energy derivatives ... Thus a principal argument warranting the exclusion of financial derivatives from the Commodity Exchange Act - the fact that derivatives trading in these products is subject to direct or indirect federal oversight - does not apply to OTC energy transactions." 
             (c) Copyright Financial Times Group. 
-            http://www.ft.com.</email>
+            http://www.ft.com.</body></email>
     </CONTENT>
 </root>

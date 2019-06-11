@@ -119,7 +119,7 @@ public class MarkupOfHeadersAndBodyTest
         final String docForComparisonValue = docForComparison.getRootElement().getValue();
 
         assertEquals(docForComparisonValue, docMarkedupValue);
-
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
     }
 
    /*
