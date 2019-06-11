@@ -1,0 +1,35 @@
+<!--
+
+    Copyright 2015-2018 Micro Focus or one of its affiliates.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<root>
+    <CONTENT>
+        <email><headers /><body>On a Friday night, December 15 2000, Congress passed complex and highly technical legislation which essentially ensured that much of the $94,000bn over-the-counter derivatives industry would operate outside the nation's commodities laws.
+            Senator Phil Gramm helped to resurrect the legislation after the House agriculture committee added a special exemption from regulation for EnronOnline, according to Michael Greenberger, a former official of the Commodity Futures Trading Commission. The package, attached to 200 pages of legislation of an 11,000-page general public funding bill, was barely noticed in the rush to adjourn Congress. 
+            Much of America's regulatory regime was devised at a time when derivatives trading consisted mainly of standardised futures contracts transacted through third-party exchanges like the Chicago Board of Trade, and involving traditional commodity products such as corn or soyabeans. 
+            But during the 1980s and 1990s, a good deal of risk-management action had shifted to the over-the-counter market, where banks and trading firms negotiated bilateral contracts (often called "swaps") on an individual basis. There had also been phenomenal growth in financial contracts - hedging interest rate or currency exposures, for example. Finally, the proliferation of electronic trading systems made it easier to transact business outside the US, if regulatory regimes were kinder elsewhere. 
+            For participants in the swaps markets one of the biggest concerns is that the Commodity Futures Trading Commission, set up to regulate the futures markets, might seek to extend some authority to OTC markets. Brooksley Born, head of the agency in the late-1990s, felt strongly about the issue and the problems at Long-Term Capital Management offered her some vindication. 
+            But swaps dealers argued that if swaps were deemed futures (giving the CFTC jurisdiction), counterparties with losing positions could argue the deals had been transacted illegally. Accordingly, the big Wall Street banks demanded "legal certainty", to ensure that OTC transactions were not caught in the regulatory net. Satisfying that demand was one important element of last December's legislation. 
+            Separately, the legislation also set out a new regulatory structure for exchanges - with the degree of supervision highly dependent on the type of product traded and the nature of market participants. Certain commodity products, in finite supply, are susceptible to manipulation. Moreover, if retail customers were to be involved with a market, there would be a need for a decent degree of oversight. Conversely, sophisticated players, trading hard-to-manipulate financial contracts, could look after themselves. 
+            Little of this applied to EnronOnline, however. Although outsiders may have viewed its trading activities as equivalent to an exchange, EnronOnline was structured so that the company itself was the counterparty to transactions handled by its trading unit. That made its business model very different from a traditional exchange, which serves as a neutral forum. 
+            Few of the participants in last year's debate seem to have changed their views significantly. But regulators who believed that largely-unsupervised OTC trades could be a Pandora's box in future, still think last year's legislation a regressive step. "The Commodity Futures Modernisation Act [of 2000] sanctioned opaque markets," says Michael Greenberger, former director of the trading and markets division of the CFTC. 
+            Conversely, observers in the swaps industry argue Enron's difficulties did not originate in its trading activities - the trading operations suffered when other problems caused the group's credit standings to collapse. "EnronOnline was a highly innovative means of servicing clients for nine months of the year," says Robert Pickel, executive director of the International Swaps and Derivatives Association, stressing that the trading arm had provided "convenient and cost-effective management of risk". 
+            However, even advocates of the lighter, less proscriptive regulatory regime had cautioned that the relatively new area of energy derivatives trading could pose issues that trading of financial swaps did not. 
+            "Most dealers in the swaps market are either financial institutions subject to supervision by bank regulatory agencies, or affiliates of broker-dealers regulated by the SEC, or affiliates of FCMs [futures trading firms] subject to CFTC oversight," Bill Rainer, the CFTC's former chairman told a congressional committee in June. "The same cannot be said of trading in energy derivatives ... Thus a principal argument warranting the exclusion of financial derivatives from the Commodity Exchange Act - the fact that derivatives trading in these products is subject to direct or indirect federal oversight - does not apply to OTC energy transactions." 
+            (c) Copyright Financial Times Group. 
+            http://www.ft.com.</body></email>
+    </CONTENT>
+</root>
