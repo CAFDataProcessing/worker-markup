@@ -66,6 +66,9 @@ public final class XmlVerifier
             final String actualFieldValue = actualElement.getValue();
 
             if (!expectedFieldValue.equals(actualFieldValue)) {
+                System.out.println("**AMCG**");
+                System.out.println("**Expected: " + expectedFieldValue);
+                System.out.println("**Actual: " + actualFieldValue);
                 throw new RuntimeException("Xml verification failed.  The value of the field element has changed!");
             }
         }
