@@ -126,7 +126,7 @@ public class EmailSplitterTest
         Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
     }
     
-        /**
+     /**
      * Tests for running EmailSplitter with 1 email and a line that is recognised falsely as a divider between them
      *
      * @throws java.lang.Exception
