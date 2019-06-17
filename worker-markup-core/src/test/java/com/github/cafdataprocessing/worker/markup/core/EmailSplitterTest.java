@@ -126,16 +126,13 @@ public class EmailSplitterTest
         Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
     }
     
-        /**
-     * Tests for running EmailSplitter with 2 emails and a divider between them
+     /**
+     * Tests for running EmailSplitter with 1 email and a line that is recognised falsely as a divider between them
      *
-     * @throws java.util.concurrent.ExecutionException
-     * @throws java.lang.InterruptedException
-     * @throws org.jdom2.JDOMException
-     * @throws java.io.IOException
+     * @throws java.lang.Exception
      */
     @Test
-    public void splitEmailWithDividerFalsePositveTest() throws ExecutionException, InterruptedException, JDOMException, IOException
+    public void splitEmailWithDividerFalsePositveTest() throws Exception
     {
         final String expectedEmail1 = 
             "Get the best deals on the hottest music.  The Columbia House"
