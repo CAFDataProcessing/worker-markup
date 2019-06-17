@@ -86,7 +86,11 @@ public class EmailSplitter
                     }
                     if (matcher.find()) {
                         divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
-                        email = email.substring(0, email.indexOf(divider));
+                        if (divider.matches(".*([A-Za-z\\s])+.*")) {
+                            email = email.substring(0, email.indexOf(divider));
+                        } else {
+                            divider = null;
+                        }
                     }
                 }
 
