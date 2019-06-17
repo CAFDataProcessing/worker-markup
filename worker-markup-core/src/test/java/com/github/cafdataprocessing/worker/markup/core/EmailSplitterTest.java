@@ -248,8 +248,9 @@ public class EmailSplitterTest
 
         final EmailSplitter emailSplitter = new EmailSplitter(j);
         emailSplitter.generateEmailTags(doc);
-
-        Assert.assertFalse("The email is not as expected.", doc.getRootElement().getChild("CONTENT").getValue().equals(expectedEmail1));
+        
+        //Assert value of email content should not have changed during processing
+        Assert.assertTrue("The email is not as expected.", doc.getRootElement().getChild("CONTENT").getValue().equals(expectedEmail1));
     }
 
     /**
