@@ -120,10 +120,136 @@ public class EmailSplitterTest
 
         EmailSplitter emailSplitter = new EmailSplitter(j);
         emailSplitter.generateEmailTags(doc);
-
+        
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
         Assert.assertTrue("Assert the divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider));
         Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
+    }
+    
+        /**
+     * Tests for running EmailSplitter with 2 emails and a divider between them
+     *
+     * @throws java.util.concurrent.ExecutionException
+     * @throws java.lang.InterruptedException
+     * @throws org.jdom2.JDOMException
+     * @throws java.io.IOException
+     */
+    @Test
+    public void splitEmailWithDividerFalsePositveTest() throws ExecutionException, InterruptedException, JDOMException, IOException
+    {
+        final String expectedEmail1 = 
+            "Get the best deals on the hottest music.  The Columbia House"
+            + "\n"
+            + "Music Club is the best way to build your "
+            + "CD collection."
+            + "\n"
+            + "Choose from your favorite artists like Linkin Park, Enya,"
+            + "\n"
+            + "Ja Rule and many more!  Join now and you can..."
+            + "\n"
+            + "\n"
+            + "Get 3 Free CDs with Free Shipping and Handling!"
+            + "\n"
+            + "This offer will be gone in no time.  Act now!"
+            + "\n"
+            + "\n"
+            + "Check out the "
+            + "details at:"
+            + "\n"
+            + "http://adfarm.mediaplex.com/ad/ck/990-1736-3548-32\n ..............................................................."
+            + "\n"
+            + "\n"
+            + "FREE music to choose from @ chcd.com!"
+            + "\n"
+            + "\n"
+            + "-Enya"
+            + "\n"
+            + "A Day Without Rain"
+            + "\n"
+            + "\n"
+            + "\n"
+            + "-Linkin Park"
+            + "\n"
+            + "Hybrid Theory"
+            + "\n"
+            + "\n"
+            + "\n"
+            + "-Alicia Keys"
+            + "\n"
+            + "Songs In A Minor"
+            + "\n"
+            + "\n"
+            + "\n"
+            + "-Five For Fighting"
+            + "\n"
+            + "America Town"
+            + "\n"
+            + "\n"
+            + "\n"
+            + "-Nickelback"
+            + "\n"
+            + "Silver Side Up"
+            + "\n"
+            + "\n"
+            + "\n"
+            + "-Destiny's Child"
+            + "\n"
+            + "Survivor"
+            + "\n"
+            + "\n"
+            + "http://adfarm.mediaplex.com/ad/ck/990-1736-3548-32\n ..............................................................."
+            + "\n"
+            + "\n"
+            + "Brought to you by Columbia House"
+            + "\n"
+            + "\n"
+            + "Copyright ? 2002 Columbiahouse.com. All rights reserve"
+            + "d."
+            + "\n"
+            + "\n"
+            + "\n"
+            + "-----------------------------------------------------------------------"
+            + "\n"
+            + "-----------------------------------------------------------------------"
+            + "\n"
+            + "\n"
+            + "This email sent by http://www.EmailFactory.com\nThe Web-Based Precision Opt-I"
+            + "n Email Marketing Solution."
+            + "\n"
+            + "\n"
+            + "----------------------------------------------------------------------------"
+            + "\n"
+            + "----------------------------------------------------------------------------"
+            + "\n"
+            + "To UNSUBSCRIBE from this mailing list:"
+            + "\n"
+            + "\n"
+            + "Reply "
+            + "to this message with the word 'unsubscribe' as the subject"
+            + "\n"
+            + "\n"
+            + " OR"
+            + "\n"
+            + "\n"
+            + "To UNSUBSCRIBE from this mailing list, go to:"
+            + "\n"
+            + "\n"
+            + "http://bye.emf3.com/handler.cfm?idAddress=L3363056607.24737"
+            + "\n"
+            + "----------------------------------------------------------------------------"
+            + "\n"
+            + "----------------------------------------------------------------------------"
+            + "\n";
+
+        final Document doc = createDocumentWithSuppliedStrings(expectedEmail1);
+
+        final JepExecutor j = Mockito.mock(JepExecutor.class);
+        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12));
+
+        final EmailSplitter emailSplitter = new EmailSplitter(j);
+        emailSplitter.generateEmailTags(doc);
+
+        Assert.assertFalse("The email is not as expected.", doc.getRootElement().getChild("CONTENT").getValue().equals(expectedEmail1));
     }
 
     /**
