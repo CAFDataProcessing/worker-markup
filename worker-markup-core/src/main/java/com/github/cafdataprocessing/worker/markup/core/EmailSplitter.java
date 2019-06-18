@@ -36,6 +36,7 @@ public class EmailSplitter
 
     private final JepExecutor jepExec;
     private final Pattern dividerPattern;
+    private final Pattern dividerConfirmationPattern;
 
     //Logger for logging purposes
     private static final Logger LOG = LoggerFactory.getLogger(EmailSplitter.class);
@@ -59,6 +60,7 @@ public class EmailSplitter
          * throwing StackOverflowErrors, the Jira this work relates to is SCMOD-3065.
          */
         this.dividerPattern = Pattern.compile("(\n|^)(( |>)*+-++[^-]++-++\\s*+)$");
+        this.dividerConfirmationPattern = Pattern.compile(".*([A-Za-z])+\\s*.*");
     }
 
     public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException {
@@ -86,7 +88,7 @@ public class EmailSplitter
                     }
                     if (matcher.find()) {
                         divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
-                        if (divider.matches(".*([A-Za-z\\s])+.*")) {
+                        if (dividerConfirmationPattern.matcher(divider).find()) {
                             email = email.substring(0, email.indexOf(divider));
                         } else {
                             divider = null;
