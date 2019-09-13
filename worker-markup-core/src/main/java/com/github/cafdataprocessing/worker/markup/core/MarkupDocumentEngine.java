@@ -191,9 +191,11 @@ public class MarkupDocumentEngine
             // Split the content into email tags and mark up the headers and body tags
             if (isEmail) {
                 emailSplitter.generateEmailTags(doc);
-                LOG.debug("Document after generateEmailTags \n {}", new XMLOutputter().outputString(doc));
+                if(LOG.isDebugEnabled())
+                    LOG.debug("Document after generateEmailTags \n {}", new XMLOutputter().outputString(doc));
                 markupEngine.markUpHeadersAndBody(doc);
-                LOG.debug("Document after markUpHeadersAndBody \n {}", new XMLOutputter().outputString(doc));
+                if(LOG.isDebugEnabled())
+                    LOG.debug("Document after markUpHeadersAndBody \n {}", new XMLOutputter().outputString(doc));
             }
 
             // Generate the hashes for the fields specified in the hash configuration
@@ -209,7 +211,8 @@ public class MarkupDocumentEngine
 
             // Add the list of fields to the
             workerResult.fieldList = XPathHelper.processDocumentWithXPathExpressions(doc, outputFields);
-            LOG.debug("Document after processDocumentWithXPathExpressions \n {}", new XMLOutputter().outputString
+            if(LOG.isDebugEnabled())
+                LOG.debug("Document after processDocumentWithXPathExpressions \n {}", new XMLOutputter().outputString
                     (doc));
 
             return workerResult;
