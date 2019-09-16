@@ -212,8 +212,7 @@ public class MarkupDocumentEngine
             // Add the list of fields to the
             workerResult.fieldList = XPathHelper.processDocumentWithXPathExpressions(doc, outputFields);
             if(LOG.isDebugEnabled())
-                LOG.debug("Document after processDocumentWithXPathExpressions \n {}", new XMLOutputter().outputString
-                    (doc));
+                LOG.debug("Document after processDocumentWithXPathExpressions \n {}", new XMLOutputter().outputString(doc));
 
             return workerResult;
         } catch (JDOMException jdome) {
