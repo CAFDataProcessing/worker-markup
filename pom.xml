@@ -151,6 +151,12 @@
                 <groupId>com.hpe.caf.externals</groupId>
                 <artifactId>natty</artifactId>
                 <version>0.15.0-SNAPSHOT</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
