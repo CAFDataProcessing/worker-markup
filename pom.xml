@@ -105,6 +105,7 @@
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
         <gitRepo>https://github.com/CAFDataProcessing/worker-markup</gitRepo>
         <enforceCorrectDependencies>true</enforceCorrectDependencies>
+        <enforceBannedDependencies>true</enforceBannedDependencies>
     </properties>
 
     <dependencyManagement>
