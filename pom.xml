@@ -42,52 +42,27 @@
         <developer>
             <id>dermot-hardy</id>
             <name>Dermot Hardy</name>
-            <email>dermot.hardy@hpe.com</email>
-        </developer>
-        <developer>
-            <id>adam-pau-rogan</id>
-            <name>Adam Rogan</name>
-            <email>adam.pau.rogan@hpe.com</email>
+            <email>dermot.hardy@microfocus.com</email>
         </developer>
         <developer>
             <id>CJComac</id>
             <name>Christopher Comac</name>
-            <email>christopher.jam.comac@hpe.com</email>
+            <email>christopher.jam.comac@microfocus.com</email>
         </developer>
         <developer>
             <id>michael-bryson</id>
             <name>Michael Bryson</name>
-            <email>michael.bryson@hpe.com</email>
-        </developer>
-        <developer>
-            <id>michael-mcalynn</id>
-            <name>Michael McAlynn</name>
-            <email>michael.mcalynn@hpe.com</email>
-        </developer>
-        <developer>
-            <id>philip-crooks</id>
-            <name>Philip Crooks</name>
-            <email>philip.crooks@hpe.com</email>
-        </developer>
-        <developer>
-            <id>zara-mckeown</id>
-            <name>Zara McKeown</name>
-            <email>zara.mckeown@hpe.com</email>
-        </developer>
-        <developer>
-            <id>aaron-oloughlin</id>
-            <name>Aaron O'Loughlin</name>
-            <email>aaron.oloughlin@hpe.com</email>
+            <email>michael.bryson@microfocus.com</email>
         </developer>
         <developer>
             <id>anthony-mcgreevy</id>
             <name>Anthony McGreevy</name>
-            <email>anthony.mcgreevy@hpe.com</email>
+            <email>anthony.mcgreevy@microfocus.com</email>
         </developer>
         <developer>
             <id>connor-mulholland</id>
             <name>Connor Mulholland</name>
-            <email>connor.mulholland@hpe.com</email>
+            <email>connor.mulholland@microfocus.com</email>
         </developer>
     </developers>
 
