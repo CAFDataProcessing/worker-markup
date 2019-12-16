@@ -35,6 +35,7 @@ public class EmailSplitter
     private static final String FORWARDED_MESSAGE_CHECKER = "--";
 
     private final JepExecutor jepExec;
+    private final String dividerPatternString;
     private final Pattern dividerPattern;
     private final Pattern dividerConfirmationPattern;
 
@@ -59,7 +60,8 @@ public class EmailSplitter
          * back tracing and reduce the anchor points the regex would hold on to. This modification was performed to prevent the regex from
          * throwing StackOverflowErrors, the Jira this work relates to is SCMOD-3065.
          */
-        this.dividerPattern = Pattern.compile("(\n|^)(( |>)*+-++[^-]++-++\\s*+)$");
+        this.dividerPatternString = "(\n|^)(( |>)*+-++[^-]++-++\\s*+)$";
+        this.dividerPattern = Pattern.compile(dividerPatternString);
         this.dividerConfirmationPattern = Pattern.compile(".*([A-Za-z])+\\s*.*");
     }
 
@@ -89,7 +91,10 @@ public class EmailSplitter
                     if (matcher.find()) {
                         divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
                         if (dividerConfirmationPattern.matcher(divider).find()) {
-                            email = email.substring(0, email.indexOf(divider));
+                            final String emailTemp = email.substring(0, email.indexOf(divider));
+                            final String restOfEmail = email.substring(emailTemp.length() + divider.length());
+                            email = emailTemp;
+                            divider = restOfEmail.matches(dividerPatternString) ? divider + restOfEmail : divider;
                         } else {
                             divider = null;
                         }
