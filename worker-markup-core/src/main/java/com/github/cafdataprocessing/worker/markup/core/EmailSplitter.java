@@ -92,7 +92,7 @@ public class EmailSplitter
                             final String emailTemp = email.substring(0, email.indexOf(divider));
                             final String restOfEmail = email.substring(emailTemp.length() + divider.length());
                             email = emailTemp;
-                            divider = dividerPattern.matcher(restOfEmail).find() ? divider + restOfEmail : divider;
+                            divider = dividerPattern.matcher(restOfEmail).matches()? divider + restOfEmail : divider;
                         } else {
                             divider = null;
                         }
