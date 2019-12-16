@@ -249,7 +249,7 @@ public class EmailSplitterTest
         //Assert value of email content should not have changed during processing
         Assert.assertTrue("The email is not as expected.", doc.getRootElement().getChild("CONTENT").getValue().equals(expectedEmail1));
     }
-    
+
     /**
      * Tests for running EmailSplitter with 2 emails and a divider between them
      *
