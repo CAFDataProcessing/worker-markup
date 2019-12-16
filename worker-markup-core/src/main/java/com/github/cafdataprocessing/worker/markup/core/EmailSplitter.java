@@ -89,7 +89,10 @@ public class EmailSplitter
                     if (matcher.find()) {
                         divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
                         if (dividerConfirmationPattern.matcher(divider).find()) {
-                            email = email.substring(0, email.indexOf(divider));
+                            final String emailTemp = email.substring(0, email.indexOf(divider));
+                            final String restOfEmail = email.substring(emailTemp.length() + divider.length());
+                            email = emailTemp;
+                            divider = dividerPattern.matcher(restOfEmail).matches()? divider + restOfEmail : divider;
                         } else {
                             divider = null;
                         }

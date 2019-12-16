@@ -298,6 +298,59 @@ public class EmailSplitterTest
         Assert.assertTrue("Assert the divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider));
         Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
     }
+    
+    /**
+     * Tests for running EmailSplitter with 2 emails and a double divider at the end of the chain
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void splitEmailWithDoubleDividerAtEndOfChain() throws Exception
+    {
+        final String expectedEmail1 = "From: Reid, Andy\n"
+            + "Sent: 22 July 2016 10:21 AM\n"
+            + "To: Paul, Navamoni\n"
+            + "Cc: Ploch, Krzysztof\n"
+            + "Subject: RE: iSTF - CAF Integration    \n"
+            + "Hi Navamoni,\n"
+            + "\n"
+            + "Is this ready yet?\n"
+            + "\n"
+            + "Thanks, Andy\n"
+            + "\n";
+        final String expectedDivider = "------- Forwarded message follows -------\n"
+            +"   \n"
+            +"\n";
+        final String expectedEmail2 = "From: Smith, Conal\n"
+            + "Sent: 22 July 2016 11:21 AM\n"
+            + "To: Paul, Navamoni\n"
+            + "Cc: Ploch, Krzysztof\n"
+            + "Subject: RE: iSTF - CAF Integration    \n"
+            + "Hi Conal,\n"
+            + "\n"
+            + "No it is not ready yet.\n"
+            + "\n"
+            + "Thanks, Navamoni"
+            + "\n";
+        final String expectedLastDivider = "------- End of forwarded message -------\n------- End of forwarded message -------\n";
+
+        final Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedDivider, expectedEmail2, expectedLastDivider);
+
+        final JepExecutor j = Mockito.mock(JepExecutor.class);
+        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 14));
+
+        final EmailSplitter emailSplitter = new EmailSplitter(j);
+        emailSplitter.generateEmailTags(doc);
+
+        Assert.assertTrue("Assert the first email is as expected.",
+                          doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
+        Assert.assertTrue("Assert the divider is as expected.",
+                          doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider));
+        Assert.assertTrue("Assert the second email is as expected.",
+                          doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
+        Assert.assertTrue("Assert the second divider is as expected.",
+                          doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue().equals(expectedLastDivider));
+    }
 
     /**
      * Tests for running EmailSplitter with 2 emails and a divider between them
