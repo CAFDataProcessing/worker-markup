@@ -8,7 +8,7 @@ ${version-number}
 
 #### Bug Fixes
 - SCMOD-8287: Fix for incorrect handling of emails that have two email separators at the end of the email.
-- SCMOD-8520, SCMOD-8955: Dependency updates.
+- Various dependency updates.
 
 #### Known Issues
 - None
