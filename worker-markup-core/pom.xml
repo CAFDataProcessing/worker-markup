@@ -101,7 +101,7 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hpe.caf.externals</groupId>
+            <groupId>com.joestelmach</groupId>
             <artifactId>natty</artifactId>
         </dependency>
         <dependency>
