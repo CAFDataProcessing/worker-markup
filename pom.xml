@@ -120,7 +120,7 @@
             <dependency>
                 <groupId>com.hpe.caf.externals</groupId>
                 <artifactId>natty</artifactId>
-                <version>0.15.0-182</version>
+                <version>0.16.0-SNAPSHOT</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-logging</groupId>
