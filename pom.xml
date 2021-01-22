@@ -72,7 +72,6 @@
         <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
         <dockerDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerDataProcessingOrg>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
-        <gitRepo>https://github.com/CAFDataProcessing/worker-markup</gitRepo>
         <enforceCorrectDependencies>true</enforceCorrectDependencies>
         <enforceBannedDependencies>true</enforceBannedDependencies>
     </properties>
@@ -167,6 +166,6 @@
     <scm>
         <connection>scm:git:https://github.com/CAFDataProcessing/worker-markup.git</connection>
         <developerConnection>scm:git:https://github.com/CAFDataProcessing/worker-markup.git</developerConnection>
-        <url>${gitRepo}</url>
+        <url>https://github.com/CAFDataProcessing/worker-markup</url>
     </scm>
 </project>
