@@ -167,6 +167,7 @@
                         <CAF_APPNAME>test/worker-markup</CAF_APPNAME>
                         <CAF_CONFIG_PATH>${test.configs}</CAF_CONFIG_PATH>
                         <CAF_INTEGRATIONTESTS_FS_PATH>\\${docker.host.address}@${webdav.apache.port}\webdav</CAF_INTEGRATIONTESTS_FS_PATH>
+                        <CAF_WORKER_HTTP_DATASTORE_URL>http://${docker.host.address}:${webdav.apache.port}/webdav</CAF_WORKER_HTTP_DATASTORE_URL>
                     </environmentVariables>
                 </configuration>
             </plugin>
