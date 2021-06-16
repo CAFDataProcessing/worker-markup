@@ -161,13 +161,13 @@
                         <test.sourcefile.base.folder>${test.binary.content.location}</test.sourcefile.base.folder>
                         <task.template>${project.basedir}/test-templates/sourcedata-template.yml</task.template>
                         <testCaseGeneration>${test.case.generation}</testCaseGeneration>
-<!--                        <worker.testing.usehttpdatastore>true</worker.testing.usehttpdatastore>-->
+                        <worker.testing.usehttpdatastore>true</worker.testing.usehttpdatastore>
                     </systemPropertyVariables>
                     <environmentVariables>
                         <CAF_APPNAME>test/worker-markup</CAF_APPNAME>
                         <CAF_CONFIG_PATH>${test.configs}</CAF_CONFIG_PATH>
                         <CAF_INTEGRATIONTESTS_FS_PATH>\\${docker.host.address}@${webdav.apache.port}\webdav</CAF_INTEGRATIONTESTS_FS_PATH>
-<!--                        <CAF_WORKER_HTTP_DATASTORE_URL>http://${docker.host.address}:${webdav.apache.port}/webdav</CAF_WORKER_HTTP_DATASTORE_URL>-->
+                        <CAF_WORKER_HTTP_DATASTORE_URL>http://${docker.host.address}:${webdav.apache.port}/webdav</CAF_WORKER_HTTP_DATASTORE_URL>
                     </environmentVariables>
                 </configuration>
             </plugin>
@@ -308,6 +308,9 @@
                                 <cmd>
                                     /maven/worker.sh
                                 </cmd>
+                                <healthCheck>
+                                    <cmd>curl -f http://localhost:8081/healthcheck || exit 1</cmd>
+                                </healthCheck>
                                 <assembly>
                                     <mode>tar</mode>
                                     <inline>
