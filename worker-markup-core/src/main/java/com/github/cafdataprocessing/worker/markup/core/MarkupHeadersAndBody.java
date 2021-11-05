@@ -174,6 +174,7 @@ public class MarkupHeadersAndBody
                     }
                 } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
                 else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
+                    System.out.println("entering the void");
                     if (addCondensedHeader(nattyParser, headersElement, line, matcher)) {
                         bodyIndex++;
                     } else {
