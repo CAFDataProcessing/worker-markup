@@ -119,7 +119,7 @@
             <dependency>
                 <groupId>com.hpe.caf.externals</groupId>
                 <artifactId>natty</artifactId>
-                <version>0.16.0-SCMOD-13945-20211104.223948-1</version>
+                <version>0.16.0-SCMOD-13945-20211105.173435-7</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-logging</groupId>
