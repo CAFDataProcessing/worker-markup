@@ -262,6 +262,14 @@ public class MarkupHeadersAndBody
         // Parse the line in natty to a date. If no date is detected, fall back on using regex to identify the separator.
         final List<DateGroup> dateGroups = nattyParser.parse(line);
         if (getDateFromNattyGroups(dateGroups) == null) {
+           if(dateGroups.size()==1){
+               for (Date d :dateGroups.get(0).getDates()
+                    ) {
+                   System.out.println("date returned "+d);
+               }
+           }else {
+               System.out.println("there might be more to it");
+           }
             // If the separator could not be found, then just skip this line.
             if (matcher.group(SEPARATOR_GROUP_ID) == null) {
                 LOG.warn("Couldn't find the date-name separator so we will skip the line: \"" + line + "\"");

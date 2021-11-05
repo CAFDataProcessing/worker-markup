@@ -84,6 +84,16 @@ public class MarkupOfHeadersAndBodyTest
         mwc.setEmailHeaderMappings(emailHeaderMappings);
         mwc.setCondensedHeaderMultiLangMappings(condensedHeaderMultiLangMappings);
     }
+    
+    /*
+     * Testing of the condensed header multi language mapping provided with seasonfrom configuration
+     */
+    @Test
+    public void testCondensedHeaderMultiLangMappingsWithSeason() throws IOException, JDOMException
+    {
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/AAA.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+    }
 
 
     /*
