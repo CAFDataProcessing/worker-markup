@@ -58,9 +58,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.workerframework</groupId>
-            <artifactId>worker-testing-integration</artifactId>
-            <scope>test</scope>
+            <groupId>com.github.workerframework.testing</groupId>
+            <artifactId>workerframework-testing-integration</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
