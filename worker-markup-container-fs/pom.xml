@@ -58,8 +58,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.workerframework</groupId>
-            <artifactId>worker-testing-integration</artifactId>
+            <groupId>com.github.workerframework.testing</groupId>
+            <artifactId>workerframework-testing-integration</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
