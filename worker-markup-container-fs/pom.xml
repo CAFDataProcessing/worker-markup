@@ -60,6 +60,7 @@
         <dependency>
             <groupId>com.github.workerframework.testing</groupId>
             <artifactId>workerframework-testing-integration</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
