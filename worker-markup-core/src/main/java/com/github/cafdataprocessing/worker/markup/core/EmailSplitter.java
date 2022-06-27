@@ -89,10 +89,23 @@ public class EmailSplitter
                     if (matcher.find()) {
                         divider = matcher.group(DIVIDER_GROUP_ID);//group 1 matches the divider in the regex above
                         if (dividerConfirmationPattern.matcher(divider).find()) {
-                            final String emailTemp = email.substring(0, email.indexOf(divider));
-                            final String restOfEmail = email.substring(emailTemp.length() + divider.length());
-                            email = emailTemp;
-                            divider = dividerPattern.matcher(restOfEmail).matches()? divider + restOfEmail : divider;
+                            // The SCMOD-8287 fix (PR #52) should really have been to correct "email.indexOf(divider)"
+                            // to "matcher.start(DIVIDER_GROUP_ID)".  Unfortunately correcting it now would cause a change in behaviour
+                            // so I've decided to leave it and to only correct it in the case where there is loss of content.
+                            final int firstDividerPos = email.indexOf(divider);
+                            final int matchedDividerPos = matcher.start(DIVIDER_GROUP_ID);
+                            if (firstDividerPos == matchedDividerPos) {
+                                email = email.substring(0, matchedDividerPos);
+                            } else {
+                                final String emailTemp = email.substring(0, firstDividerPos);
+                                final String restOfEmail = email.substring(firstDividerPos + divider.length());
+                                if (dividerPattern.matcher(restOfEmail).matches()) {
+                                    email = emailTemp;
+                                    divider = divider + restOfEmail;
+                                } else {
+                                    email = email.substring(0, matchedDividerPos);
+                                }
+                            }
                         } else {
                             divider = null;
                         }

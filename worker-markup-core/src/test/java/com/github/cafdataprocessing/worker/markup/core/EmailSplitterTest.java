@@ -25,6 +25,7 @@ import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import org.jdom2.Element;
@@ -597,6 +598,26 @@ public class EmailSplitterTest
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 4));
     }
 
+    @Test
+    public void splitEmailTestTwoDividersSeparated() throws JDOMException, ExecutionException, InterruptedException, IOException
+    {
+        Document doc = createDummyDocumentTwoDividersSeparated();
+
+        JepExecutor j = Mockito.mock(JepExecutor.class);
+        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12));
+
+        final String docValueBeforeSplitting = doc.getRootElement().getValue();
+
+        EmailSplitter emailSplitter = new EmailSplitter(j);
+        emailSplitter.generateEmailTags(doc);
+
+        final String docValueAfterSplitting = doc.getRootElement().getValue();
+
+        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 2));
+        Assert.assertEquals("The e-mail content should not have been modified by splitting it.",
+                            docValueBeforeSplitting, docValueAfterSplitting);
+    }
+
     /**
      * Fail test for null documents.
      *
@@ -823,6 +844,48 @@ public class EmailSplitterTest
         SAXBuilder saxBuilder = new SAXBuilder();
 
         Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
+        return doc;
+    }
+
+    private Document createDummyDocumentTwoDividersSeparated() throws JDOMException, IOException
+    {
+        String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+            + "<root>"
+            + "<CONTENT>"
+            + "From: Reid, Andy\n"
+            + "Sent: 22 July 2016 10:21 AM\n"
+            + "To: Paul, Navamoni\n"
+            + "Cc: Ploch, Krzysztof\n"
+            + "Subject: RE: iSTF - CAF Integration    \n"
+            + "Hi Navamoni,\n"
+            + "\n"
+            + "Is this ready yet?\n"
+            + "\n"
+            + "Thanks, Andy\n"
+            + "\n"
+            + "---------- Forwarded message ----------\n"
+            + "From: Smith, Conal\n"
+            + "Sent: 22 July 2016 11:21 AM\n"
+            + "To: Paul, Navamoni\n"
+            + "Cc: Ploch, Krzysztof\n"
+            + "Subject: RE: iSTF - CAF Integration    \n"
+            + "Hi Conal,\n"
+            + "\n"
+            + "No it is not ready yet.\n"
+            + "\n"
+            + "Thanks, Navamoni\n"
+            + "---------- Forwarded message ----------\n"
+            + "\n"
+            + "Some more text here"
+            + "\n"
+            + "---------- Forwarded message ----------\n"
+            + "\n"
+            + "</CONTENT>"
+            + "</root>";
+
+        SAXBuilder saxBuilder = new SAXBuilder();
+
+        Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
         return doc;
     }
 
