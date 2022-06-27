@@ -190,6 +190,8 @@ public class MarkupDocumentEngine
             org.jdom2.Document doc = GetXmlDocument.getXmlDocument(xmlFieldEntries);
             // Split the content into email tags and mark up the headers and body tags
             if (isEmail) {
+                if(LOG.isDebugEnabled())
+                    LOG.debug("Document before generateEmailTags \n {}", new XMLOutputter().outputString(doc));
                 emailSplitter.generateEmailTags(doc);
                 if(LOG.isDebugEnabled())
                     LOG.debug("Document after generateEmailTags \n {}", new XMLOutputter().outputString(doc));

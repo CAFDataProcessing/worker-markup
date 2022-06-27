@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.jdom2.output.XMLOutputter;
 
 public class EmailSplitter
 {
@@ -61,6 +62,21 @@ public class EmailSplitter
          */
         this.dividerPattern = Pattern.compile("(\n|^)(( |>)*+-++[^-]++-++\\s*+)$");
         this.dividerConfirmationPattern = Pattern.compile(".*([A-Za-z])+\\s*.*");
+    }
+
+    public void generateEmailTagsDebug(final Document doc) throws JDOMException, ExecutionException, InterruptedException
+    {
+        final String before = new XMLOutputter().outputString(doc);
+        final String beforeStr = doc.getRootElement().getValue();
+        LOG.debug(before);
+        LOG.debug(beforeStr);
+
+        generateEmailTags(doc);
+
+        final String after = new XMLOutputter().outputString(doc);
+        final String afterStr = doc.getRootElement().getValue();
+        LOG.debug(after);
+        LOG.debug(afterStr);
     }
 
     public void generateEmailTags(Document doc) throws JDOMException, ExecutionException, InterruptedException {
@@ -132,7 +148,9 @@ public class EmailSplitter
 
     private List<String> getSeparatedEmails(String emailContent) throws JDOMException, ExecutionException, InterruptedException
     {
+        LOG.debug("E-mail content being separated: {}", emailContent);
         List<Integer> indexes = jepExec.getMessageIndexes(emailContent);
+        LOG.debug("JEP Indexes returned: {}", indexes);
         return separatedIndividualMessages(emailContent, indexes);
     }
 

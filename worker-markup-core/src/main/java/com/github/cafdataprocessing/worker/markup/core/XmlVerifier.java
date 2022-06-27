@@ -19,9 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class XmlVerifier
 {
+    private static final Logger LOG = LoggerFactory.getLogger(XmlVerifier.class);
+
     private XmlVerifier()
     {
     }
@@ -58,7 +62,8 @@ public final class XmlVerifier
             final XmlFieldEntry expectedFieldEntry = expectedFieldEntries.get(i);
             final Element actualElement = fieldElements.get(i);
 
-            if (!expectedFieldEntry.getName().equals(actualElement.getName())) {
+            final String expectedFieldEntryName = expectedFieldEntry.getName();
+            if (!expectedFieldEntryName.equals(actualElement.getName())) {
                 throw new RuntimeException("Xml verification failed.  The name of the field element has changed!");
             }
 
@@ -66,6 +71,8 @@ public final class XmlVerifier
             final String actualFieldValue = actualElement.getValue();
 
             if (!expectedFieldValue.equals(actualFieldValue)) {
+                LOG.error("Xml verification failed for {}.  The value of the field element has changed!\nExpected:\n{}\nActual:\n{}",
+                          expectedFieldEntryName, expectedFieldValue, actualFieldValue);
                 throw new RuntimeException("Xml verification failed.  The value of the field element has changed!");
             }
         }
