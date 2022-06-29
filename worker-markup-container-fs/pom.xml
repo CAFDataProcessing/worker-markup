@@ -304,7 +304,7 @@
                             <alias>worker-markup-fs</alias>
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerHubPublic}/cafapi/opensuse-jeptalon:3.4.4</from>
+                                <from>${dockerHubPublic}/cafapi/opensuse-jeptalon:3</from>
                                 <cmd>
                                     /maven/worker.sh
                                 </cmd>
