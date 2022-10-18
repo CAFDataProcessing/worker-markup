@@ -304,7 +304,6 @@
                             <alias>worker-markup-fs</alias>
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
-                                <!--                                <from>${dockerHubPublic}/cafapi/prereleases:opensuse-jeptalon-4.0.0-US477072-SNAPSHOT</from>-->
                                 <from>${dockerHubPublic}/cafapi/prereleases:opensuse-jeptalon-4.0.0-US477072-rory-SNAPSHOT</from>
                                 <cmd>
                                     /maven/worker.sh
