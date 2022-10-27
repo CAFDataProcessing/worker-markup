@@ -16,7 +16,6 @@
 package com.hpe.caf.worker.markup;
 
 import com.github.cafdataprocessing.worker.markup.core.EmailSplitter;
-import com.github.cafdataprocessing.worker.markup.core.JepExecutor;
 import com.github.cafdataprocessing.worker.markup.core.MarkupDocumentEngine;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerConfiguration;
 import com.github.cafdataprocessing.worker.markup.core.MarkupWorkerHealthCheck;
@@ -30,8 +29,6 @@ import com.hpe.caf.api.worker.Worker;
 import com.hpe.caf.api.worker.WorkerException;
 import com.hpe.caf.api.worker.WorkerTaskData;
 import com.hpe.caf.worker.AbstractWorkerFactory;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Factory class for creating a MarkupWorker.
@@ -40,8 +37,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
 {
     private final MarkupWorkerConfiguration config;
     private final MarkupDocumentEngine markupDocument;
-    private final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
-    private final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
+    private final EmailSplitter emailSplitter = new EmailSplitter();
 
     public MarkupWorkerFactory(ConfigurationSource configSource, DataStore store, Codec codec) throws WorkerException
     {
@@ -60,12 +56,6 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
     protected int getWorkerApiVersion()
     {
         return MarkupWorkerConstants.WORKER_API_VER;
-    }
-
-    @Override
-    public void shutdown()
-    {
-        jepThreadPool.shutdown();
     }
 
     /**

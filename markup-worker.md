@@ -1,23 +1,8 @@
 # Markup Worker API
 
-The Markup Worker is an implementation of the [Abstract Worker](https://github.com/WorkerFramework/worker-framework/blob/develop/worker-caf/src/main/java/com/hpe/caf/worker/AbstractWorker.java). It can be used to identify constructs within a document or e-mail. When used with e-mails it uses the [util-email-content-segregation](https://github.com/CAFDataProcessing/util-email-content-segregation) java module to call the Mailgun/Talon library via the Jep interpreter to perform email content segregation. The separated emails are marked up with XML and the worker returns a configurable set of data.
+The Markup Worker is an implementation of the [Abstract Worker](https://github.com/WorkerFramework/worker-framework/blob/develop/worker-caf/src/main/java/com/hpe/caf/worker/AbstractWorker.java). It can be used to identify constructs within a document or e-mail. When used with e-mails performs email content segregation. The separated emails are marked up with XML and the worker returns a configurable set of data.
 
-## Version Matrix and Dependencies
-
-The following components are dependencies of `worker-markdown` version 1.0:
-
-- [util-email-content-segregation](https://github.com/CAFDataProcessing/util-email-content-segregation) - version 1.1.0
-- [zero-allocation-hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing) - version 0.6
-- [jaxen](http://jaxen.org/apidocs/index.html) - version 1.1.6
-- [jdom2](http://www.jdom.org/docs/apidocs/) - version 2.0.6
-- [worker-caf](https://github.com/WorkerFramework/worker-framework/tree/develop/worker-caf) - version 10.4
-- [worker-markup-shared](worker-markup-shared) - version 1.0.0
-- [caf-api](https://github.com/CAFapi/caf-common/tree/develop/caf-api) - version 11.2
-- [util-moduleloader](https://github.com/CAFapi/caf-common/tree/develop/util-moduleloader) - version 1.1
-- [commons-io](http://commons.apache.org/proper/commons-io/javadocs/api-2.4/index.html) - version 2.4
-- [jackson-databind](https://github.com/FasterXML/jackson-databind) - version 2.6.4
-
-The worker's image is built by [worker-markup-container](worker-markup-container-fs) and uses a base image [jep-talon-image](jep-talon-image).
+The worker's image is built by [worker-markup-container](worker-markup-container-fs) and uses a base image [opensuse-jdk11](https://github.com/CAFapi/opensuse-java11-images).
 
 ## General Operation Overview
 
@@ -232,7 +217,7 @@ There are three main places where this worker can fail:
 - Configuration errors: these will manifest on startup and cause the worker not to start at all. Check the logs for clues, and double check your configuration files.
 - `WORKER_FAILED`: Tasks coming from the worker with this worker status have failed during processing in some unexpected way. This could be due to a number of reasons:
   - no hash configuration has been specified, 
-  - a failure to separate emails in the `Jep` python library, 
+  - a failure to separate emails, 
   - a failure to parse the XML into a document,
   - a failure to acquire data from datastore.
 

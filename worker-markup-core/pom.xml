@@ -32,6 +32,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>backport-util-concurrent</groupId>
+            <artifactId>backport-util-concurrent</artifactId>
+            <version>3.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
         </dependency>
@@ -62,10 +68,6 @@
         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafdataprocessing</groupId>
-            <artifactId>util-email-content-segregation</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
