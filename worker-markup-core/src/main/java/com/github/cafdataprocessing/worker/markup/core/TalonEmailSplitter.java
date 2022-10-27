@@ -219,7 +219,6 @@ public final class TalonEmailSplitter
                 final Matcher splitter = isSplitter(lineAppendedWithFollowingLines);
                 if (splitter != null) {
                     // Append as many splitter markers as lines in splitter
-                    System.out.println("Is splitter");
                     final String[] splitterLines = splitter.group().split("\\r?\\n"); // TODO check
                     for (int j = 0; j < splitterLines.length; j++) {
                         markers[i + j] = 's';
