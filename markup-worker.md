@@ -1,6 +1,6 @@
 # Markup Worker API
 
-The Markup Worker is an implementation of the [Abstract Worker](https://github.com/WorkerFramework/worker-framework/blob/develop/worker-caf/src/main/java/com/hpe/caf/worker/AbstractWorker.java). It can be used to identify constructs within a document or e-mail. When used with e-mails performs email content segregation. The separated emails are marked up with XML and the worker returns a configurable set of data.
+The Markup Worker is an implementation of the [Abstract Worker](https://github.com/WorkerFramework/worker-framework/blob/develop/worker-caf/src/main/java/com/hpe/caf/worker/AbstractWorker.java). It can be used to identify constructs within a document or e-mail. When used with e-mails it performs email content segregation. The separated emails are marked up with XML and the worker returns a configurable set of data.
 
 The worker's image is built by [worker-markup-container](worker-markup-container-fs) and uses a base image [opensuse-jdk11](https://github.com/CAFapi/opensuse-java11-images).
 

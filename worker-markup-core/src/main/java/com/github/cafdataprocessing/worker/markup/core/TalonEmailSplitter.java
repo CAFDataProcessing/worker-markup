@@ -17,14 +17,13 @@ package com.github.cafdataprocessing.worker.markup.core;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.Lists;
-import edu.emory.mathcs.backport.java.util.Arrays;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A Java implementation of <a href="https://github.com/mailgun/talon/commits/master/talon/quotations.py">quotations.py</a> from the Talon
- * library.
+ * A Java port of <a href="https://github.com/mailgun/talon/commits/master/talon/quotations.py">quotations.py</a> from the Talon library.
  *
  * This implementation was created from the master branch of Talon on 25 October 2022.
  *
@@ -37,10 +36,18 @@ import java.util.regex.Pattern;
  * If updating this class, note the following <a href="https://stackoverflow.com/a/10492382/12177456">differences</a> between Java regex
  * and Python regex:
  *
- * - Java's matcher.matches() (also Pattern.matches( regex, input )) matches the entire string. It has no direct equivalent in Python. -
- * The same result can be achieved by using re.match( regex, input ) with a regex that ends with $. - Java's matcher.find() and Python's
- * re.search( regex, input ) match any part of the string. - Java's matcher.lookingAt() and Python's re.match( regex, input ) match the
- * beginning of the string.
+ * <ul>
+ * <li>
+ * Java's matcher.matches() (also Pattern.matches( regex, input )) matches the entire string. It has no direct equivalent in Python. The
+ * same result can be achieved by using re.match( regex, input ) with a regex that ends with $.
+ * </li>
+ * <li>
+ * Java's matcher.find() and Python's re.search( regex, input ) match any part of the string.
+ * </li>
+ * <li>
+ * Java's matcher.lookingAt() and Python's re.match( regex, input ) match thebeginning of the string.
+ * </li>
+ * </ul>
  */
 public final class TalonEmailSplitter
 {
