@@ -298,7 +298,7 @@
                             <alias>worker-markup-fs</alias>
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerHubPublic}/cafapi/prereleases:opensuse-jdk11-3.7.0-SNAPSHOT</from>
+                                <from>${dockerHubPublic}/cafapi/opensuse-jre11:3</from>
                                 <cmd>
                                     /maven/worker.sh
                                 </cmd>

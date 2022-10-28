@@ -60,7 +60,8 @@ public final class TalonEmailSplitter
         Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
     private final static Pattern RE_ON_DATE_SMB_WROTE = Pattern.compile(
-        "(-*[>]?[ ]?(On|Le|W dniu|Op|Am|Em|På|Den|Vào)[ ].*(,|użytkownik)(.*\\n){0,2}.*(wrote|sent|a écrit|napisał|schreef|verzond|geschreven|schrieb|escreveu|skrev|đã viết):?-*)");
+        "(-*[>]?[ ]?(On|Le|W dniu|Op|Am|Em|På|Den|Vào)[ ].*(,|użytkownik)(.*\\n){0,2}.*"
+            + "(wrote|sent|a écrit|napisał|schreef|verzond|geschreven|schrieb|escreveu|skrev|đã viết):?-*)");
 
     // Special case for languages where text is translated like this: 'on {date} wrote {somebody}:'
     private final static Pattern RE_ON_DATE_WROTE_SMB = Pattern.compile(
@@ -172,7 +173,7 @@ public final class TalonEmailSplitter
             if (msgBody.charAt(newlineIndex + 1) == '>') {
                 matcher.appendReplacement(stringBuffer, matcher.group());
             } else {
-                matcher.appendReplacement(stringBuffer, String.format("@@%s@@", matcher.group(1)));
+                matcher.appendReplacement(stringBuffer, "@@" + matcher.group(1) + "@@");
             }
         }
         matcher.appendTail(stringBuffer);

@@ -131,7 +131,7 @@ public class EmailSplitter
     {
         List<Integer> emailStartLineNumbers = new ArrayList<>();
         final String lineMarkers = TalonEmailSplitter.splitEmails(emailContent);
-        char[] markers = ((String) lineMarkers).toCharArray();
+        final char[] markers = lineMarkers.toCharArray();
         int size = markers.length;
         for (int i = 0; i < size; i++) {
             if (markers[i] == 's') {
