@@ -36,8 +36,6 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Basic testing for MarkupDocumentEngine
@@ -50,8 +48,7 @@ public class MarkupDocumentEngineTest {
     @Test
     public void fieldOrderingIrrelevantForHashTest() throws WorkerException, ConfigurationException, InterruptedException, JDOMException, ExecutionException, AddHeadersException, MappingException
     {
-        final ExecutorService jepThreadPool = Executors.newSingleThreadExecutor();
-        final EmailSplitter emailSplitter = new EmailSplitter(new JepExecutor(jepThreadPool));
+        final EmailSplitter emailSplitter = new EmailSplitter();
         MarkupDocumentEngine markupDocumentEngine = new MarkupDocumentEngine();
         HashConfiguration hashConfiguration = new HashConfiguration();
         hashConfiguration.name = "Comparison";
@@ -69,63 +66,61 @@ public class MarkupDocumentEngineTest {
         boolean isEmail = false;
 
         Document documentToTest = buildDocumentForHashOrderingTest();
-        try {
-            markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail, emailSplitter);
-            com.hpe.caf.worker.document.model.Field documentComparisonHashField = documentToTest.getField("COMPARISON_HASH");
-            Assert.assertTrue("COMPARISON_HASH field on worker-document returned should have values.",
-                    documentComparisonHashField.hasValues());
-            String documentComparisonHash = documentComparisonHashField.getStringValues().get(0);
 
-            Codec codec = new JsonCodec();
-            final MarkupWorkerConfiguration config = documentToTest.getApplication().getService(ConfigurationSource.class)
-                    .getConfiguration(MarkupWorkerConfiguration.class);
-            final DataStore dataStore = documentToTest.getApplication().getService(DataStore.class);
-            Multimap<String, ReferencedData> sourceData = buildSourceDataForHashOrderingTest();
+        markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail, emailSplitter);
+        com.hpe.caf.worker.document.model.Field documentComparisonHashField = documentToTest.getField("COMPARISON_HASH");
+        Assert.assertTrue("COMPARISON_HASH field on worker-document returned should have values.",
+                documentComparisonHashField.hasValues());
+        String documentComparisonHash = documentComparisonHashField.getStringValues().get(0);
 
-            MarkupWorkerTask firstMarkupWorkerTask = createMarkupWorkerTask(
-                    sourceData,
-                    hashConfigurations,
-                    outputFields,
-                    isEmail
-            );
-            MarkupWorkerResult firstMarkupWorkerResult =
-                    markupDocumentEngine.markupDocument(firstMarkupWorkerTask, dataStore, codec, config, emailSplitter);
+        Codec codec = new JsonCodec();
+        final MarkupWorkerConfiguration config = documentToTest.getApplication().getService(ConfigurationSource.class)
+                .getConfiguration(MarkupWorkerConfiguration.class);
+        final DataStore dataStore = documentToTest.getApplication().getService(DataStore.class);
+        Multimap<String, ReferencedData> sourceData = buildSourceDataForHashOrderingTest();
 
-            Assert.assertNotNull("Should have got a markup result.", firstMarkupWorkerResult);
-            Optional<NameValuePair> firstMarkupWorkerComparisonHashOptional = firstMarkupWorkerResult.fieldList.stream().filter(fi -> fi.name.equals("COMPARISON_HASH")).findFirst();
-            Assert.assertTrue("COMPARISON_HASH field should be set on the first resul from the markup worker entry point to markupDocument.",
-                    firstMarkupWorkerComparisonHashOptional.isPresent());
-            NameValuePair firstMarkupWorkerComparisonHash = firstMarkupWorkerComparisonHashOptional.get();
+        MarkupWorkerTask firstMarkupWorkerTask = createMarkupWorkerTask(
+                sourceData,
+                hashConfigurations,
+                outputFields,
+                isEmail
+        );
+        MarkupWorkerResult firstMarkupWorkerResult =
+                markupDocumentEngine.markupDocument(firstMarkupWorkerTask, dataStore, codec, config, emailSplitter);
 
-            Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint.",
-                    documentComparisonHash, firstMarkupWorkerComparisonHash.value);
+        Assert.assertNotNull("Should have got a markup result.", firstMarkupWorkerResult);
+        Optional<NameValuePair> firstMarkupWorkerComparisonHashOptional = firstMarkupWorkerResult.fieldList.stream().filter(fi -> fi.name.equals("COMPARISON_HASH")).findFirst();
+        Assert.assertTrue("COMPARISON_HASH field should be set on the first resul from the markup worker entry point to markupDocument.",
+                firstMarkupWorkerComparisonHashOptional.isPresent());
+        NameValuePair firstMarkupWorkerComparisonHash = firstMarkupWorkerComparisonHashOptional.get();
 
-            //repeat the markupDocument call with a new MarkupWorkerResult and verify hash returned is the same
-            Multimap<String, ReferencedData> secondSourceData = buildSourceDataForHashOrderingTest();
+        Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint.",
+                documentComparisonHash, firstMarkupWorkerComparisonHash.value);
 
-            MarkupWorkerTask secondMarkupWorkerTask = createMarkupWorkerTask(
-                    secondSourceData,
-                    hashConfigurations,
-                    outputFields,
-                    isEmail
-            );
-            MarkupWorkerResult secondMarkupWorkerResult =
-                    markupDocumentEngine.markupDocument(secondMarkupWorkerTask, dataStore, codec, config, emailSplitter);
-            Assert.assertNotNull("Should have got a markup result.", firstMarkupWorkerResult);
-            Optional<NameValuePair> secondMarkupWorkerComparisonHashOptional = secondMarkupWorkerResult.fieldList.stream()
-                    .filter(fi -> fi.name.equals("COMPARISON_HASH")).findFirst();
-            Assert.assertTrue("COMPARISON_HASH field should be set on the second result from the markup worker entry point to markupDocument.",
-                    secondMarkupWorkerComparisonHashOptional.isPresent());
-            NameValuePair secondMarkupWorkerComparisonHash = secondMarkupWorkerComparisonHashOptional.get();
+        //repeat the markupDocument call with a new MarkupWorkerResult and verify hash returned is the same
+        Multimap<String, ReferencedData> secondSourceData = buildSourceDataForHashOrderingTest();
 
-            Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint the second time.",
-                    documentComparisonHash, secondMarkupWorkerComparisonHash.value);
+        MarkupWorkerTask secondMarkupWorkerTask = createMarkupWorkerTask(
+                secondSourceData,
+                hashConfigurations,
+                outputFields,
+                isEmail
+        );
+        MarkupWorkerResult secondMarkupWorkerResult =
+                markupDocumentEngine.markupDocument(secondMarkupWorkerTask, dataStore, codec, config, emailSplitter);
+        Assert.assertNotNull("Should have got a markup result.", firstMarkupWorkerResult);
+        Optional<NameValuePair> secondMarkupWorkerComparisonHashOptional = secondMarkupWorkerResult.fieldList.stream()
+                .filter(fi -> fi.name.equals("COMPARISON_HASH")).findFirst();
+        Assert.assertTrue("COMPARISON_HASH field should be set on the second result from the markup worker entry point to markupDocument.",
+                secondMarkupWorkerComparisonHashOptional.isPresent());
+        NameValuePair secondMarkupWorkerComparisonHash = secondMarkupWorkerComparisonHashOptional.get();
 
-            Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint the first time.",
-                    firstMarkupWorkerComparisonHash.value, secondMarkupWorkerComparisonHash.value);
-        } finally {
-            jepThreadPool.shutdown();
-        }
+        Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint the second time.",
+                documentComparisonHash, secondMarkupWorkerComparisonHash.value);
+
+        Assert.assertEquals("COMPARISON_HASH from the Document Worker call should be the same as when called via MarkupWorkerResult entrypoint the first time.",
+                firstMarkupWorkerComparisonHash.value, secondMarkupWorkerComparisonHash.value);
+
     }
 
     /**

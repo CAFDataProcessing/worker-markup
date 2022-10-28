@@ -21,16 +21,13 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import org.jdom2.Element;
 
-import static org.mockito.Mockito.when;
 
 /**
  *
@@ -70,10 +67,7 @@ public class EmailSplitterTest
 
         final Document doc = createDocumentWithSuppliedStrings(StringEscapeUtils.escapeHtml(expectedEmail1));
 
-        final JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0));
-
-        final EmailSplitter emailSplitter = new EmailSplitter(j);
+        final EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.", 
@@ -116,10 +110,7 @@ public class EmailSplitterTest
 
         Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedDivider, expectedEmail2);
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
         
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
@@ -241,10 +232,7 @@ public class EmailSplitterTest
 
         final Document doc = createDocumentWithSuppliedStrings(expectedEmail1);
 
-        final JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12));
-
-        final EmailSplitter emailSplitter = new EmailSplitter(j);
+        final EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
         
         //Assert value of email content should not have changed during processing
@@ -289,10 +277,7 @@ public class EmailSplitterTest
 
         Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedDivider, expectedEmail2);
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 14));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
@@ -337,10 +322,7 @@ public class EmailSplitterTest
 
         final Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedDivider, expectedEmail2, expectedLastDivider);
 
-        final JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 14));
-
-        final EmailSplitter emailSplitter = new EmailSplitter(j);
+        final EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.",
@@ -401,10 +383,7 @@ public class EmailSplitterTest
 
         Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedDivider1, expectedEmail2, expectedDivider2, expectedEmail3);
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12, 22, 23));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
@@ -458,10 +437,7 @@ public class EmailSplitterTest
 
         Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedEmail2);
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 19));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
@@ -506,10 +482,7 @@ public class EmailSplitterTest
 
         Document doc = createDocumentWithSuppliedStrings(expectedEmail1, expectedDivider1, expectedEmail2, expectedDivider2);
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
@@ -531,10 +504,7 @@ public class EmailSplitterTest
     {
         Document doc = createDummyDocumentOneEmail();
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
@@ -553,10 +523,7 @@ public class EmailSplitterTest
     {
         Document doc = createDummyDocumentTwoEmails();
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 8));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 2));
@@ -575,10 +542,7 @@ public class EmailSplitterTest
     {
         Document doc = createDummyDocumentThreeEmails();
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 8, 16));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 3));
@@ -589,10 +553,7 @@ public class EmailSplitterTest
     {
         Document doc = createDummyDocumentFourEmails();
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 8, 16, 24));
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 4));
@@ -603,12 +564,9 @@ public class EmailSplitterTest
     {
         Document doc = createDummyDocumentTwoDividersSeparated();
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList(0, 12));
-
         final String docValueBeforeSplitting = doc.getRootElement().getValue();
 
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         final String docValueAfterSplitting = doc.getRootElement().getValue();
@@ -630,10 +588,7 @@ public class EmailSplitterTest
     {
         Document doc = null;
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList());
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
     }
 
@@ -650,10 +605,7 @@ public class EmailSplitterTest
     {
         Document doc = createDummyDocumentNoContentTag();
 
-        JepExecutor j = Mockito.mock(JepExecutor.class);
-        when(j.getMessageIndexes(Mockito.any())).thenReturn(Arrays.asList());
-
-        EmailSplitter emailSplitter = new EmailSplitter(j);
+        EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 0));

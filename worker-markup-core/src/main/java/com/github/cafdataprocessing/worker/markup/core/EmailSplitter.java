@@ -34,7 +34,6 @@ public class EmailSplitter
 
     private static final String FORWARDED_MESSAGE_CHECKER = "--";
 
-    private final JepExecutor jepExec;
     private final Pattern dividerPattern;
     private final Pattern dividerConfirmationPattern;
 
@@ -44,10 +43,8 @@ public class EmailSplitter
     private static final String ERR_MSG_DOCUMENT_NULL = "The document is null.";
     private static final String ERR_MSG_NO_CONTENT = "There is no content in this document to process.";
 
-    public EmailSplitter(JepExecutor jepExec)
+    public EmailSplitter()
     {
-        this.jepExec = jepExec;
-
         /**
          * Searches the email line for the email divider i.e. "---------- Forwarded message ----------"
          * - "(\n|^)" is the 1st capturing group which makes sure a divider line isn't matched if there is text before it i.e.
@@ -132,8 +129,17 @@ public class EmailSplitter
 
     private List<String> getSeparatedEmails(String emailContent) throws JDOMException, ExecutionException, InterruptedException
     {
-        List<Integer> indexes = jepExec.getMessageIndexes(emailContent);
-        return separatedIndividualMessages(emailContent, indexes);
+        List<Integer> emailStartLineNumbers = new ArrayList<>();
+        final String lineMarkers = TalonEmailSplitter.splitEmails(emailContent);
+        final char[] markers = lineMarkers.toCharArray();
+        int size = markers.length;
+        for (int i = 0; i < size; i++) {
+            if (markers[i] == 's') {
+                emailStartLineNumbers.add(i);
+            }
+        }
+
+        return separatedIndividualMessages(emailContent, emailStartLineNumbers);
     }
 
     /**

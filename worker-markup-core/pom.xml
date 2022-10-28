@@ -65,10 +65,6 @@
         </dependency>
         <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
-            <artifactId>util-email-content-segregation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafdataprocessing</groupId>
             <artifactId>worker-document-interface</artifactId>
         </dependency>
         <dependency>
