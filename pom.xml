@@ -67,7 +67,7 @@
     </developers>
 
     <properties>
-        <caf.worker-document-framework.version>5.1.0-1038</caf.worker-document-framework.version>
+        <caf.worker-document-framework.version>5.2.0-SNAPSHOT</caf.worker-document-framework.version>
         <copyrightYear>2022</copyrightYear>
         <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
         <dockerDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerDataProcessingOrg>
