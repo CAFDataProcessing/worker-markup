@@ -22,10 +22,10 @@ import com.google.common.collect.Multimaps;
 import com.hpe.caf.api.Codec;
 import com.hpe.caf.api.worker.DataStore;
 import com.hpe.caf.util.ref.ReferencedData;
-import com.hpe.caf.worker.markup.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import com.hpe.caf.worker.markup.MarkupWorkerTask;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
