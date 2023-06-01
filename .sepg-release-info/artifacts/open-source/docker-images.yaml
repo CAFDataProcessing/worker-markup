@@ -1,3 +1,0 @@
-- dockerRepositoryId: cafdataprocessing/prereleases
-  imageName: worker-markup
-  tag: "3.3.1-1265"
