@@ -225,6 +225,24 @@ public class MarkupOfHeadersAndBodyTest
     }
 
     /*
+     * Testing of 2 email tags, where the 2nd email has been truncated after the last header, so the last header is missing a
+     * newline and the 2nd email has no body.
+     */
+    @Test
+    public void testMarkupOfMultipleEmailsTagsWhereTheLastEmailHasBeenTruncated() throws IOException, JDOMException
+    {
+        Document xmlDocument = TestUtility.readXmlFile("src/test/resources/xml/MultipleEmailTagsLastEmailTruncated.xml");
+        MarkupHeadersAndBody.markUpHeadersAndBody(xmlDocument, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Document docForComparison = TestUtility.readXmlFile("src/test/resources/xml/MultipleEmailTagsLastEmailTruncatedMarkedup.xml");
+
+        String docMarkedupValue = xmlDocument.getRootElement().getValue();
+        String docForComparisonValue = docForComparison.getRootElement().getValue();
+
+        assertEquals(docForComparisonValue, docMarkedupValue);
+        assertTrue(TestUtility.compareHeaderElements(docForComparison, xmlDocument));
+    }
+
+    /*
      * Testing markup where possible email header tag contains invalid characters
      * i.e.
      * "'To'" : joe.bloggs@hpe.com; jane.doe@hpe.com
