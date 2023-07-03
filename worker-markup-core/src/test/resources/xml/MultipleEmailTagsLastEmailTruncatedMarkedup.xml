@@ -1,0 +1,27 @@
+<!--
+
+    Copyright 2017-2023 Open Text.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<root>
+    <CONTENT><email><headers><From>From: Hardy, Dermot</From>
+<Sent>Sent: Thu Apr 14 22:11:25 2016</Sent>
+<To>To: McAlynn, Michael</To>
+<Subject>Subject: FW: Artifactory outage</Subject></headers>
+<body>They’ve finally updated Artifactory so we can use Docker 1.10 now.</body></email><email><headers><From>From: Jessica Wilson</From>
+<Sent>Sent: Monday, 13 August 2012 11:57 AM</Sent>
+<To>To: 'david.johnson@example.com'</To>
+<Subject>Subject: GHRE</Subject></headers></email></CONTENT>
+</root>

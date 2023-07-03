@@ -170,7 +170,7 @@ public class MarkupHeadersAndBody
                     bodyIndex++;
                     if (line.equals(splitFromFieldMatcher.group("FirstPartFromField"))) {
                         final String fullFromFieldValue = line + "\n" + splitFromFieldMatcher.group("SecondPartFromField");
-                        addStandardisedHeader(nattyParser, headersElement, lines, fullFromFieldValue, ":\\*");
+                        addStandardisedHeader(nattyParser, headersElement, lines, fullFromFieldValue, bodyIndex, ":\\*");
                     }
                 } // Only enter this block if we get a match i.e. line is "On xxx, abc wrote:"
                 else if (checkPresenceOfMultilangHeadersElements(line) && matcher.find()) {
@@ -182,11 +182,11 @@ public class MarkupHeadersAndBody
                 } // Check if the line is a header i.e. TO: xxx, making sure it is not a "On x smb wrote:" with a space after the ":"
                 else if (line.contains(": ")) {
                     bodyIndex++;
-                    addStandardisedHeader(nattyParser, headersElement, lines, line, ": ");
+                    addStandardisedHeader(nattyParser, headersElement, lines, line, bodyIndex,  ": ");
                 } // Check if the line is a header i.e. *TO:* xxx, with an asterisk after the ":"
                 else if (line.contains(":*")) {
                     bodyIndex++;
-                    addStandardisedHeader(nattyParser, headersElement, lines, line, ":\\*");
+                    addStandardisedHeader(nattyParser, headersElement, lines, line, bodyIndex, ":\\*");
                 } else {
                     break;
                 }
@@ -306,7 +306,8 @@ public class MarkupHeadersAndBody
      * @param line the current line containing the header.
      * @param valueToSplitOn the value that the line parameter should be split on.
      */
-    private void addStandardisedHeader(Parser nattyParser, Element headersElement, String[] lines, String line, String valueToSplitOn)
+    private void addStandardisedHeader(Parser nattyParser, Element headersElement, String[] lines, String line,
+                                       int bodyIndex, String valueToSplitOn)
     {
         // Split out the header name and value
         final String[] colonSplit = line.split(valueToSplitOn, 2);
@@ -321,7 +322,13 @@ public class MarkupHeadersAndBody
         final String elementName = XmlParsingHelper.removeInvalidXmlElementNameChars(standardHeaderName, UNREADABLE_HEADER);
         Element header = createElementAndSetText(elementName, line);
         headersElement.addContent(header);
-        if (lines.length > 1) {
+
+        // If there are more lines after this header, it means the header has a newline (which is expected for a header).
+        // If there are no more lines after this header, it means the header does not have a newline, and has been truncated, so make sure
+        // to only add a newline if the header has one.
+        final boolean truncatedHeaderWithoutNewline = bodyIndex == lines.length;
+
+        if (lines.length > 1 && !truncatedHeaderWithoutNewline) {
             headersElement.addContent(new Text("\n"));
         }
 
