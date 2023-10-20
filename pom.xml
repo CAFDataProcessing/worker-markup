@@ -28,7 +28,7 @@
     <parent>
         <groupId>com.github.cafapi</groupId>
         <artifactId>caf-common-parent</artifactId>
-        <version>2.3.0-212</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.cafdataprocessing</groupId>
@@ -69,12 +69,9 @@
     <properties>
         <caf.worker-document-framework.version>5.1.0-1038</caf.worker-document-framework.version>
         <copyrightYear>2023</copyrightYear>
-        <copyrightNotice>Copyright ${project.inceptionYear}-${copyrightYear} Open Text.</copyrightNotice>
         <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
         <dockerDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerDataProcessingOrg>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
-        <enforceCorrectDependencies>true</enforceCorrectDependencies>
-        <enforceBannedDependencies>true</enforceBannedDependencies>
     </properties>
 
     <dependencyManagement>
