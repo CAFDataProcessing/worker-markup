@@ -20,7 +20,7 @@ import com.hpe.caf.util.ref.ReferencedData;
 
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The task supplied to the worker. This is the main means of communication to the worker, providing the source data.
