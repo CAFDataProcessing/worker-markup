@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.cafdataprocessing</groupId>
         <artifactId>worker-markup-aggregator</artifactId>
-        <version>3.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>worker-markup-container-fs</artifactId>
@@ -57,13 +57,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.workerframework.testing</groupId>
+            <artifactId>workerframework-testing-util</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.github.cafdataprocessing</groupId>
             <artifactId>worker-markup-testing</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -280,7 +286,7 @@
                                         <fileSets>
                                             <fileSet>
                                                 <directory>test-configs</directory>
-                                                <outputDirectory>/</outputDirectory>
+                                                <outputDirectory>.</outputDirectory>
                                                 <includes>
                                                     <include>*</include>
                                                 </includes>
@@ -296,7 +302,7 @@
                             <alias>worker-markup-fs</alias>
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerHubPublic}/cafapi/opensuse-jre11:3</from>
+                                <from>${dockerHubPublic}/cafapi/opensuse-jre17:1</from>
                                 <cmd>
                                     /maven/worker.sh
                                 </cmd>
@@ -310,7 +316,6 @@
                                         <fileSets>
                                             <fileSet>
                                                 <lineEnding>unix</lineEnding>
-                                                <outputDirectory>/</outputDirectory>
                                                 <includes>
                                                     <include>worker.sh</include>
                                                 </includes>
@@ -318,7 +323,6 @@
                                             </fileSet>
                                             <fileSet>
                                                 <lineEnding>unix</lineEnding>
-                                                <outputDirectory>/</outputDirectory>
                                                 <includes>
                                                     <include>worker.yaml</include>
                                                 </includes>
@@ -333,10 +337,6 @@
                                             <dependencySet>
                                                 <useProjectArtifact>false</useProjectArtifact>
                                                 <scope>runtime</scope>
-                                            </dependencySet>
-                                            <dependencySet>
-                                                <useProjectArtifact>false</useProjectArtifact>
-                                                <unpack>true</unpack>
                                             </dependencySet>
                                         </dependencySets>
                                     </inline>
