@@ -372,6 +372,6 @@ public class HashHelper
      */
     private static String performXxHash64(String str)
     {
-        return Long.toHexString(LongHashFunction.xx_r39().hashChars(str));
+        return Long.toHexString(LongHashFunction.xx().hashChars(str));
     }
 }

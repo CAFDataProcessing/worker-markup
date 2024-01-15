@@ -15,7 +15,7 @@
  */
 package com.hpe.caf.worker.markup;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**

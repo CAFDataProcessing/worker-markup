@@ -34,7 +34,7 @@ public class ConvertWorkerResult
     {
         document.getField("MARKUPWORKER_STATUS").set(markupWorkerResult.workerStatus.toString());
         
-        List<String> updatedFields = new ArrayList();
+        List<String> updatedFields = new ArrayList<>();
         markupWorkerResult.fieldList.forEach((entry) -> {
             String fieldName = entry.name;
             if(!updatedFields.contains(fieldName)) {
