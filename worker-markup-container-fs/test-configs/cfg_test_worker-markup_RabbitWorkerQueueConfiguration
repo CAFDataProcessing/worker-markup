@@ -4,5 +4,6 @@
     "retryQueue": "markupworker-test-input-1",
     "rejectedQueue": "markupworker-test-rejected-1",
     "retryLimit": 2,
-    "maxPriority": 32
+    "maxPriority": 32,
+    "queueType": "quorum"
 }
