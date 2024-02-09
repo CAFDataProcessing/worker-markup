@@ -13,9 +13,8 @@ ${version-number}
   from Jakarta EE 8 to Jakarta EE 9.  This may mean that `javax.*` imports in worker
   code need to be updated to `jakarta.*` instead.
 
-- **D854021:** Worker Framwork V4 Format message support dropped  
+- **D854021:** Worker Framework V4 Format message support dropped  
   The worker has been updated to use a new version of the worker framework which no longer supports the V4 format message.
 
 #### Known Issues
 - None
-
