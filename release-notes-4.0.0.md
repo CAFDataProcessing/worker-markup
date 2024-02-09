@@ -1,9 +1,8 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
 #### New Features
+- None
 
 #### Breaking Changes
 - **US361030**: Java 8 and Java 11 support dropped  
@@ -18,3 +17,5 @@ ${version-number}
   The worker has been updated to use a new version of the worker framework which no longer supports the V4 format message.
 
 #### Known Issues
+- None
+
