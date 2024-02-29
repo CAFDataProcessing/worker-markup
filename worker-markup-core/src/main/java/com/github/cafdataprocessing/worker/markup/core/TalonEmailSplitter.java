@@ -167,7 +167,7 @@ public final class TalonEmailSplitter
         // Converts msg_body into a unicode.
 
         final StringBuffer stringBuffer = new StringBuffer();
-        final Matcher matcher = RE_LINK.matcher(msgBody);
+        final Matcher matcher = RE_LINK.matcher(Matcher.quoteReplacement(msgBody));
         while (matcher.find()) {
             final int newlineIndex = msgBody.substring(0, matcher.start()).lastIndexOf("\n");
             if (msgBody.charAt(newlineIndex + 1) == '>') {

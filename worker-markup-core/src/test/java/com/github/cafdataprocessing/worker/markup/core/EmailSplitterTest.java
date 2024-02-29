@@ -510,6 +510,17 @@ public class EmailSplitterTest
         Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
     }
 
+    @Test
+    public void splitEmailTestSingleEmailWithDollarCharacter() throws ExecutionException, InterruptedException, JDOMException, IOException
+    {
+        Document doc = createDummyDocumentOneEmailWithDollarWithinLinkBrackets();
+
+        EmailSplitter emailSplitter = new EmailSplitter();
+        emailSplitter.generateEmailTags(doc);
+
+        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
+    }
+
     /**
      * Test for running EmailSplitter with a chain of two emails
      *
@@ -655,6 +666,31 @@ public class EmailSplitterTest
         Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
         return doc;
     }
+
+    private Document createDummyDocumentOneEmailWithDollarWithinLinkBrackets() throws JDOMException, IOException
+    {
+        String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                + "<root>"
+                + "<CONTENT>"
+                + "From: Reid, Andy      "
+                + "Sent: 22 July 2016 10:21 AM      "
+                + "To: Paul, Navamoni &lt;paul.navamoni@hpe.com&gt;; Hardy, Dermot &lt;dermot.hardy@hpe.com&gt;      "
+                + "Cc: Ploch, Krzysztof &lt;krzysztof.ploch@hpe.com&gt;      "
+                + "Subject: RE: iSTF - CAF Integration    "
+                + "     Hi Navamoni,            "
+                + "Is this ready yet?      "
+                + "      Thanks      Andy          "
+                + "To UNSUBSCRIBE from this mailing list, go to:"
+                + "&lt;http://bye.emf3.com/handler.cfm?email=$('mailID')&gt;"
+                + "</CONTENT>"
+                + "</root>";
+
+        SAXBuilder saxBuilder = new SAXBuilder();
+
+        Document doc = saxBuilder.build(new ByteArrayInputStream(s.getBytes()));
+        return doc;
+    }
+
     /**
      * Create dummy document containing one email
      *
