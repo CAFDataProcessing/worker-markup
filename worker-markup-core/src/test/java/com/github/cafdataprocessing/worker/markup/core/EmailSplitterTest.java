@@ -680,6 +680,7 @@ public class EmailSplitterTest
                 + "     Hi Navamoni,            "
                 + "Is this ready yet?      "
                 + "      Thanks      Andy          "
+                +"&lt;http://f.chtah.com/i/46/327$605asda65$/spacer.gif&gt;\\t"
                 + "To UNSUBSCRIBE from this mailing list, go to:"
                 + "&lt;http://bye.emf3.com/handler.cfm?email=$('mailID')&gt;"
                 + "</CONTENT>"
