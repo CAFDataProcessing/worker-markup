@@ -167,10 +167,12 @@ public final class TalonEmailSplitter
         // Converts msg_body into a unicode.
 
         final StringBuffer stringBuffer = new StringBuffer();
-        final Matcher matcher = RE_LINK.matcher(Matcher.quoteReplacement(msgBody));
+        // To literalize the message body content, so '$' and '\' will not be given special meaning during 'appendReplacement'.
+        final String msgBodyAfterQuoteReplacement = Matcher.quoteReplacement(msgBody);
+        final Matcher matcher = RE_LINK.matcher(msgBodyAfterQuoteReplacement);
         while (matcher.find()) {
-            final int newlineIndex = msgBody.substring(0, matcher.start()).lastIndexOf("\n");
-            if (msgBody.charAt(newlineIndex + 1) == '>') {
+            final int newlineIndex = msgBodyAfterQuoteReplacement.substring(0, matcher.start()).lastIndexOf("\n");
+            if (msgBodyAfterQuoteReplacement.charAt(newlineIndex + 1) == '>') {
                 matcher.appendReplacement(stringBuffer, matcher.group());
             } else {
                 matcher.appendReplacement(stringBuffer, "@@" + matcher.group(1) + "@@");
