@@ -302,7 +302,7 @@
                             <alias>worker-markup-fs</alias>
                             <name>${dockerDataProcessingOrg}worker-markup${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerHubPublic}/cafapi/opensuse-jre17:1</from>
+                                <from>${dockerHubPublic}/cafapi/opensuse-jre17:4</from>
                                 <cmd>
                                     /maven/worker.sh
                                 </cmd>
