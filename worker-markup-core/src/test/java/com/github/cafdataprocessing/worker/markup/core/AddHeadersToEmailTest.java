@@ -78,8 +78,8 @@ public class AddHeadersToEmailTest {
         String expectedFromHeaderPrefix = "From: ";
         int updatedValueCheckStartIndex = 0;
         int updatedValueCheckEndIndex = expectedFromHeaderPrefix.length()  + fromValue.length();
-        assertEquals(updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
-                "Updated text should have 'from' header at start.", expectedFromHeaderPrefix + fromValue);
+        assertEquals(expectedFromHeaderPrefix + fromValue, updatedText.substring(updatedValueCheckStartIndex,
+                        updatedValueCheckEndIndex), "Updated text should have 'from' header at start.");
 
         // Update the start index to the entirety of from string plus the new lines
         updatedValueCheckStartIndex += updatedValueCheckEndIndex + 1;
