@@ -25,8 +25,10 @@ import com.hpe.caf.codec.JsonCodec;
 import com.hpe.caf.util.ref.DataSource;
 import com.hpe.caf.util.ref.ReferencedData;
 import com.hpe.caf.worker.datastore.mem.InMemoryDataStore;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -67,54 +69,53 @@ public class AddHeadersToEmailTest {
                 XmlConverter.getXmlFieldEntries(dataSource, sourceData, true, addEmailHeaders);
         Optional<XmlFieldEntry> updatedFieldOptional =
                 returnedEntries.stream().filter(ent -> ent.getName().equals(fieldToAddHeadersTo)).findFirst();
-        Assert.assertTrue("Expected the field to add headers to to have been returned in XML entries.",
-                updatedFieldOptional.isPresent());
+        assertTrue(updatedFieldOptional.isPresent(), "Expected the field to add headers to to have been returned in XML entries.");
         XmlFieldEntry updatedField = updatedFieldOptional.get();
         String updatedText = updatedField.getText();
-        Assert.assertNotNull("Text on updated entry should not be null.", updatedText);
+        assertNotNull(updatedText, "Text on updated entry should not be null.");
 
         // Check that updated text starts with the headers
         String expectedFromHeaderPrefix = "From: ";
         int updatedValueCheckStartIndex = 0;
         int updatedValueCheckEndIndex = expectedFromHeaderPrefix.length()  + fromValue.length();
-        Assert.assertEquals("Updated text should have 'from' header at start.", expectedFromHeaderPrefix + fromValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'from' header at start.", expectedFromHeaderPrefix + fromValue);
 
         // Update the start index to the entirety of from string plus the new lines
         updatedValueCheckStartIndex += updatedValueCheckEndIndex + 1;
         String expectedToHeaderPrefix = "To: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedToHeaderPrefix.length() + toValue.length();
-        Assert.assertEquals("Updated text should have 'to' header at expected position.",
-                expectedToHeaderPrefix + toValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedToHeaderPrefix + toValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'to' header at expected position.");
 
         // Update the start index to the entirety of from and to strings plus the new line
         updatedValueCheckStartIndex = updatedValueCheckEndIndex + 1;
         String expectedCcHeaderPrefix = "CC: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedCcHeaderPrefix.length() + ccValue.length();
-        Assert.assertEquals("Updated text should have 'cc' header at expected position.",
-                expectedCcHeaderPrefix + ccValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedCcHeaderPrefix + ccValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'cc' header at expected position.");
 
         // Update the start index to the entirety of from, to and cc strings plus the new lines
         updatedValueCheckStartIndex = updatedValueCheckEndIndex + 1;
         String expectedBccHeaderPrefix = "BCC: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedBccHeaderPrefix.length() + bccValue.length();
-        Assert.assertEquals("Updated text should have 'bcc' header at expected position.",
-                expectedBccHeaderPrefix + bccValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedBccHeaderPrefix + bccValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'bcc' header at expected position.");
 
         // Update the start index to the entirety of from, to, cc and bcc strings plus the new lines
         updatedValueCheckStartIndex = updatedValueCheckEndIndex + 1;
         String expectedSentHeaderPrefix = "Date: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedSentHeaderPrefix.length() + sentValue.length();
-        Assert.assertEquals("Updated text should have 'sent' header at expected position.",
-                expectedSentHeaderPrefix + sentValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedSentHeaderPrefix + sentValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'sent' header at expected position.");
 
 
         // Update the start index to the entirety of from, to, cc, bcc and sent strings plus the new lines
@@ -122,23 +123,21 @@ public class AddHeadersToEmailTest {
         String expectedSubjectHeaderPrefix = "Subject: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedSubjectHeaderPrefix.length() + subjectValue.length();
-        Assert.assertEquals("Updated text should have 'subject' header at expected position.",
-                expectedSubjectHeaderPrefix + subjectValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedSubjectHeaderPrefix + subjectValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'subject' header at expected position.");
 
         // Expecting two newlines after end of headers
         updatedValueCheckStartIndex = updatedValueCheckEndIndex;
         updatedValueCheckEndIndex += 2;
-        Assert.assertEquals("Updated text should have two new lines after the headers section.",
-                "\n\n",
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals("\n\n", updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have two new lines after the headers section.");
 
         // Remaining value should be the original content value
         updatedValueCheckStartIndex = updatedValueCheckEndIndex;
         updatedValueCheckEndIndex += contentValue.length();
-        Assert.assertEquals("Updated text should have original content value after the headers section.",
-                contentValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(contentValue, updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have original content value after the headers section.");
     }
 
     /**
@@ -165,27 +164,27 @@ public class AddHeadersToEmailTest {
                 XmlConverter.getXmlFieldEntries(dataSource, sourceData, true, addEmailHeaders);
         Optional<XmlFieldEntry> updatedFieldOptional =
                 returnedEntries.stream().filter(ent -> ent.getName().equals(fieldToAddHeadersTo)).findFirst();
-        Assert.assertTrue("Expected the field to add headers to to have been returned in XML entries.",
-                updatedFieldOptional.isPresent());
+        assertTrue(updatedFieldOptional.isPresent(), "Expected the field to add headers to to have been returned in XML entries.");
         XmlFieldEntry updatedField = updatedFieldOptional.get();
         String updatedText = updatedField.getText();
-        Assert.assertNotNull("Text on updated entry should not be null.", updatedText);
+        assertNotNull(updatedText, "Text on updated entry should not be null.");
 
         // Check that updated text starts with the headers
         String expectedFromHeaderPrefix = "From: ";
         int updatedValueCheckStartIndex = 0;
         int updatedValueCheckEndIndex = expectedFromHeaderPrefix.length()  + fromValue.length();
-        Assert.assertEquals("Updated text should have 'from' header at start.", expectedFromHeaderPrefix + fromValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedFromHeaderPrefix + fromValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'from' header at start.");
 
         // Update the start index to the entirety of from string plus the new lines
         updatedValueCheckStartIndex = updatedValueCheckEndIndex + 1;
         String expectedCcHeaderPrefix = "CC: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedCcHeaderPrefix.length() + ccValue.length();
-        Assert.assertEquals("Updated text should have 'cc' header at expected position.",
-                expectedCcHeaderPrefix + ccValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedCcHeaderPrefix + ccValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'cc' header at expected position.");
 
 
         // Update the start index to the entirety of from, to, cc strings plus the new lines
@@ -193,23 +192,21 @@ public class AddHeadersToEmailTest {
         String expectedSubjectHeaderPrefix = "Subject: ";
         updatedValueCheckEndIndex =
                 updatedValueCheckStartIndex + expectedSubjectHeaderPrefix.length() + subjectValue.length();
-        Assert.assertEquals("Updated text should have 'subject' header at expected position.",
-                expectedSubjectHeaderPrefix + subjectValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(expectedSubjectHeaderPrefix + subjectValue,
+                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have 'subject' header at expected position.");
 
         // Expecting two newlines after end of headers
         updatedValueCheckStartIndex = updatedValueCheckEndIndex;
         updatedValueCheckEndIndex += 2;
-        Assert.assertEquals("Updated text should have two new lines after the headers section.",
-                "\n\n",
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals("\n\n", updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have two new lines after the headers section.");
 
         // Remaining value should be the original content value
         updatedValueCheckStartIndex = updatedValueCheckEndIndex;
         updatedValueCheckEndIndex += contentValue.length();
-        Assert.assertEquals("Updated text should have original content value after the headers section.",
-                contentValue,
-                updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex));
+        assertEquals(contentValue, updatedText.substring(updatedValueCheckStartIndex, updatedValueCheckEndIndex),
+                "Updated text should have original content value after the headers section.");
     }
 
     private void addHeaderFieldsToSourceData(DataStore store, Multimap<String, ReferencedData> sourceData, String fromValue,

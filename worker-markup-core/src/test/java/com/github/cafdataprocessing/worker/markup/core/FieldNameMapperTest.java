@@ -19,8 +19,8 @@ import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingExcepti
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.hpe.caf.util.ref.ReferencedData;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 public class FieldNameMapperTest
 {
@@ -79,24 +79,24 @@ public class FieldNameMapperTest
 
     public void testThatMailFieldsTransformedToCafTypes(Multimap<String, ReferencedData> dataMap)
     {
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC + " transformed first value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC).contains(firstTopic));
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC + " transformed second value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC).contains(secondTopic));
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC).contains(firstTopic),
+                "Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC + " transformed first value");
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC).contains(secondTopic),
+                "Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_TOPIC + " transformed second value");
 
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX + " transformed first value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX).contains(firstConversationIndex));
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX + " transformed second value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX).contains(secondConversationIndex));
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX).contains(firstConversationIndex),
+                "Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX + " transformed first value");
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX).contains(secondConversationIndex),
+                "Check " + FieldNameMapper.CAF_MAIL_CONVERSATION_INDEX + " transformed second value");
 
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_MESSAGE_ID + " transformed first value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_MESSAGE_ID).contains(firstInternetMessageId));
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_MESSAGE_ID + " transformed second value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_MESSAGE_ID).contains(secondInternetMessageId));
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_MESSAGE_ID).contains(firstInternetMessageId),
+                "Check " + FieldNameMapper.CAF_MAIL_MESSAGE_ID + " transformed first value");
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_MESSAGE_ID).contains(secondInternetMessageId),
+                "Check " + FieldNameMapper.CAF_MAIL_MESSAGE_ID + " transformed second value");
 
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_IN_REPLY_TO + " transformed first value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_IN_REPLY_TO).contains(firstMailInReplyTo));
-        Assert.assertTrue("Check " + FieldNameMapper.CAF_MAIL_IN_REPLY_TO + " transformed second value",
-                          dataMap.get(FieldNameMapper.CAF_MAIL_IN_REPLY_TO).contains(secondMailInReplyTo));
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_IN_REPLY_TO).contains(firstMailInReplyTo),
+                "Check " + FieldNameMapper.CAF_MAIL_IN_REPLY_TO + " transformed first value");
+        assertTrue(dataMap.get(FieldNameMapper.CAF_MAIL_IN_REPLY_TO).contains(secondMailInReplyTo),
+                "Check " + FieldNameMapper.CAF_MAIL_IN_REPLY_TO + " transformed second value");
     }
 }

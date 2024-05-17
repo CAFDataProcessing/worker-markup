@@ -19,11 +19,10 @@ import com.hpe.caf.api.worker.TaskMessage;
 import com.hpe.caf.worker.testing.*;
 import com.hpe.caf.worker.testing.configuration.ValidationSettings;
 import com.hpe.caf.worker.testing.validation.PropertyValidatingProcessor;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
 
 public class MarkupWorkerResultValidationProcessor extends PropertyValidatingProcessor<MarkupWorkerResult, MarkupTestInput, MarkupTestExpectation>
 {

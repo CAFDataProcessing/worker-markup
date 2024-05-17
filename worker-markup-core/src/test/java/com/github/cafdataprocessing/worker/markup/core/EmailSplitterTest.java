@@ -19,14 +19,16 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 import org.jdom2.Element;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -70,8 +72,7 @@ public class EmailSplitterTest
         final EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.", 
-                          doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(), "Assert the first email is as expected.");
     }
 
     /**
@@ -112,10 +113,14 @@ public class EmailSplitterTest
 
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
-        
-        Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
-        Assert.assertTrue("Assert the divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider));
-        Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
+
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(),
+                "Assert the first email " +
+                "is as expected.");
+        assertEquals(expectedDivider, doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue(),
+                "Assert the divider is as expected.");
+        assertEquals(expectedEmail2, doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue(),
+                "Assert the second email is as expected.");
     }
     
      /**
@@ -236,7 +241,7 @@ public class EmailSplitterTest
         emailSplitter.generateEmailTags(doc);
         
         //Assert value of email content should not have changed during processing
-        Assert.assertTrue("The email is not as expected.", doc.getRootElement().getChild("CONTENT").getValue().equals(expectedEmail1));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getValue(), "The email is not as expected.");
     }
 
     /**
@@ -280,9 +285,12 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
-        Assert.assertTrue("Assert the divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider));
-        Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(),
+                "Assert the first email is as expected.");
+        assertEquals(expectedDivider, doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue(),
+                "Assert the divider is as expected.");
+        assertEquals(expectedEmail2, doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue(),
+                "Assert the second email is as expected.");
     }
     
     /**
@@ -325,14 +333,14 @@ public class EmailSplitterTest
         final EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.",
-                          doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
-        Assert.assertTrue("Assert the divider is as expected.",
-                          doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider));
-        Assert.assertTrue("Assert the second email is as expected.",
-                          doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
-        Assert.assertTrue("Assert the second divider is as expected.",
-                          doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue().equals(expectedLastDivider));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(),
+                "Assert the first email is as expected.");
+        assertEquals(expectedDivider, doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue(),
+                "Assert the divider is as expected.");
+        assertEquals(expectedEmail2, doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue(),
+                "Assert the second email is as expected.");
+        assertEquals(expectedLastDivider, doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue(),
+                "Assert the second divider is as expected.");
     }
 
     /**
@@ -386,11 +394,16 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
-        Assert.assertTrue("Assert the first divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider1));
-        Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
-        Assert.assertTrue("Assert the second divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue().equals(expectedDivider2));
-        Assert.assertTrue("Assert the third email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(4).getValue().equals(expectedEmail3));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(),
+                "Assert the first email is as expected.");
+        assertEquals(expectedDivider1, doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue(),
+                "Assert the first divider is as expected.");
+        assertEquals(expectedEmail2, doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue(),
+                "Assert the second email is as expected.");
+        assertEquals(expectedDivider2, doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue(),
+                "Assert the second divider is as expected.");
+        assertEquals(expectedEmail3, doc.getRootElement().getChild("CONTENT").getChildren().get(4).getValue(),
+                "Assert the third email is as expected.");
     }
 
 
@@ -440,8 +453,10 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
-        Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedEmail2));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(),
+                "Assert the first email is as expected.");
+        assertEquals(expectedEmail2, doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue(),
+                "Assert the second email is as expected.");
     }
 
     /**
@@ -485,10 +500,14 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue("Assert the first email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue().equals(expectedEmail1));
-        Assert.assertTrue("Assert the first divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue().equals(expectedDivider1));
-        Assert.assertTrue("Assert the second email is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue().equals(expectedEmail2));
-        Assert.assertTrue("Assert the second divider is as expected.", doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue().equals(expectedDivider2));
+        assertEquals(expectedEmail1, doc.getRootElement().getChild("CONTENT").getChildren().get(0).getValue(),
+                "Assert the first email is as expected.");
+        assertEquals(expectedDivider1, doc.getRootElement().getChild("CONTENT").getChildren().get(1).getValue(),
+                "Assert the first divider is as expected.");
+        assertEquals(expectedEmail2, doc.getRootElement().getChild("CONTENT").getChildren().get(2).getValue(),
+                "Assert the second email is as expected.");
+        assertEquals(expectedDivider2, doc.getRootElement().getChild("CONTENT").getChildren().get(3).getValue(),
+                "Assert the second divider is as expected.");
     }
 
     /**
@@ -507,7 +526,7 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
     }
 
     @Test
@@ -518,7 +537,7 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 1));
     }
 
     /**
@@ -537,7 +556,7 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 2));
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 2));
     }
 
     /**
@@ -556,7 +575,7 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 3));
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 3));
     }
 
     @Test
@@ -567,7 +586,7 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 4));
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 4));
     }
 
     @Test
@@ -582,9 +601,9 @@ public class EmailSplitterTest
 
         final String docValueAfterSplitting = doc.getRootElement().getValue();
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 2));
-        Assert.assertEquals("The e-mail content should not have been modified by splitting it.",
-                            docValueBeforeSplitting, docValueAfterSplitting);
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 2));
+        assertEquals(docValueBeforeSplitting, docValueAfterSplitting,
+                "The e-mail content should not have been modified by splitting it.");
     }
 
     /**
@@ -594,13 +613,14 @@ public class EmailSplitterTest
      * @throws java.util.concurrent.ExecutionException
      * @throws java.lang.InterruptedException
      */
-    @Test(expected = NullPointerException.class)
+    @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testFailureNullDocument() throws JDOMException, ExecutionException, InterruptedException
     {
         Document doc = null;
 
         EmailSplitter emailSplitter = new EmailSplitter();
-        emailSplitter.generateEmailTags(doc);
+        Assertions.assertThrows(NullPointerException.class, () -> emailSplitter.generateEmailTags(doc));
     }
 
     /**
@@ -619,7 +639,7 @@ public class EmailSplitterTest
         EmailSplitter emailSplitter = new EmailSplitter();
         emailSplitter.generateEmailTags(doc);
 
-        Assert.assertTrue(assertCorrectAmountOfEmailElements(doc, 0));
+        assertTrue(assertCorrectAmountOfEmailElements(doc, 0));
     }
 
     /**
