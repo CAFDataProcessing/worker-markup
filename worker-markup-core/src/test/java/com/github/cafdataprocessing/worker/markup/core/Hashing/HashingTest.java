@@ -365,6 +365,7 @@ public class HashingTest
      * @throws org.jdom2.JDOMException
      */
     @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testFailureNullDocument() throws JDOMException
     {
         List<HashConfiguration> hashConfiguration = setupHashConfiguration();

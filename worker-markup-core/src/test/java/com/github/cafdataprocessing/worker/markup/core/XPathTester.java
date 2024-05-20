@@ -90,7 +90,7 @@ public class XPathTester
     @SuppressWarnings("ThrowableResultIgnored")
     public void testFailureNullDocument() throws JDOMException
     {
-       Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(IllegalArgumentException.class,
                () -> XPathHelper.processDocumentWithXPathExpressions(null, null));
     }
 

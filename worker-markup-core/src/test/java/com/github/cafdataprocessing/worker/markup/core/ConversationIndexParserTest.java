@@ -36,6 +36,7 @@ public class ConversationIndexParserTest
     }
 
     @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testParseConversationIndex_UnexpectedLength() throws ConversationIndexParserException
     {
         //  Generate dummy conversation index value with byte size less than 22. This should throw a ConversationIndexParserException.
