@@ -15,9 +15,6 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,15 +25,18 @@ import java.util.concurrent.ExecutionException;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.output.XMLOutputter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MarkupOfHeadersAndBodyTest
 {
     private Map<String, List<String>> emailHeaderMappings;
     private Map<String, List<String>> condensedHeaderMultiLangMappings;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         emailHeaderMappings = new HashMap<>();
@@ -383,10 +383,12 @@ public class MarkupOfHeadersAndBodyTest
      * @throws java.util.concurrent.ExecutionException
      * @throws java.lang.InterruptedException
      */
-    @Test(expected = NullPointerException.class)
+    @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testFailureNullDocument() throws JDOMException, ExecutionException, InterruptedException
     {
         Document nullDoc = null;
-        MarkupHeadersAndBody.markUpHeadersAndBody(nullDoc, emailHeaderMappings, condensedHeaderMultiLangMappings);
+        Assertions.assertThrows(NullPointerException.class, () -> MarkupHeadersAndBody.markUpHeadersAndBody(nullDoc, emailHeaderMappings,
+            condensedHeaderMultiLangMappings));
     }
 }

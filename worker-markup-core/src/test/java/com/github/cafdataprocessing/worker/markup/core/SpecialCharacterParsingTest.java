@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import com.hpe.caf.worker.markup.MarkupWorkerTask;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 
 public final class SpecialCharacterParsingTest

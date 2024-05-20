@@ -15,21 +15,20 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HeaderFieldNameMapperTest
 {
     private Map<String, List<String>> emailHeaderMappings;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         emailHeaderMappings = new HashMap<>();

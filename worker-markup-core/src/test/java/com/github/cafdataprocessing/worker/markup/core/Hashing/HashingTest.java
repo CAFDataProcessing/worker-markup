@@ -21,8 +21,13 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.filter.ElementFilter;
 import org.jdom2.input.SAXBuilder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -48,7 +53,7 @@ public class HashingTest
         Document jdomDoc = createDummyDocumentOneEmail();
 
         HashHelper.generateHashes(jdomDoc, hashConfiguration);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
     }
 
     /**
@@ -67,7 +72,7 @@ public class HashingTest
 
         HashHelper.generateHashes(jdomDoc, hashConfiguration);
 
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
     }
 
     /**
@@ -86,7 +91,7 @@ public class HashingTest
 
         HashHelper.generateHashes(jdomDoc, hashConfiguration);
 
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
     }
 
     /**
@@ -106,7 +111,7 @@ public class HashingTest
 
         HashHelper.generateHashes(jdomDoc, hashConfiguration);
 
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, hashConfiguration));
     }
 
     /**
@@ -135,10 +140,10 @@ public class HashingTest
 
         Document jdomDoc = createDummyDocumentTwoIdenticalEmails();
         HashHelper.generateHashes(jdomDoc, config);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, config));
 
         Iterator<Element> iterator = jdomDoc.getRootElement().getDescendants(new ElementFilter("digest"));
-        Assert.assertEquals(iterator.next().getAttributeValue("value"), iterator.next().getAttributeValue("value"));
+        assertEquals(iterator.next().getAttributeValue("value"), iterator.next().getAttributeValue("value"));
     }
 
     /**
@@ -175,10 +180,10 @@ public class HashingTest
 
         Document jdomDoc = createDummyDocumentTwoIdenticalEmailsWithEquivalentPriority();
         HashHelper.generateHashes(jdomDoc, config);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(jdomDoc, config));
 
         Iterator<Element> iterator = jdomDoc.getRootElement().getDescendants(new ElementFilter("digest"));
-        Assert.assertEquals(iterator.next().getAttributeValue("value"), iterator.next().getAttributeValue("value"));
+        assertEquals(iterator.next().getAttributeValue("value"), iterator.next().getAttributeValue("value"));
     }
 
     /**
@@ -215,34 +220,34 @@ public class HashingTest
         Document originalCaseDoc = buildNormalizeCaseTestDocument(fieldName, originalValue);
 
         HashHelper.generateHashes(originalCaseDoc, config);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(originalCaseDoc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(originalCaseDoc, config));
 
         Iterator<Element> iterator = originalCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
         String originalCaseHashValue = iterator.next().getAttributeValue("value");
-        Assert.assertNotNull("Hash value returned for original case document should not be null.", originalCaseHashValue);
+        assertNotNull(originalCaseHashValue, "Hash value returned for original case document should not be null.");
 
         String upperCaseValue = originalValue.toUpperCase(Locale.ENGLISH);
         Document upperCaseDoc = buildNormalizeCaseTestDocument(fieldName, upperCaseValue);
         HashHelper.generateHashes(upperCaseDoc, config);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(upperCaseDoc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(upperCaseDoc, config));
 
         iterator = upperCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
         String upperCaseHashValue = iterator.next().getAttributeValue("value");
-        Assert.assertNotNull("Hash value returned for upper case document should not be null.", upperCaseHashValue);
+        assertNotNull(upperCaseHashValue, "Hash value returned for upper case document should not be null.");
 
         String lowerCaseValue = originalValue.toLowerCase(Locale.ENGLISH);
         Document lowerCaseDoc = buildNormalizeCaseTestDocument(fieldName, lowerCaseValue);
         HashHelper.generateHashes(lowerCaseDoc, config);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(lowerCaseDoc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(lowerCaseDoc, config));
 
         iterator = lowerCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
         String lowerCaseHashValue = iterator.next().getAttributeValue("value");
-        Assert.assertNotNull("Hash value returned for lower case document should not be null.", lowerCaseHashValue);
+        assertNotNull(lowerCaseHashValue, "Hash value returned for lower case document should not be null.");
 
-        Assert.assertEquals("Generated hash value should be the same for original value and upper case value.",
-                originalCaseHashValue, upperCaseHashValue);
-        Assert.assertEquals("Generated hash value should be the same for original value and lower case value.",
-                originalCaseHashValue, lowerCaseHashValue);
+        assertEquals(originalCaseHashValue, upperCaseHashValue,
+                "Generated hash value should be the same for original value and upper case value.");
+        assertEquals(originalCaseHashValue, lowerCaseHashValue,
+                "Generated hash value should be the same for original value and lower case value.");
 
         //generate another hash value that doesn't normalize case and verify it is different
         {
@@ -264,22 +269,18 @@ public class HashingTest
         Document noNormalizeCaseDoc = buildNormalizeCaseTestDocument(fieldName, originalValue);
 
         HashHelper.generateHashes(noNormalizeCaseDoc, config);
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(noNormalizeCaseDoc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(noNormalizeCaseDoc, config));
 
         iterator = noNormalizeCaseDoc.getRootElement().getDescendants(new ElementFilter("digest"));
         String noNormalizeCaseHashValue = iterator.next().getAttributeValue("value");
-        Assert.assertNotNull("Hash value returned for no normalizaion on case document should not be null.",
-                noNormalizeCaseHashValue);
+        assertNotNull(noNormalizeCaseHashValue, "Hash value returned for no normalizaion on case document should not be null.");
 
-        Assert.assertNotEquals("Generated hash value should be different for original value between normalize " +
-                        "and no normalization runs.",
-                noNormalizeCaseHashValue, originalCaseHashValue);
-        Assert.assertNotEquals("Generated hash value should be different for upper case normalized value and no " +
-                        "normalization value.",
-                noNormalizeCaseHashValue, upperCaseHashValue);
-        Assert.assertNotEquals("Generated hash value should be different for lower case normalized value and no " +
-                        "normalization value.",
-                noNormalizeCaseHashValue, lowerCaseHashValue);
+        assertNotEquals(noNormalizeCaseHashValue, originalCaseHashValue,
+                "Generated hash value should be different for original value between normalize and no normalization runs.");
+        assertNotEquals(noNormalizeCaseHashValue, upperCaseHashValue,
+                "Generated hash value should be different for upper case normalized value and no normalization value.");
+        assertNotEquals(noNormalizeCaseHashValue, lowerCaseHashValue,
+                "Generated hash value should be different for lower case normalized value and no normalization value.");
     }
 
     private Document buildNormalizeCaseTestDocument(String fieldName, String fieldValue)
@@ -318,12 +319,12 @@ public class HashingTest
                             hashConfiguration.fields.stream().filter(field ->
                                     field.name.equals(elementUnderNameText)).findAny().isPresent()
                     ).findAny();
-                    Assert.assertTrue("Assert that a hash configuration exists that contains the field name " + elementUnderNameText,
-                                      filteredHashConfig.isPresent());
+                    assertTrue(filteredHashConfig.isPresent(),
+                            "Assert that a hash configuration exists that contains the field name " + elementUnderNameText);
                 } else {
-                    Assert.assertTrue("Assert that the hash configuration contains field name " + elementUnderNameText,
-                            filteredHashConfig.get().fields.stream().filter(field ->
-                                    field.name.equals(elementUnderNameText)).findFirst().isPresent());
+                    assertTrue(filteredHashConfig.get().fields.stream().filter(field ->
+                                    field.name.equals(elementUnderNameText)).findFirst().isPresent(),
+                            "Assert that the hash configuration contains field name " + elementUnderNameText);
                 }
             }
             for (final Element fieldElement : hash.getDescendants(new ElementFilter("field"))) {
@@ -333,10 +334,11 @@ public class HashingTest
                     Optional<Field> filteredHashConfigFieldNormalizationType = filteredHashConfig.get().fields.stream().filter(field ->
                             field.normalizationType.toString().equals(elementUnderNormTypeText)).findFirst();
                     System.out.println();
-                    Assert.assertTrue("Assert that the hash configuration contains the field normalisation type "
-                        + elementUnderNormTypeText, filteredHashConfigFieldNormalizationType.isPresent());
+                    assertTrue(filteredHashConfigFieldNormalizationType.isPresent(),
+                            "Assert that the hash configuration contains the field normalisation type "
+                                    + elementUnderNormTypeText);
                 } else {
-                    Assert.fail("A Hash Configuration has not been filtered for testing");
+                    fail("A Hash Configuration has not been filtered for testing");
                 }
             }
             for (Element digest : hash.getChildren("digest")) {
@@ -345,10 +347,11 @@ public class HashingTest
                     // Find the element under digest within the filtered hash config for testing
                     Optional<HashFunction> filteredHashConfigHashFunction = filteredHashConfig.get().hashFunctions.stream().filter(hashFunction ->
                             hashFunction.toString().equals(digestAttributeValue)).findFirst();
-                    Assert.assertTrue("Assert that the hash configuration contains the element "
-                            + digestAttributeValue + " under parent 'digest'", filteredHashConfigHashFunction.isPresent());
+                    assertTrue(filteredHashConfigHashFunction.isPresent(),
+                            "Assert that the hash configuration contains the element " + digestAttributeValue
+                                    + " under parent 'digest'");
                 } else {
-                    Assert.fail("A Hash Configuration has not been filtered for testing");
+                    fail("A Hash Configuration has not been filtered for testing");
                 }
             }
         }
@@ -361,12 +364,13 @@ public class HashingTest
      *
      * @throws org.jdom2.JDOMException
      */
-    @Test(expected = NullPointerException.class)
+    @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testFailureNullDocument() throws JDOMException
     {
         List<HashConfiguration> hashConfiguration = setupHashConfiguration();
         Document doc = null;
-        HashHelper.generateHashes(doc, hashConfiguration);
+        Assertions.assertThrows(NullPointerException.class, () -> HashHelper.generateHashes(doc, hashConfiguration));
     }
 
     /**
@@ -394,9 +398,9 @@ public class HashingTest
         Document doc = createDummyDocumentOneEmail();
         HashHelper.generateHashes(doc, config);
 
-        Assert.assertEquals(config.get(0).fields.get(0).normalizationType.toString(), "NONE");
+        assertEquals(config.get(0).fields.get(0).normalizationType.toString(), "NONE");
 
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(doc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(doc, config));
     }
 
     /**
@@ -424,9 +428,9 @@ public class HashingTest
         Document doc = createDummyDocumentOneEmail();
         HashHelper.generateHashes(doc, config);
 
-        Assert.assertEquals(config.get(0).hashFunctions.get(0).toString(), "NONE");
+        assertEquals(config.get(0).hashFunctions.get(0).toString(), "NONE");
 
-        Assert.assertTrue(assertHashingFieldsWereCorrectlyAdded(doc, config));
+        assertTrue(assertHashingFieldsWereCorrectlyAdded(doc, config));
     }
 
     /**

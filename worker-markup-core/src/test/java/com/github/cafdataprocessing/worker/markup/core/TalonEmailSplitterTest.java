@@ -15,8 +15,9 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TalonEmailSplitterTest
 {
@@ -66,6 +67,6 @@ public class TalonEmailSplitterTest
 
         final String actualMarkers = TalonEmailSplitter.splitEmails(msgBody);
 
-        Assert.assertEquals(expectedMarkers, actualMarkers);
+        assertEquals(expectedMarkers, actualMarkers);
     }
 }

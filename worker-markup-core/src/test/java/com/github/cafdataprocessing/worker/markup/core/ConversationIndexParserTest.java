@@ -16,7 +16,8 @@
 package com.github.cafdataprocessing.worker.markup.core;
 
 import org.apache.commons.codec.binary.Base64;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
@@ -34,7 +35,8 @@ public class ConversationIndexParserTest
         assert expectedJSON.equals(parsedConversationIndex);
     }
 
-    @Test(expected = ConversationIndexParserException.class)
+    @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testParseConversationIndex_UnexpectedLength() throws ConversationIndexParserException
     {
         //  Generate dummy conversation index value with byte size less than 22. This should throw a ConversationIndexParserException.
@@ -46,6 +48,7 @@ public class ConversationIndexParserTest
         String conversationIndex = Base64.encodeBase64String(ciByteArray);
 
         //  Parse dummy conversation index.
-        ConversationIndexParser.parseConversationIndex(conversationIndex);
+        Assertions.assertThrows(ConversationIndexParserException.class,
+                () -> ConversationIndexParser.parseConversationIndex(conversationIndex));
     }
 }

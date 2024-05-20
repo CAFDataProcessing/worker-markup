@@ -20,8 +20,10 @@ import com.hpe.caf.worker.markup.OutputField;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.output.XMLOutputter;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,11 +56,10 @@ public class XPathTester
 
         // Cycle through the output fields, and for each result pair, make sure the list of Strings for each value is as expected.
         for (OutputField f : outputFieldList) {
-            Assert.assertTrue("Resultant hash map should contain the key " + f.field, resultsAsMap.containsKey(f.field));
+            assertTrue(resultsAsMap.containsKey(f.field), "Resultant hash map should contain the key " + f.field);
             for (int i = 0; i < resultsAsMap.get(f.field).size(); i++) {
-                Assert.assertEquals("Resultant hash map value should be the same as expected for the key " + f.field,
-                                    expectedMap.get(f.field).get(i),
-                                    resultsAsMap.get(f.field).get(i));
+                assertEquals(expectedMap.get(f.field).get(i), resultsAsMap.get(f.field).get(i),
+                        "Resultant hash map value should be the same as expected for the key " + f.field);
             }
         }
     }
@@ -76,19 +77,21 @@ public class XPathTester
             addToMap(resultsAsMap, p.name, p.value);
         }
 
-        Assert.assertTrue("Map should contain the default field name: " + XPathHelper.DEFAULT_FIELD_NAME,
-                          resultsAsMap.containsKey(XPathHelper.DEFAULT_FIELD_NAME));
+        assertTrue(resultsAsMap.containsKey(XPathHelper.DEFAULT_FIELD_NAME),
+                "Map should contain the default field name: " + XPathHelper.DEFAULT_FIELD_NAME);
 
-        Assert.assertTrue("Map's default field should be a list of size 1. ", resultsAsMap.get(XPathHelper.DEFAULT_FIELD_NAME).size() == 1);
+        assertEquals(1, resultsAsMap.get(XPathHelper.DEFAULT_FIELD_NAME).size(), "Map's default field should be a list of size 1. ");
 
-        Assert.assertEquals("Default field: " + XPathHelper.DEFAULT_FIELD_NAME + " content should match the expected content. ",
-                            resultsAsMap.get(XPathHelper.DEFAULT_FIELD_NAME).get(0), outputter.outputString(doc));
+        assertEquals(resultsAsMap.get(XPathHelper.DEFAULT_FIELD_NAME).get(0), outputter.outputString(doc),
+                "Default field: " + XPathHelper.DEFAULT_FIELD_NAME + " content should match the expected content. ");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testFailureNullDocument() throws JDOMException
     {
-        XPathHelper.processDocumentWithXPathExpressions(null, null);
+        Assertions.assertThrows(IllegalArgumentException.class,
+               () -> XPathHelper.processDocumentWithXPathExpressions(null, null));
     }
 
     private static void addToMap(HashMap<String, List<String>> map, String key, String value)
