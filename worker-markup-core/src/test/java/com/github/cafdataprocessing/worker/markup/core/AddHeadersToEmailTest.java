@@ -15,16 +15,16 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.codecs.jsonlzf.JsonCodec;
+import com.github.cafapi.common.util.ref.DataSource;
+import com.github.cafapi.common.util.ref.ReferencedData;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
+import com.github.workerframework.api.DataStore;
+import com.github.workerframework.api.DataStoreException;
+import com.github.workerframework.api.DataStoreSource;
+import com.github.workerframework.datastores.mem.InMemoryDataStore;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.api.worker.DataStore;
-import com.hpe.caf.api.worker.DataStoreException;
-import com.hpe.caf.api.worker.DataStoreSource;
-import com.hpe.caf.codec.JsonCodec;
-import com.hpe.caf.util.ref.DataSource;
-import com.hpe.caf.util.ref.ReferencedData;
-import com.hpe.caf.worker.datastore.mem.InMemoryDataStore;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;

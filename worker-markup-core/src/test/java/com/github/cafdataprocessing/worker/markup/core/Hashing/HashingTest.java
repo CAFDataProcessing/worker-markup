@@ -15,7 +15,11 @@
  */
 package com.github.cafdataprocessing.worker.markup.core.Hashing;
 
-import com.hpe.caf.worker.markup.*;
+import com.github.cafdataprocessing.workers.markup.Field;
+import com.github.cafdataprocessing.workers.markup.HashConfiguration;
+import com.github.cafdataprocessing.workers.markup.HashFunction;
+import com.github.cafdataprocessing.workers.markup.NormalizationType;
+import com.github.cafdataprocessing.workers.markup.Scope;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;

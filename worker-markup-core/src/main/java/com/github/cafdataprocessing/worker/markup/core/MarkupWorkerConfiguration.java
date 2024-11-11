@@ -15,9 +15,8 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.hpe.caf.api.Configuration;
-import com.hpe.caf.api.worker.WorkerConfiguration;
-
+import com.github.cafapi.common.api.Configuration;
+import com.github.workerframework.api.WorkerConfiguration;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

@@ -16,7 +16,11 @@
 package com.github.cafdataprocessing.worker.markup.core.Hashing;
 
 import com.github.cafdataprocessing.worker.markup.core.Normalizations;
-import com.hpe.caf.worker.markup.*;
+import com.github.cafdataprocessing.workers.markup.Field;
+import com.github.cafdataprocessing.workers.markup.HashConfiguration;
+import com.github.cafdataprocessing.workers.markup.HashFunction;
+import com.github.cafdataprocessing.workers.markup.NormalizationType;
+import com.github.cafdataprocessing.workers.markup.Scope;
 import net.openhft.hashing.LongHashFunction;
 import org.jdom2.Attribute;
 import org.jdom2.Document;

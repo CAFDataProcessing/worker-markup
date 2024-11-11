@@ -15,10 +15,10 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.hpe.caf.api.worker.TaskFailedException;
-import com.hpe.caf.util.ref.DataSource;
-import com.hpe.caf.util.ref.DataSourceException;
-import com.hpe.caf.util.ref.ReferencedData;
+import com.github.cafapi.common.util.ref.DataSource;
+import com.github.cafapi.common.util.ref.DataSourceException;
+import com.github.cafapi.common.util.ref.ReferencedData;
+import com.github.workerframework.api.TaskFailedException;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

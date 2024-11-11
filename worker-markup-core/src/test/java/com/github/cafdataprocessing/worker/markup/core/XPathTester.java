@@ -15,8 +15,8 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.hpe.caf.worker.markup.NameValuePair;
-import com.hpe.caf.worker.markup.OutputField;
+import com.github.cafdataprocessing.workers.markup.NameValuePair;
+import com.github.cafdataprocessing.workers.markup.OutputField;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.output.XMLOutputter;

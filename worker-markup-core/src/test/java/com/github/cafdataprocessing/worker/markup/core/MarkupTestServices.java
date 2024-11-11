@@ -15,13 +15,13 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.hpe.caf.api.Codec;
-import com.hpe.caf.api.worker.DataStore;
-import com.hpe.caf.codec.JsonCodec;
-import com.hpe.caf.worker.datastore.mem.InMemoryDataStore;
-import com.hpe.caf.worker.document.testing.CodeConfigurationSource;
-import com.hpe.caf.worker.document.testing.DocumentWorkerConfigurationBuilder;
-import com.hpe.caf.worker.document.testing.TestServices;
+import com.github.cafapi.common.api.Codec;
+import com.github.cafapi.common.codecs.jsonlzf.JsonCodec;
+import com.github.cafdataprocessing.workers.document.testing.CodeConfigurationSource;
+import com.github.cafdataprocessing.workers.document.testing.DocumentWorkerConfigurationBuilder;
+import com.github.cafdataprocessing.workers.document.testing.TestServices;
+import com.github.workerframework.api.DataStore;
+import com.github.workerframework.datastores.mem.InMemoryDataStore;
 
 /**
  * Extension to TestServices to specify the MarkupWorker config

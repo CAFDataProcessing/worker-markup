@@ -15,12 +15,12 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.util.ref.ReferencedData;
+import com.github.cafdataprocessing.workers.document.model.Document;
+import com.github.cafdataprocessing.workers.document.model.Field;
+import com.github.cafdataprocessing.workers.document.model.FieldValue;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.util.ref.ReferencedData;
-import com.hpe.caf.worker.document.model.Document;
-import com.hpe.caf.worker.document.model.Field;
-import com.hpe.caf.worker.document.model.FieldValue;
 
 /**
  *
