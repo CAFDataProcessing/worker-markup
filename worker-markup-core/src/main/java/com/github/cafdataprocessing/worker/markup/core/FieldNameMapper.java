@@ -15,10 +15,10 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.util.ref.DataSource;
+import com.github.cafapi.common.util.ref.ReferencedData;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.util.ref.DataSource;
-import com.hpe.caf.util.ref.ReferencedData;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;

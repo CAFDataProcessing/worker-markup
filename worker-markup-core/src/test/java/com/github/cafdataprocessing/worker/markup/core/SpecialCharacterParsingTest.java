@@ -16,16 +16,16 @@
 
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.api.Codec;
+import com.github.cafapi.common.util.ref.ReferencedData;
+import com.github.workerframework.api.DataStore;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.Multimaps;
-import com.hpe.caf.api.Codec;
-import com.hpe.caf.api.worker.DataStore;
-import com.hpe.caf.util.ref.ReferencedData;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-import com.hpe.caf.worker.markup.MarkupWorkerTask;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerTask;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 

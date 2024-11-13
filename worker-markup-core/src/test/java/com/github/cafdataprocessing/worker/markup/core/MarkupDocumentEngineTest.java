@@ -15,21 +15,29 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.api.Codec;
+import com.github.cafapi.common.api.ConfigurationException;
+import com.github.cafapi.common.api.ConfigurationSource;
+import com.github.cafapi.common.codecs.jsonlzf.JsonCodec;
+import com.github.cafapi.common.util.ref.ReferencedData;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
+import com.github.cafdataprocessing.workers.document.model.Document;
+import com.github.cafdataprocessing.workers.document.testing.DocumentBuilder;
+import com.github.cafdataprocessing.workers.document.testing.FieldsBuilder;
+import com.github.cafdataprocessing.workers.markup.Field;
+import com.github.workerframework.api.DataStore;
+import com.github.workerframework.api.WorkerException;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.api.Codec;
-import com.hpe.caf.api.ConfigurationException;
-import com.hpe.caf.api.ConfigurationSource;
-import com.hpe.caf.api.worker.DataStore;
-import com.hpe.caf.api.worker.WorkerException;
-import com.hpe.caf.codec.JsonCodec;
-import com.hpe.caf.util.ref.ReferencedData;
-import com.hpe.caf.worker.document.model.Document;
-import com.hpe.caf.worker.document.testing.DocumentBuilder;
-import com.hpe.caf.worker.document.testing.FieldsBuilder;
-import com.hpe.caf.worker.markup.*;
+import com.github.cafdataprocessing.workers.markup.HashConfiguration;
+import com.github.cafdataprocessing.workers.markup.HashFunction;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerResult;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerTask;
+import com.github.cafdataprocessing.workers.markup.NameValuePair;
+import com.github.cafdataprocessing.workers.markup.NormalizationType;
+import com.github.cafdataprocessing.workers.markup.OutputField;
+import com.github.cafdataprocessing.workers.markup.Scope;
 import org.jdom2.JDOMException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -70,7 +78,8 @@ public class MarkupDocumentEngineTest {
         Document documentToTest = buildDocumentForHashOrderingTest();
 
         markupDocumentEngine.markupDocument(documentToTest, hashConfigurations, outputFields, isEmail, emailSplitter);
-        com.hpe.caf.worker.document.model.Field documentComparisonHashField = documentToTest.getField("COMPARISON_HASH");
+        com.github.cafdataprocessing.workers.document.model.Field documentComparisonHashField = documentToTest.getField(
+                "COMPARISON_HASH");
         assertTrue(documentComparisonHashField.hasValues(),
                 "COMPARISON_HASH field on worker-document returned should have values.");
         String documentComparisonHash = documentComparisonHashField.getStringValues().get(0);

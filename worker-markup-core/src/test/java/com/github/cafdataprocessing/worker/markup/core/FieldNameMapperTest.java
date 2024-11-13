@@ -15,10 +15,10 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.util.ref.ReferencedData;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.util.ref.ReferencedData;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 

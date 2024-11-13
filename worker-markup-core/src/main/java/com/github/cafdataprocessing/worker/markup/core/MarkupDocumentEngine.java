@@ -15,25 +15,25 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
+import com.github.cafapi.common.api.Codec;
+import com.github.cafapi.common.api.ConfigurationException;
+import com.github.cafapi.common.api.ConfigurationSource;
+import com.github.cafapi.common.util.ref.DataSource;
+import com.github.cafapi.common.util.ref.ReferencedData;
 import com.github.cafdataprocessing.worker.markup.core.Hashing.HashHelper;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MappingException;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.MarkupWorkerExceptions;
+import com.github.cafdataprocessing.workers.document.model.Document;
+import com.github.workerframework.api.DataStore;
+import com.github.workerframework.api.DataStoreSource;
 import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
-import com.hpe.caf.api.Codec;
-import com.hpe.caf.api.ConfigurationException;
-import com.hpe.caf.api.ConfigurationSource;
-import com.hpe.caf.api.worker.DataStore;
-import com.hpe.caf.api.worker.DataStoreSource;
-import com.hpe.caf.util.ref.DataSource;
-import com.hpe.caf.util.ref.ReferencedData;
-import com.hpe.caf.worker.document.model.Document;
-import com.hpe.caf.worker.markup.HashConfiguration;
-import com.hpe.caf.worker.markup.MarkupWorkerResult;
-import com.hpe.caf.worker.markup.MarkupWorkerStatus;
-import com.hpe.caf.worker.markup.MarkupWorkerTask;
-import com.hpe.caf.worker.markup.OutputField;
+import com.github.cafdataprocessing.workers.markup.HashConfiguration;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerResult;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerStatus;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerTask;
+import com.github.cafdataprocessing.workers.markup.OutputField;
 import org.jdom2.JDOMException;
 import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class MarkupDocumentEngine
      * @param isEmail if the document is of email type.
      * @param emailSplitter python email splitter that is used across multiple threads
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
-     * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
+     * @throws ConfigurationException throws when configuration for worker is malformed or missing.
      */
     public void markupDocument(final Document document, final List<HashConfiguration> hashConfiguration,
                                final List<OutputField> outputFields, final boolean isEmail, final EmailSplitter emailSplitter)
@@ -76,7 +76,7 @@ public class MarkupDocumentEngine
      * @param emailSplitter python email splitter that is used across multiple threads
      * @param config Markup worker configuration to use while processing document
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
-     * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
+     * @throws ConfigurationException throws when configuration for worker is malformed or missing.
      */
     public void markupDocument(final Document document, final List<HashConfiguration> hashConfiguration,
                                final List<OutputField> outputFields, final boolean isEmail, final EmailSplitter emailSplitter,
@@ -123,7 +123,7 @@ public class MarkupDocumentEngine
      * @return MarkupWorkerResult object containing the result of the workers processing
      * @throws AddHeadersException throws when there is a failure adding headers to email field value
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
-     * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
+     * @throws ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
      * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
      * @throws MappingException throws when an error occurs mapping input fields for use during markup.
@@ -154,7 +154,7 @@ public class MarkupDocumentEngine
      * @return MarkupWorkerResult object containing the result of the workers processing
      * @throws AddHeadersException throws when there is a failure adding headers to email field value
      * @throws InterruptedException throws in cases of a thread being interrupted during processing.
-     * @throws com.hpe.caf.api.ConfigurationException throws when configuration for worker is malformed or missing.
+     * @throws ConfigurationException throws when configuration for worker is malformed or missing.
      * @throws org.jdom2.JDOMException throws when an error occurs during parsing.
      * @throws java.util.concurrent.ExecutionException throws when an error occurs during email splitting.
      * @throws MappingException throws when an error occurs mapping input fields for use during markup.

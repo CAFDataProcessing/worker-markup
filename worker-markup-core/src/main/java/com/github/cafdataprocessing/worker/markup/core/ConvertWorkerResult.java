@@ -15,8 +15,8 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.hpe.caf.worker.document.model.Document;
-import com.hpe.caf.worker.markup.MarkupWorkerResult;
+import com.github.cafdataprocessing.workers.document.model.Document;
+import com.github.cafdataprocessing.workers.markup.MarkupWorkerResult;
 import java.util.ArrayList;
 import java.util.List;
 

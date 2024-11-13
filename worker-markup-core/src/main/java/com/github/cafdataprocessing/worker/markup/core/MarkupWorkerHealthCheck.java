@@ -15,8 +15,8 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.hpe.caf.api.HealthReporter;
-import com.hpe.caf.api.HealthResult;
+import com.github.cafapi.common.api.HealthReporter;
+import com.github.cafapi.common.api.HealthResult;
 
 /**
  * Health check for the MarkupWorker, health is displayed on the Marathon GUI.
