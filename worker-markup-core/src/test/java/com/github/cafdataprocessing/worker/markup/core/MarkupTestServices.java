@@ -16,7 +16,7 @@
 package com.github.cafdataprocessing.worker.markup.core;
 
 import com.github.cafapi.common.api.Codec;
-import com.github.cafapi.common.codecs.jsonlzf.JsonCodec;
+import com.github.cafapi.common.codecs.json.JsonCodec;
 import com.github.cafdataprocessing.workers.document.testing.CodeConfigurationSource;
 import com.github.cafdataprocessing.workers.document.testing.DocumentWorkerConfigurationBuilder;
 import com.github.cafdataprocessing.workers.document.testing.TestServices;

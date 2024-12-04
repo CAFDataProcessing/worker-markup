@@ -15,7 +15,7 @@
  */
 package com.github.cafdataprocessing.worker.markup.core;
 
-import com.github.cafapi.common.codecs.jsonlzf.JsonCodec;
+import com.github.cafapi.common.codecs.json.JsonCodec;
 import com.github.cafapi.common.util.ref.DataSource;
 import com.github.cafapi.common.util.ref.ReferencedData;
 import com.github.cafdataprocessing.worker.markup.core.exceptions.AddHeadersException;

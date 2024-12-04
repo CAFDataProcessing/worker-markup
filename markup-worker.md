@@ -1,6 +1,6 @@
 # Markup Worker API
 
-The Markup Worker is an implementation of the [Abstract Worker](https://github.com/WorkerFramework/worker-framework/blob/develop/worker-caf/src/main/java/com/hpe/caf/worker/AbstractWorker.java). It can be used to identify constructs within a document or e-mail. When used with e-mails it performs email content segregation. The separated emails are marked up with XML and the worker returns a configurable set of data.
+The Markup Worker is an implementation of the [Abstract Worker](https://github.com/WorkerFramework/worker-framework/blob/develop/worker-caf/src/main/java/com/github/workerframework/caf/AbstractWorker.java). It can be used to identify constructs within a document or e-mail. When used with e-mails it performs email content segregation. The separated emails are marked up with XML and the worker returns a configurable set of data.
 
 The worker's image is built by [worker-markup-container](worker-markup-container-fs) and uses a base image [opensuse-jdk11](https://github.com/CAFapi/opensuse-java11-images).
 
@@ -121,7 +121,7 @@ This is a sample task message sent to the input queue of the Markup Worker. In n
 
 ## Output Message
 
-The result class is [MarkupWorkerResult](https://github.com/CAFDataProcessing/worker-markup/blob/develop/worker-markup-shared/src/main/java/com/hpe/caf/worker/markup/MarkupWorkerResult.java) and is shown below.
+The result class is [MarkupWorkerResult](https://github.com/CAFDataProcessing/worker-markup/blob/develop/worker-markup-shared/src/main/java/com/github/cafdataprocessing/workers/markup/MarkupWorkerResult.java) and is shown below.
 
 |    Component          |     Description    |
 | --------------------- | ------------------ |
