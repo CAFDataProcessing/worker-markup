@@ -93,7 +93,7 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.joestelmach</groupId>
+            <groupId>com.opentext.caf.externals</groupId>
             <artifactId>natty</artifactId>
         </dependency>
         <dependency>
