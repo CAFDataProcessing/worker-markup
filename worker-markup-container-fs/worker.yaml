@@ -17,5 +17,5 @@
 logging:
   level: ${CAF_LOG_LEVEL:-INFO}
   loggers:
-    com.hpe.caf: ${CAF_LOG_LEVEL:-INFO}
+    com.github.cafdataprocessing: ${CAF_LOG_LEVEL:-INFO}
     com.joestelmach.natty.Parser: ${CAF_LOG_LEVEL:-ERROR}
