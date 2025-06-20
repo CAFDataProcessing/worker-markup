@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>worker-markup-core</artifactId>
+    <name>worker-markup-core</name>
     <packaging>jar</packaging>
 
     <dependencies>

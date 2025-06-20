@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>worker-markup-container-fs</artifactId>
+    <name>worker-markup-container-fs</name>
     <packaging>pom</packaging>
 
     <!-- Properties for the worker. -->

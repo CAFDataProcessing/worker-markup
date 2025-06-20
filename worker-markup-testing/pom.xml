@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>worker-markup-testing</artifactId>
+    <name>worker-markup-testing</name>
 
     <dependencies>
         <dependency>
