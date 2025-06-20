@@ -28,6 +28,7 @@
     </parent>
 
     <artifactId>worker-markup-shared</artifactId>
+    <name>worker-markup-shared</name>
 
     <dependencies>
         <dependency>
