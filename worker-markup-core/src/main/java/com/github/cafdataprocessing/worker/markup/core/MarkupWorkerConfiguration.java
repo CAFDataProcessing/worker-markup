@@ -41,6 +41,10 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
     @Size(min = 1)
     private String outputQueue;
 
+    @NotNull
+    @Size(min = 1)
+    private String invalidQueue;
+
     /**
      * Number of threads to use in the worker.
      */
@@ -90,6 +94,14 @@ public class MarkupWorkerConfiguration extends WorkerConfiguration
     public void setOutputQueue(String outputQueue)
     {
         this.outputQueue = outputQueue;
+    }
+
+    public String getInvalidQueue() {
+        return invalidQueue;
+    }
+
+    public void setInvalidQueue(String invalidQueue) {
+        this.invalidQueue = invalidQueue;
     }
 
     public int getThreads()

@@ -83,7 +83,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
     @Override
     public String getInvalidTaskQueue()
     {
-        return getConfiguration().getOutputQueue();
+        return getConfiguration().getInvalidQueue();
     }
 
     @Override
