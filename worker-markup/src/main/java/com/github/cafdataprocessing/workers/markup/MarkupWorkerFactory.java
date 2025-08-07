@@ -47,7 +47,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
     }
 
     @Override
-    protected String getWorkerName()
+    public String getWorkerName()
     {
         return MarkupWorkerConstants.WORKER_NAME;
     }
