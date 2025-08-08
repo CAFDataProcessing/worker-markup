@@ -1,4 +1,5 @@
 {
+    "workerName": "markupworker",
     "workerVersion": "1.2.0",
     "outputQueue": "markupworker-test-output-1",
     "invalidQueue": "markupworker-test-output-2",
