@@ -8,5 +8,6 @@ ${version-number}
 
 #### New Features
 - US914108: Version Currency: JUnit 5 migration
+- US1009117: Invalid message queue configuration added.
 
 #### Known Issues
