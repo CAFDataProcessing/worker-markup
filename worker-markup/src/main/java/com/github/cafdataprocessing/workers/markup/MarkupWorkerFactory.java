@@ -47,7 +47,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
     }
 
     @Override
-    public String getWorkerName()
+    protected String getWorkerName()
     {
         return MarkupWorkerConstants.WORKER_NAME;
     }
@@ -83,7 +83,7 @@ public class MarkupWorkerFactory extends AbstractWorkerFactory<MarkupWorkerConfi
     @Override
     public String getInvalidTaskQueue()
     {
-        return getConfiguration().getInvalidQueue();
+        return getConfiguration().getOutputQueue();
     }
 
     @Override

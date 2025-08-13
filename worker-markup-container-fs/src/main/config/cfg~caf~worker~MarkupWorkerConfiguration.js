@@ -18,8 +18,6 @@
     "workerVersion": "${project.version}",
     "outputQueue": getenv("CAF_WORKER_OUTPUT_QUEUE")
     || (getenv("CAF_WORKER_BASE_QUEUE_NAME") || getenv("CAF_WORKER_NAME") || "worker") + "-out",
-    "invalidQueue": getenv("CAF_WORKER_INVALID_QUEUE")
-        || (getenv("CAF_WORKER_BASE_QUEUE_NAME") || getenv("CAF_WORKER_NAME") || "worker") + "-invalid",
     "threads": getenv("CAF_MARKUP_WORKER_THREADS") || getenv("CAF_WORKER_THREADS") || 1,
     "addEmailHeadersDuringMarkup":  getenv("CAF_MARKUP_WORKER_ADD_EMAIL_HEADERS_DURING_MARKUP") || false,
     "emailHeaderMappings": {
